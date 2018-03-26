@@ -1,21 +1,334 @@
-<html>
-  <body>
-    <pre>
-     ____________
-     |   \XX/   |
-     | T. \/ .T |      University of Queensland
-     | XX:  :XX |          Faculty of EAIT
-     T L' /\ 'J T
-      \  /XX\  /     EAIT Web Project Zone v2.2.0
-   @\_ '______' _/@
-   \_X\_ ____ _/X_/
-     \=/\----/\=/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DIY TOUR</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom styles for our Website -->
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-default fixed-top" role="navigation" id="top">
+        <div class="container-fluid">
+            <!--Button Visible in small screen -->       
+            <div herf= "#" class="navbar-header">
+                <a href="index.html" class="navbar-brand"></a>
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                </button>
+            </div>
 
-***
-Please read the WebProject guide to get started!
-https://help.eait.uq.edu.au/smartos/webproject/intro.html
-***
-    <p>Tina's Page</p>
-	</pre>
-  </body>
+            <div class="collapse navbar-collapse" id="navbarC">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">GUIDES</a></li>
+                    <li><a href="#">REGIONS</a></li>
+                </ul>
+                <!-- dropdown menu for login & register --> 
+                <ul class="nav navbar-nav navbar-right" id="navbarC">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" ></span></a>
+
+                            <ul class="dropdown-menu">
+                                <div class="col-lg-12">
+                                    <div class="text-center">
+                                        <h4><b>Log In</b></h4>
+                                    </div>
+
+                                    <form id="ajax-login-form" action="#" method="post" role="form" autocomplete="off">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="E-mail" value="" autocomplete="off">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" autocomplete="off">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-7">
+                                                    <input type="checkbox" tabindex="3" name="remember" id="remember">
+                                                    <label for="remember"> Remember Me</label>
+                                                </div>
+
+                                                <div class="col-xs-5 pull-right">
+                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-success" value="Log In">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center">
+                                                      <a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" class="hide" name="" id="" value="">
+                                        
+                                        <li role="separator" class="divider"></li>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center">
+                                                      New here ? <a href="#"><b>Sign UP NOW!</b></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                              
+                                              
+
+                                    
+                                    </form>
+                                </div>
+                            </ul>
+                    </li>
+                </ul>
+                 <!-- search function -->
+                <form class="navbar-form navbar-right">
+                    <div class="form-group ">
+                        <input class="form-control" type="text" placeholder="Search">
+                    </div>
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div id="ImgCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#ImgCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#ImgCarousel" data-slide-to="1"></li>
+            
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox"> 
+            <div class="item active">
+                <img src="http://diamondcreative.net/plus-v1.1/img/slider/slider_03.jpg" width="1366px" height="700px">
+                <div class="carousel-caption hidden-xs">
+                    <h3>Create Your Own Story</h3>
+                    <p>The atmosphere in Chania has a touch<br> of Florence and Venice.</p>
+                    <button class="btn btn-danger">Create Now</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="http://diamondcreative.net/plus-v1.1/img/slider/slider_03.jpg" width="1366px" height="700px">
+                <div class="carousel-caption hidden-xs">
+                    <h3>Create Your Own Story</h3>
+                    <p>The atmosphere in Chania has a touch<br> of Florence and Venice.</p>
+                    <button class="btn btn-success">Create Now</button>
+                </div>
+            </div>
+        </div>
+
+         <!-- Left and right controls -->
+        <a class="left carousel-control" href="#ImgCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#ImgCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <img class="rounded-circle" src="" alt="Region image"  width=100% height="200">
+                
+                <h4>Asia</h4>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati, facere quidem consequuntur at tempore enim magni vitae 
+                <p><a class="btn btn-secondary" href="#" role="button">View More »</a></p>
+
+              </div>
+              <div class="col-sm-4">
+                <img class="rounded-circle" src="" alt="Region"   width=100% height="200">
+      
+                <h4>Asia</h4>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati, facere quidem consequuntur at tempore enim magni vitae 
+                <p><a class="btn btn-secondary" href="#" role="button">View More »</a></p>
+              </div>
+              <div class="col-sm-4">
+                <img class="rounded-circle" src="" alt="Region image" width=100% height="200">
+      
+                <h4>Asia</h4>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati, facere quidem consequuntur at tempore enim magni vitae 
+                <p><a class="btn btn-secondary" href="#" role="button">View More »</a></p>
+              </div>
+            </div>
+    </div>
+
+    <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <img class="rounded-circle" src="" alt="Region image"  width=100% height="200">
+                
+                <h4>Asia</h4>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati, facere quidem consequuntur at tempore enim magni vitae 
+                <p><a class="btn btn-secondary" href="#" role="button">View More »</a></p>
+              </div>
+              <div class="col-sm-4">
+                <img class="rounded-circle" src="" alt="Region"   width=100% height="200">
+      
+                <h4>Asia</h4>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati, facere quidem consequuntur at tempore enim magni vitae 
+                <p><a class="btn btn-secondary" href="#" role="button">View More »</a></p>
+              </div>
+              <div class="col-sm-4">
+                <img class="rounded-circle" src="" alt="Region image" width=100% height="200">
+            
+                <h4>Asia</h4>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati, facere quidem consequuntur at tempore enim magni vitae 
+                <p><a class="btn btn-secondary" href="#" role="button">View More »</a></p>
+              </div>
+            </div>
+    </div>
+          
+    <hr class="featurette-divider">
+    <div class="about container">
+        <div class="row">
+            <div class="col-sm-4">
+                    <img class="rounded-circle" src="" alt="Region image" width=200 height="200">
+                    <h3>Find Your Interstig Place</h3>
+            </div>
+            <div class="col-sm-4">
+                    <img class="rounded-circle" src="" alt="Region image" width=200 height="200">
+                    <h3>Find Your Interstig Place</h3>
+            </div>
+            <div class="col-sm-4">
+                    <img class="rounded-circle" src="" alt="Region image" width=200 height="200">
+                    <h3>Find Your Interstig Place</h3>
+            </div>
+    </div>
+
+        <hr class="featurette-divider">
+
+        
+<!--Footer-->
+<footer class="page-footer font-small lighten-5 pt-0">
+    
+        <!--Footer Links-->
+        <div class="container mt-5 mb-4 text-center text-md-left">
+            <div class="row mt-3">
+    
+                <!--First column-->
+                <div class="col-md-3 col-lg-4 col-xl-3 mb-4 dark-grey-text">
+                    <h4 class="text-uppercase font-weight-bold">
+                        <strong>DIY TOUR</strong>
+                    </h4>
+                    
+                    <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+                        amet, consectetur adipisicing elit.</p>
+                </div>
+                <!--/.First column-->
+    
+                <!--Second column-->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Regions</strong>
+                    </h6>
+
+                    <p>
+                        <a href="#!" class="dark-grey-text">Africa</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Asia</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Europe</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Oceania</a>
+                    </p>
+                </div>
+                <!--/.Second column-->
+    
+                <!--Third column-->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Useful links</strong>
+                    </h6>
+                    
+                    <p>
+                        <a href="#!" class="dark-grey-text">Your Account</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Shipping Rates</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Help</a>
+                    </p>
+                </div>
+                <!--/.Third column-->
+    
+                <!--Fourth column-->
+                <div class="col-md-4 col-lg-3 col-xl-3 dark-grey-text">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Contact</strong>
+                    </h6>
+                    
+                    <p>
+                        <i class="fa fa-home mr-3"></i> Brisbane, 4122, AUS</p>
+                    <p>
+                        <i class="fa fa-envelope mr-3"></i> info@diytour.com</p>
+                    <p>
+                        <i class="fa fa-phone mr-3"></i> + 61 234 567 88</p>
+                    <p>
+                        <i class="fa fa-print mr-3"></i> + 61 234 567 89</p>
+                </div>
+              
+    
+            </div>
+        </div>
+      
+    </footer> 
+    
+     
+    <!--/.Footer-->
+   
+    <!-- Copyright-->
+    <div class="copyright">
+                
+        <div class="row text-center">
+            <p>Copyright © 2018 All rights reserved</p>
+        </div>
+        
+                
+    </div>
+        <!--/.Copyright -->
+    
+  
+                          
+        
+        
+    </div>
+
+    
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
 </html>
