@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DIY TOUR</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom styles for our Website -->
+    <link href="css/main.css" rel="stylesheet">
+    <script type="text/javascript" src="javascript/checkInput.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-default fixed-top" role="navigation" id="top">
+            <div class="container-fluid">
+              <!--Button Visible in small screen -->       
+              <div herf= "#" class="navbar-header">
+                <a href="index.html" class="navbar-brand"></a>
+              </div>
+            </div>
+       
+    </nav>
+    <div class="signup">
+        <div class="row">
+            <div class="main-signup main-center">
+                <form class="form-horizontal" method="post" action="php/createAccount.php">
+                    <div class="form-group">
+                        <label id="UsernameLabel" for="Username" class="cols-sm-2 control-label">Username*</label>
+                        <div class="cols-sm-10">
+                             <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control"
+                                placeholder="Enter your Username"
+                                name="Usernam" required >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label id="EmailLabel" for="Email" class="cols-sm-2 control-label">Your Email</label>
+                            <div class="cols-sm-10">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" placeholder="myemail@mail.com"
+                                name="Email" required>
+                              </div>
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label id="PasswordLabel" for="Password" class="cols-sm-2 control-label">Password*</label>
+                            <div class="cols-sm-10">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
+                                <input type="password"maxlength="8"
+                                class="form-control" placeholder="e.g XPap678"
+                                name="Password"
+                                required>
+                              </div>
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                            <div class="cols-sm-10">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+                              </div>
+                            </div>
+                    </div>
+                    <div class="form-group ">
+                            <button type="submit" class="btn btn-success btn-lg btn-block signup-button">Sign Up</button>
+                        
+                    </div>
+                    <div class="cancle-register">
+                            <a  class="cancelbtn"
+                            href="#" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancle</a>
+
+                    </div>
+    
+                </form>
+            </div>
+        </div>
+    </div>
+        
+<!--Footer-->
+<footer class="page-footer font-small lighten-5 pt-0">
+    
+        <!--Footer Links-->
+        <div class="container mt-5 mb-4 text-center text-md-left">
+            <div class="row mt-3">
+    
+                <!--First column-->
+                <div class="col-md-3 col-lg-4 col-xl-3 mb-4 dark-grey-text">
+                    <h4 class="text-uppercase font-weight-bold">
+                        <strong>DIY TOUR</strong>
+                    </h4>
+                    
+                    <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+                        amet, consectetur adipisicing elit.</p>
+                </div>
+                <!--/.First column-->
+    
+                <!--Second column-->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Regions</strong>
+                    </h6>
+
+                    <p>
+                        <a href="#!" class="dark-grey-text">Africa</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Asia</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Europe</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Oceania</a>
+                    </p>
+                </div>
+                <!--/.Second column-->
+    
+                <!--Third column-->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Useful links</strong>
+                    </h6>
+                    
+                    <p>
+                        <a href="#!" class="dark-grey-text">Your Account</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Shipping Rates</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="dark-grey-text">Help</a>
+                    </p>
+                </div>
+                <!--/.Third column-->
+    
+                <!--Fourth column-->
+                <div class="col-md-4 col-lg-3 col-xl-3 dark-grey-text">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Contact</strong>
+                    </h6>
+                    
+                    <p>
+                        <i class="fa fa-home mr-3"></i> Brisbane, 4122, AUS</p>
+                    <p>
+                        <i class="fa fa-envelope mr-3"></i> info@diytour.com</p>
+                    <p>
+                        <i class="fa fa-phone mr-3"></i> + 61 234 567 88</p>
+                    <p>
+                        <i class="fa fa-print mr-3"></i> + 61 234 567 89</p>
+                </div>
+              
+    
+            </div>
+        </div>
+      
+    </footer> 
+    
+     
+    <!--/.Footer-->
+   
+    <!-- Copyright-->
+    <div class="copyright">
+                
+        <div class="row text-center">
+            <p>Copyright © 2018 All rights reserved</p>
+        </div>
+        
+                
+    </div>
+        <!--/.Copyright -->
+    
+  
+                          
+        
+        
+    </div>
+
+    
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>
