@@ -38,8 +38,9 @@ function checkInput(){
 			type: 'post',
 			data: {"callCreateAccount":input},
 		success: function(data){
+			console.log(data);
 			var modal = document.getElementById('myModal');
-			document.getElementById("modalText").innerHTML = "Welcome, please check your email: " + email+" to activate your account";
+			document.getElementById("modalText").innerHTML = "Welcome, please check your email: " + email+" to activate your account!";
 			modal.style.display = "block";
 		},
 		error: function(data){
