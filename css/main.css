@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
 
+*{margin:0;padding:0};
+img{border:none}
+
 body {
   background-color: white;
   font-family: "Open Sans", sans-serif;
-  padding: 5px 25px;
   margin: 0;
+}
+.navbar {
+	 margin-bottom: 5px;
+	
 }
 
 .navbar-brand{
@@ -14,6 +20,12 @@ body {
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center center;  
+    margin-bottom:10px;
+   
+}
+
+.container-fluid{
+	margin-top: 15px;
 }
 
 .dropdown-menu{
