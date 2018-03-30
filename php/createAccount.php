@@ -15,6 +15,18 @@
         createAccount($inputArray[0],$inputArray[1],$inputArray[2],$mysqli);
     }
 	
+	if (isset($_POST['callCheckAccount'])) {
+		$inputArray = explode(':', $_POST['callCheckAccount']);
+        checkAccount($inputArray[0],$inputArray[1],$mysqli);
+    }
+	
+	if (isset($_POST['callGetUsername'])) {
+        getUsername();
+    }
+	
+	if (isset($_POST['callAccountLogout'])) {
+        accountLogout();
+    }
 	
 	function checkEmail($email,$mysqli){
 		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
@@ -33,7 +45,7 @@
 		$psw = md5 ($psw);
 		sendEmail($uname,$email,$hash);
 		
-		$sql = "INSERT INTO account (email, userName, password, hash)
+		$sql = "INSERT INTO account (email, username, password, hash)
 			VALUES ('$email', '$uname', '$psw', '$hash')";
 			 	
 		if ($mysqli->query($sql) === TRUE) {
@@ -61,6 +73,43 @@
 	
 		$headers = 'From:email@diytour.com' . "\r\n"; // Set from headers
 		mail($to, $subject, $message, $headers); // Send our email
+	}
+	
+	function checkAccount($email,$psw,$mysqli){
+		$psw = md5 ($psw);
+		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
+		
+		if(mysqli_num_rows($query) == 1){
+			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND password= '$psw'");
+			if(mysqli_num_rows($query) == 1){
+				$row = mysqli_fetch_array($query);
+				$username = $row['username'];
+		
+				session_start();
+                $_SESSION['username'] = $username;      
+                echo("correct");
+			}
+		} else {
+			echo "This email doesn't seem be registered with DIY Tour";
+		}	
+	}
+	
+	function getUsername(){
+		session_start();
+		if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+			echo $_SESSION['username'];
+		}
+	}
+	
+	// https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
+	function accountLogout(){
+		session_start();
+ 
+		// Unset all of the session variables
+		$_SESSION = array();
+ 
+		// Destroy the session.
+		session_destroy();
 	}
 	
 	$mysqli->close();
