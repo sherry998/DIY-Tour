@@ -82,5 +82,27 @@ footer{
 	display:none;
 }
 
-  
+.sidebtn{
+	width:100%;
+	margin-top:2%;
+	margin-bottom:2%;
+}
+
+.side{
+	float: left;
+	width:15%;
+}
+
+
+.main{
+	float: right;
+	width:85%;
+	padding-left:8%;
+}
+
+#editForm{
+	padding-right:10%;
+}
+
+    
 

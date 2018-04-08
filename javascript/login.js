@@ -45,7 +45,7 @@ function checkLogin(){
 	}
 }
 
-function logout(home){
+function logout(){
 	$.ajax({
 			url: 'php/createAccount.php',
 			type: 'post',
@@ -54,9 +54,7 @@ function logout(home){
 			if (data!= null || data != ""){
 				$("#profileDrop").css("display", "none");
 				$("#logInDrop").css("display", "block");
-				if (home == true){
-					window.location.href = 'index.html';
-				}
+				window.location.href = 'index.html';
 			}
 		},
 		error: function(data){

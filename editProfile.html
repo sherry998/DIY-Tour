@@ -121,10 +121,40 @@
     </nav>
 	
 	<div class="container">
-   
+ 
 	<div class="main">
-	 <h1>My Profile</h1>
-	 <hr class="featurette-divider">
+	 
+	    <h1>Edit Profile</h1>
+		<hr class="featurette-divider">
+		<form id="editForm">
+		<div class="form-group">
+			<label for="email">E-mail</label>
+			<input type="text" name="email" id="EmailEdit" class="checkInput form-control" placeholder="E-mail" autocomplete="off">
+			<label id="EmailLabel"></label>
+		</div>
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" name="username" id="UsernameEdit" class="checkInput form-control" placeholder="Username" autocomplete="off">
+			<label id="UsernameLabel"></label>
+		</div>
+		<div class="form-group">
+			<label for="country">Country</label>
+			<input type="text" name="country" id="CountryEdit" class="form-control" placeholder="Country" autocomplete="off">
+			<label id="CountryLabel"></label>
+		</div>
+		<div class="form-group">
+			<label for="country">Travel Title</label>
+			<input type="text" name="travelTitle" id="TravelTitleEdit" class="form-control" placeholder="Travel Title" autocomplete="off">
+			<label id="TravelTitleLabel"></label>
+		</div>
+		<button type="button" id="update" class=" btn btn-success" onclick="checkEditInput()">Update</button>
+		<button type="button" id="cancel" class=" btn btn-success" onclick="location.href='profile.html';">Cancel</button>
+		<p>If you like to delete your account, <a href="">click here.</a></p>
+		</form>
+		<!-- for debug purpose
+		<div id="error">
+		
+		</div> -->
 	</div>
 	<div class="side">
 	<button type="button" id="myProfile" class="sidebtn form-control btn btn-success"  onclick="location.href='profile.html';">My Profile</button>
@@ -240,7 +270,8 @@
 	<script>window.jQuery || document.write('<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="javascript/editInfo.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
-
+	<script type="text/javascript" src="javascript/checkInput.js"></script>
 </body>
 </html>

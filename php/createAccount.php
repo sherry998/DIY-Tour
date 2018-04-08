@@ -29,11 +29,23 @@
     }
 	
 	function checkEmail($email,$mysqli){
+		session_start();
+		
 		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
 		
-		if(mysqli_num_rows($query) == 0){
-			echo "true";
+		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+			$id = $_SESSION['id'];
+			$querySame = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND userId='$id'");
 		} else {
+			$querySame = null;
+		}
+		
+		
+		if(mysqli_num_rows($query) == 0 && mysqli_num_rows($querySame) == 0){
+			echo "true";
+		} else if (mysqli_num_rows($querySame) == 1){
+			echo "same";
+		}else{
 			echo "false";
 		}	
 	}
@@ -78,18 +90,26 @@
 	function checkAccount($email,$psw,$mysqli){
 		$psw = md5 ($psw);
 		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
+		$queryActivate = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND activated = 'true'");
 		
-		if(mysqli_num_rows($query) == 1){
-			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND password= '$psw'");
+		if(mysqli_num_rows($query) == 1 && mysqli_num_rows($queryActivate) == 1){
+			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND password= '$psw' ");
 			if(mysqli_num_rows($query) == 1){
 				$row = mysqli_fetch_array($query);
 				$username = $row['username'];
+				$id = $row['userId'];
 		
 				session_start();
-                $_SESSION['username'] = $username;      
+                $_SESSION['username'] = $username;
+				// for later use
+				$_SESSION['id'] = $id;    				
                 echo("correct");
+			} else{
+				echo "Incorrect password";
 			}
-		} else {
+		} else if (mysqli_num_rows($query) == 1 && mysqli_num_rows($queryActivate) == 0){
+			echo "This account doesn't seem be activated, please check your email";
+		}else {
 			echo "This email doesn't seem be registered with DIY Tour";
 		}	
 	}
