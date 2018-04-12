@@ -1,4 +1,9 @@
+var modal = document.getElementById('myModal');
+
+
 $(document).ready(function() {
+	var pathname = window.location.pathname;
+	if(pathname.includes("editProfile")){
 	$.ajax({
 			url: 'php/editAccount.php',
 			type: 'post',
@@ -8,10 +13,33 @@ $(document).ready(function() {
 			if (data!== null && data !== ""){
 				// for debug purpose
 				//document.getElementById("error").innerHTML = data; 
-				$('#EmailEdit').attr('value', data.email);
-				$('#UsernameEdit').attr('value', data.username);
-				$('#CountryEdit').attr('value', data.country);
-				$('#TravelTitleEdit').attr('value', data.travelTitle);
+					$('#EmailEdit').attr('value', data.email);
+					$('#UsernameEdit').attr('value', data.username);
+					$('#CountryEdit').attr('value', data.country);
+					$('#TravelTitleEdit').attr('value', data.travelTitle);
+				}
+		},
+		error: function(data){
+			console.log("error");
+		}
+	
+	});	
+}
+
+});
+
+function deleteAccount(){
+	$.ajax({
+			url: 'php/editAccount.php',
+			type: 'post',
+			data: {"callDeleteCurrentAccount":""},
+		success: function(data){
+			document.getElementById("error").innerHTML = data; 
+			if (data == "sucess"){
+				// for debug purpose
+				//document.getElementById("error").innerHTML = data; 
+				window.location.href = 'index.html';
+				
 			}
 		},
 		error: function(data){
@@ -19,5 +47,19 @@ $(document).ready(function() {
 		}
 	
 	});	
+}
 
-});
+function openModal(){
+	modal.style.display = "block";
+}
+
+function back(){
+	modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

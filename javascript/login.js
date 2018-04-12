@@ -27,7 +27,7 @@ function checkLogin(){
 		$.ajax({
 				url: 'php/createAccount.php',
 				type: 'post',
-				data: {"callCheckAccount":input},
+				data: {"callCheckAccountPassword":input},
 			success: function(data){
 				if (data== "correct"){
 					window.location.href = 'profile.html';

@@ -1,6 +1,7 @@
 <?php
 	
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	session_start();
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -15,30 +16,67 @@
 		updateAccount($inputArray[0],$inputArray[1],$inputArray[2],$inputArray[3],$mysqli);
     }
 	
+	if (isset($_POST['callDeleteCurrentAccount'])) {
+        deleteCurrentAccount($mysqli);
+    }
+	
+	if (isset($_POST['callCheckAccountPassword'])) {
+        checkAccountPassword($_POST['callCheckAccountPassword'],$mysqli);
+    }
+	
+	if (isset($_POST['callChangePassword'])) {
+        changePassword($_POST['callChangePassword'],$mysqli);
+    }
+	
+	
 	function getAccountInfo($mysqli){
-		session_start();
 		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-			$userId =$_SESSION['id'];
-			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = '$userId'");
+			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = ".$_SESSION['id']);
 			if(mysqli_num_rows($query)==1){
 				echo json_encode(mysqli_fetch_assoc($query));
 		}
 	}
 	}
 	
+	function checkAccountPassword($currentPsw, $mysqli){
+		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+			$query = mysqli_query($mysqli,"SELECT password FROM account WHERE userId = ".$_SESSION['id']);
+			if(mysqli_num_rows($query)==1){
+				$originalpsw = mysqli_fetch_row($query)[0];
+				$currentPsw = md5($currentPsw);
+
+				if ($originalpsw == $currentPsw){
+					echo "true";
+				} else{
+					echo "false";
+				}
+			}
+		}
+	}
+	
+	function changePassword ($newpsw, $mysqli){
+		$newpsw = md5($newpsw);
+		$query = mysqli_query($mysqli,"UPDATE account SET password = '$newpsw' WHERE userId =".$_SESSION['id']);
+	}
+	
 	function updateAccount($email,$username,$country, $travelTitle,$mysqli){
-		session_start();
-		$userId =$_SESSION['id'];
 		$query = mysqli_query($mysqli,"UPDATE account SET email = '$email', username = '$username', country = '$country', travelTitle = '$travelTitle'
-		WHERE userId = '$userId'");
+		WHERE userId =".$_SESSION['id']);
 		
 		if ($query){
-			session_start();
 			// update session username details
 			$_SESSION['username'] = $username;
 			echo("sucess");
 		}else{
 			echo("failure");
+		}
+	}
+	
+	function deleteCurrentAccount ($mysqli){
+		$query = mysqli_query($mysqli,"DELETE FROM account WHERE userId = ".$_SESSION['id']);
+		session_destroy();
+		if ($query){
+			echo("sucess");
 		}
 	}
 	

@@ -1,48 +1,52 @@
-var emailState = false;
-var passwordState = false;
-var usernameState = false;
-var editEmail = false;
-var editUsername = false;
+var dict = {
+	"Email": false,
+	"Password": false,
+	"Username": false,
+	"EmailEdit": true,
+	"UsernameEdit": true,
+	"Current_password": false,
+	"New_password": false,
+	"Typed_password": false,
+};
+
 var label='';
+var id;
 
 $(document).ready(function() {
-
 	$('.checkInput').on('keyup', function() {
 
-		var id = $(this).attr('id');
-		console.log(id);
+		id = $(this).attr('id');
+		var idWithoutEdit =id.replace("Edit", '');
 
 		var value = document.getElementById(id).value;
 		// remove all white space
 		value = value.replace(/\s/g, '');
-		id = id.replace("Edit", '');
-		
-		var labelName = id+'Label';
-		console.log(id);
-		console.log(value);
 		if (value !== null && value !== ''){
 			// call function base on current input
-			var functionName = "check"+id;
+			var functionName = "check"+idWithoutEdit;
 			console.log(functionName);
 			var labelText = window[functionName](value);
 		}else{
-			if (id="Email"){
-				editEmail = true;
-			} else if (id="Username"){
-				editUsername = true;
+			for (var key in dict) {
+				if (id == key){
+					dict[key] = false;
+					console.log("find");
+					break;
+				}
 			}
-			
-			document.getElementById(labelName).innerHTML = id+" is missing";
+			var labelName = idWithoutEdit+'Label';
+			var label = idWithoutEdit.replace("_"," ");
+			document.getElementById(labelName).innerHTML = label+" is missing";
 		}
 		});
 		
 	});
 	
 function checkInput(){
-	console.log(emailState);
-	console.log(passwordState);
-	console.log(usernameState);
-	if (emailState==true && passwordState==true && usernameState==true){
+	console.log(dict["Email"]);
+	console.log(dict["Password"]);
+	console.log(dict["Username"]);
+	if (dict["Email"]==true && dict["Password"]==true && dict["Username"]==true){
 		var email = $('#Email').val();
 		var username = $('#Username').val();
 		var psw = $('#Password').val();
@@ -68,27 +72,10 @@ function checkInput(){
 	}
 }	
 
-function checkEditInput(){
-	console.log(emailState);
-	console.log(usernameState);
-	if (editEmail == false && editUsername == false){
-			//console.log("run");
-			changeInfo();
-	} else if (editEmail==true && editUsername == false){
-		if (emailState == true){
-			//console.log("run");
-			changeInfo();
-		}
-	} else if (editEmail==false && editUsername == true){
-		if (usernameState == true){
-			//console.log("run");
-			changeInfo();
-		}
-	} else {
-		if (emailState==true && usernameState==true){
-			//console.log("run");
-			changeInfo();
-		}
+function checkEditInput(){;
+	if (dict["EmailEdit"]==true && dict["UsernameEdit"]==true){
+		//console.log("run");
+		changeInfo();
 	}
 }
 
@@ -114,13 +101,54 @@ function changeInfo(){
 		});
 }
 
+function checkCorrectPassword(){
+	var currentPassword = document.getElementById("Current_password").value;
+	
+	$.ajax({
+			url: 'php/editAccount.php',
+			type: 'post',
+			data: {"callCheckAccountPassword":currentPassword},
+		success: function(data){
+			console.log(data);
+			if (data== "true"){
+					changePassword(currentPassword);
+				}
+		},
+		error: function(data){
+			console.log(data);
+		}
+	
+	});	
+}
+
+function changePassword(currentPassword){
+	console.log(dict["Current_password"]);
+	console.log(dict["New_password"]);
+	console.log(dict["Typed_password"]);
+	if (dict["Current_password"] == true && dict["New_password"] == true && dict["Typed_password"] == true){
+		var newPassword = document.getElementById("New_password").value;
+		$.ajax({
+			url: 'php/editAccount.php',
+			type: 'post',
+			data: {"callChangePassword":newPassword},
+		success: function(data){
+			console.log("sucess");
+			window.location.href = 'profile.html';
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
+	}
+	
+}
+
 
 function checkEmail(email){
 	//https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	editEmail = true;
 	if (!re.test(email)){
-		emailState = false;
+		dict[id] = false;
 		document.getElementById("EmailLabel").innerHTML = "Invaild email address!";
 	} else {
 		// ajax asynchronous return, therefore label is changed within it
@@ -130,14 +158,13 @@ function checkEmail(email){
 		data: {"callCheckEmail":email},
 		success: function(data){
 			console.log(data);
+			document.getElementById("EmailLabel").innerHTML = "";
 			if (data=="true"){
-				emailState = true;
-				document.getElementById("EmailLabel").innerHTML = "";
+				dict[id] = true;
 			} else if (data=="same"){
-				emailState = true;
-				document.getElementById("EmailLabel").innerHTML = "";
+				dict[id] = true;
 			}else {
-				emailState = false;
+				dict[id] = false;
 				document.getElementById("EmailLabel").innerHTML = "Email already exists";
 				console.log(label);
 			}
@@ -151,28 +178,59 @@ function checkEmail(email){
 }
 
 function checkUsername(uname){
-	editUsername = true;
-	usernameState=true;
+	dict["UsernameEdit"] = true;
+	dict["Username"]=true;
 	document.getElementById("UsernameLabel").innerHTML = "";
 }
 
 function checkPassword(psw){
+	label = checkStrengthPassword(psw);
+	document.getElementById("PasswordLabel").innerHTML = label;
+}
+
+function checkCurrent_password (){
+	document.getElementById("Current_passwordLabel").innerHTML = "";
+	dict["Current_password"] = true;
+}
+
+function checkNew_password (psw){
+	label = checkStrengthPassword(psw);
+	document.getElementById("New_passwordLabel").innerHTML = label;
+	
+}
+
+function checkTyped_password (psw){
+	checkSamePassword(psw);
+}
+
+function checkStrengthPassword(psw){
 	// https://martech.zone/javascript-password-strength/
 	var strongRegex = new RegExp("(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
 	var mediumRegex = new RegExp("(?=.{8,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
 	var enoughRegex = new RegExp("(?=.{8,}).*", "g");
-	var label = "";
-	passwordState= true;
-	
+	label = "";
+	dict["Password"] = true;
+	dict["New_password"] = true;
 	if (false == enoughRegex.test(psw)) {
-		passwordState= false;
-		label ="Your password must contain 8 characters";
+		dict["Password"] = false;
+		dict["New_password"] = false;
+		return "Your password must contain 8 characters";
 	} else if (strongRegex.test(psw)) {
-		label ="Strong!";
+		return "Strong!";
 	} else if (mediumRegex.test(psw)) {
-		label = "Medium!";
+		return "Medium!";
 	} else {
-		label = "Weak!";
+		return "Weak!";
 	}
-	document.getElementById("PasswordLabel").innerHTML = label;
+}
+
+function checkSamePassword(psw){
+	var newpsw = $('#New_password').val();
+	if (psw != newpsw){
+		document.getElementById("Typed_passwordLabel").innerHTML = "Different";
+		dict["Typed_password"] = false;
+	} else {
+		document.getElementById("Typed_passwordLabel").innerHTML = "";
+		dict["Typed_password"] = true;
+	}
 }
