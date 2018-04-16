@@ -37,8 +37,9 @@ $(document).ready(function() {
 			var labelName = idWithoutEdit+'Label';
 			var label = idWithoutEdit.replace("_"," ");
 			document.getElementById(labelName).innerHTML = label+" is missing";
+			document.getElementById(labelName).style.color = "#fd786e";
 		}
-		});
+		}); 
 		
 	});
 	
@@ -58,7 +59,7 @@ function checkInput(){
 		success: function(data){
 			console.log(data);
 			var modal = document.getElementById('myModal');
-			document.getElementById("modalText").innerHTML = "Welcome, please check your email: " + email+" to activate your account!";
+			document.getElementById("modalText").innerHTML = "Welcome, please check your email: " + email;
 			modal.style.display = "block";
 		},
 		error: function(data){
@@ -150,6 +151,7 @@ function checkEmail(email){
 	if (!re.test(email)){
 		dict[id] = false;
 		document.getElementById("EmailLabel").innerHTML = "Invaild email address!";
+		document.getElementById("EmailLabel").style.color = "#fd786e";
 	} else {
 		// ajax asynchronous return, therefore label is changed within it
 		$.ajax({
@@ -166,6 +168,8 @@ function checkEmail(email){
 			}else {
 				dict[id] = false;
 				document.getElementById("EmailLabel").innerHTML = "Email already exists";
+				document.getElementById("EmailLabel").style.color = "#fd786e";
+				$( "#Shake1" ).effect( "shake", {times:2}, 1000 );
 				console.log(label);
 			}
 		},
@@ -214,13 +218,14 @@ function checkStrengthPassword(psw){
 	if (false == enoughRegex.test(psw)) {
 		dict["Password"] = false;
 		dict["New_password"] = false;
-		return "Your password must contain 8 characters";
+		return '<font color="#fd786e">Your password must contain 8 characters</font>';
 	} else if (strongRegex.test(psw)) {
-		return "Strong!";
+		return '<font color="#b4ea15">Strong!</font>';
 	} else if (mediumRegex.test(psw)) {
-		return "Medium!";
+		return '<font color="#fdbf6e">Medium!</font>';
 	} else {
-		return "Weak!";
+		return '<font color="#fd786e">Weak!</font>';
+		$( "#Shake3" ).effect( "shake", {times:2}, 1000 );
 	}
 }
 
