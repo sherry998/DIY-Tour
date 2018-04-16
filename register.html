@@ -7,10 +7,12 @@
     <title>DIY TOUR</title>
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
     <!-- Custom styles for our Website -->
-    <link href="css/main.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <!--<script type="text/javascript" src="javascript/checkInput.js"></script>-->
+    <script type="text/javascript" src="javascript/checkInput.js"></script>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
 	</head>
 <body>
     <nav class="navbar navbar-toggleable-md navbar-default fixed-top" role="navigation" id="top">
@@ -25,54 +27,60 @@
     <div class="signup">
         <div class="row">
             <div class="main-signup main-center">
-                <form class="form-horizontal" method="post" action="php/createAccount.php">
+                <form class="form-horizontal" id="signInForm">
                     <div class="form-group">
-                        <label id="UsernameLabel" for="Username" class="cols-sm-2 control-label">Username*</label>
+                        <label for="Email" class=" control-label">Email*</label>
                         <div class="cols-sm-10">
-                             <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control"
-                                placeholder="Enter your Username"
-                                name="Usernam" required >
-                            </div>
+                                <div class="input-group" id="Shake1">
+                                  <span class="input-group-addon"> <i class="glyphicon glyphicon-envelope"></i>
+                                  </span>
+                                  <input type="text" class="form-control"  placeholder="myemail@mail.com"
+                                  id="Email" required>
+                                </div>
+                                <label id="EmailLabel"></label>
                         </div>
+                        
+                     
                     </div>
 
                     <div class="form-group">
-                            <label id="EmailLabel" for="Email" class="cols-sm-2 control-label">Your Email</label>
+                            <label for="Username" class=" control-label">Username*</label>
                             <div class="cols-sm-10">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" placeholder="myemail@mail.com"
-                                name="Email" required>
+                              <div class="input-group" id="Shake2">
+                                <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="myusername"
+                                id="Username" required>
                               </div>
+                              <label id="UsernameLabel"></label>
                             </div>
                     </div>
 
                     <div class="form-group">
-                            <label id="PasswordLabel" for="Password" class="cols-sm-2 control-label">Password*</label>
+                            <label  for="Password" class=" control-label">Password*</label>
                             <div class="cols-sm-10">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
-                                <input type="password"maxlength="8"
+                              <div class="input-group" id="Shake3">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" maxlength="8"
                                 class="form-control" placeholder="e.g XPapE678"
-                                name="Password"
+                                id="Password"
                                 required>
                               </div>
+                              <label id="PasswordLabel"></label>
                             </div>
                     </div>
 
+                    <p>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+                        </label>
+                    </p>
+
+                    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.
+                    </p>
+
                     <div class="form-group">
-                            <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                            <div class="cols-sm-10">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
-                              </div>
-                            </div>
-                    </div>
-                    <div class="form-group ">
-                            <button type="submit" class="btn btn-success btn-lg btn-block signup-button">Sign Up</button>
+                            <button type="button" onclick="checkInput()" class="btn btn-success btn-lg btn-block signup-button">Sign On</button>
                         
                     </div>
                     <div class="cancel-register">
@@ -82,12 +90,20 @@
                     </div>
     
                 </form>
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <p id="modalText">Welcome, please check your email to activate your account</p>
+                            <a href="index.html">Back home</a>	
+                        </div>
+                </div>
             </div>
         </div>
     </div>
         
-<!--Footer-->
-<footer class="page-footer font-small lighten-5 pt-0">
+    <!--Footer-->
+    <footer class="page-footer font-small lighten-5 pt-0">
     
         <!--Footer Links-->
         <div class="container mt-5 mb-4 text-center text-md-left">
@@ -164,8 +180,6 @@
         </div>
       
     </footer> 
-    
-     
     <!--/.Footer-->
    
     <!-- Copyright-->
@@ -178,20 +192,8 @@
                 
     </div>
         <!--/.Copyright -->
-    
-  
-                          
-        
-        
-    </div>
 
-    
-     <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
