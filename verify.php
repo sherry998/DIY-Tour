@@ -4,11 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Account Activation</title>
-	<link rel="stylesheet" type="text/css" href="css/modal.css" />
+	<link rel="stylesheet" type="text/css" href="css/modal.css">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
     <div class="modal-content">
-	<h1>Just one for step...</h1>
+		<div class="m-header">
+			<div align="center">
+                <img src="https://i.imgur.com/UBpNYtU.png" width="300" height="80" alt="My Logo">
+            </div>
+		</div>	
+		<div class="m-title">
+            <h1><b>Just one for step...</b></h1> 
+		</div>
+		<div class="modal-text">
         <!-- start PHP code -->
         <?php
          
@@ -32,8 +41,10 @@
 						// We have a match, activate the account
 						$query = mysqli_query($mysqli,"UPDATE account SET activated='true' WHERE email='$email' AND hash='$hash' AND activated='false'");
 						echo $usname;
-						echo '<p>Your account has been activated, click the button below to open your account</p>';
-						echo '<button type="button">Go to my account</button>';
+						echo '<p style="
+						margin-top: 20px; color=">Your account has been activated, click the button below to open your account</p>';
+						echo '<button type="button" class="btn btn-success" style="
+						margin-top: 20px;">Go to my account</button>';
 					}else{
 						// No match -> invalid url or account has already been activated.
 						  echo 'The url is either invalid or you already have activated your account.';
@@ -44,7 +55,19 @@
 				}
 			} 
         ?>
-        <!-- stop PHP Code -->
+		<!-- stop PHP Code -->
+		</div>
+		
+		<div class="modal-footer">
+            <div class="modal-copyright">
+				<div class="row text-center">
+                    <p>Copyright © 2018 All rights reserved</p>
+                </div>
+                                            
+                                                    
+            </div>
+
+        </div>
  
          
     </div>
