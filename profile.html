@@ -120,122 +120,184 @@
         </div>
     </nav>
 	
-
 	<div class="container">
-   
-	<div class="main">
-	 <h1>My Profile</h1>
-	 <hr class="featurette-divider">
-	  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas arcu dui, volutpat non commodo vitae, placerat vehicula nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam eu velit libero. In dignissim sollicitudin porta. Proin eleifend viverra convallis. Nulla scelerisque aliquam enim, in rutrum ligula ultricies in. Aenean posuere euismod laoreet. Etiam sagittis malesuada facilisis. In hac habitasse platea dictumst. Aliquam ac iaculis ligula. Ut in sodales elit. Phasellus molestie non nulla ac euismod. Donec dignissim dui a diam lacinia lobortis nec non arcu. Donec in augue sagittis nisl vestibulum dictum. Maecenas nec dui ac ex hendrerit sollicitudin.</p>
-		
-	</div>
-	
-	<div class="side">
-	<button type="button" id="myProfile" class="sidebtn form-control btn btn-success"  onclick="location.href='profile.html';">My Profile</button>
-	<button type="button" id="editProfile" class="sidebtn form-control btn btn-success"  onclick="location.href='editProfile.html';">Edit Profile</button>
-	<button type="button" id="changePassword" class="sidebtn form-control btn btn-success"  onclick="location.href='changePassword.html'">Change Password</button>
-	<button type="button" id="newGuide" class="sidebtn form-control btn btn-success"  onclick="">Create new Guide</button>
-	<button type="button" id="logout" class="sidebtn form-control btn btn-success"  onclick="logout()">Log Out</button>
-	</div>
-	</div>
-        
-<!--Footer-->
-    <footer class="page-footer font-small">
-    
-        <!--Footer Links-->
-        <div class="container mt-5 mb-4 text-center text-md-left">
-            <div class="row mt-3">
-    
-                <!--First column-->
-                <div class="col-md-3 col-lg-4 col-xl-3 mb-4 dark-grey-text">
-                    <h4 class="text-uppercase font-weight-bold">
-                        <strong>DIY TOUR</strong>
-                    </h4>
+            <div class="side col-md-2">
+              <div class="profile-userimg">
+                <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+              </div>
+              <div class="profile-user">
+                <div class="profile-username">
+                                Vel KumarP
+                        </div>
+                        <div class="profile-usertitle">
+                                Travel Master
+                        </div>
+                <div class="centered-text" id="">
+                  <i class="glyphicon glyphicon-map-marker"></i>
+                  <span id="userRegion">Brisbane, Australia</span>
+                </div>
+                <div class="profile-usersummary">
+                  <i class="glyphicon glyphicon-plane"></i>
+                  <span id="userSummary">I love travel around the world.</span>
+                </div>
+                <hr>
+                <div class="profile-user-travel">
+                  <div class="column">
+                    <p>15</p>
+                    <p>Posts</p>
+                  </div>
+                  <div class="column">
+                    <p>8</p>
+                    <p>Travels</p>                            
+                  </div>                        
+                </div>
+                
+              </div>
+             
+              <div class="side-button">
+                    <ul class="nav">
+                            <li>
+                                <a id="myProfile" href="profile.html">
+                                <i class="glyphicon glyphicon-home"></i>
+                                My Profile</a>
+                            </li>
+                            <li>
+                                <a id="editProfile" href="editProfile.html">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Edit Profile </a>
+                            </li>
+                            <li>
+                                <a id="changePassword" href="changePassword.html">
+                                <i class="glyphicon glyphicon-lock"></i>
+                                Change Password </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                Create new Guide </a>
+                            </li>
+                            <li>
+                                <a onclick="logout()">
+                                <i class="glyphicon glyphicon-log-out"></i>
+                                Log Out </a>
+                            </li>
+                    </ul>
                     
-                    <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
-                        amet, consectetur adipisicing elit.</p>
-                </div>
-                <!--/.First column-->
-    
-                <!--Second column-->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <strong>Regions</strong>
-                    </h6>
-
-                    <p>
-                        <a href="#!" class="dark-grey-text">Africa</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="dark-grey-text">Asia</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="dark-grey-text">Europe</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="dark-grey-text">Oceania</a>
-                    </p>
-                </div>
-                <!--/.Second column-->
-    
-                <!--Third column-->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <strong>Useful links</strong>
-                    </h6>
-                    
-                    <p>
-                        <a href="#!" class="dark-grey-text">Your Account</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="dark-grey-text">Shipping Rates</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="dark-grey-text">Help</a>
-                    </p>
-                </div>
-                <!--/.Third column-->
-    
-                <!--Fourth column-->
-                <div class="col-md-4 col-lg-3 col-xl-3 dark-grey-text">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <strong>Contact</strong>
-                    </h6>
-                    
-                    <p>
-                        <i class="fa fa-home mr-3"></i> Brisbane, 4122, AUS</p>
-                    <p>
-                        <i class="fa fa-envelope mr-3"></i> info@diytour.com</p>
-                    <p>
-                        <i class="fa fa-phone mr-3"></i> + 61 234 567 88</p>
-                    <p>
-                        <i class="fa fa-print mr-3"></i> + 61 234 567 89</p>
-                </div>
-              
-    
+                  <button type="button" id="logout" class="sidebtn form-control btn btn-success"  onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>Log Out</button>
+                  
+              </div>
             </div>
-        </div>
-      
-    </footer> 
+            <div class="main col-md-10">
+                <h1>My Profile</h1>
+                <hr class="featurette-divider">
+                <div class="row">
+                    <div class="col-sm">
+                       First Name:
+                    </div>
+                    <div class="col-sm">
+                      Family Name:
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!--Footer-->
+    <footer class="page-footer font-small lighten-5 pt-0">
     
-     
+            <!--Footer Links-->
+            <div class="container mt-5 mb-4 text-center text-md-left">
+                <div class="row mt-3">
+        
+                    <!--First column-->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4 dark-grey-text">
+                        <h4 class="text-uppercase font-weight-bold">
+                            <strong>DIY TOUR</strong>
+                        </h4>
+                        
+                        <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+                            amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <!--/.First column-->
+        
+                    <!--Second column-->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Regions</strong>
+                        </h6>
+    
+                        <p>
+                            <a href="#!" class="dark-grey-text">Africa</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="dark-grey-text">Asia</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="dark-grey-text">Europe</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="dark-grey-text">Oceania</a>
+                        </p>
+                    </div>
+                    <!--/.Second column-->
+        
+                    <!--Third column-->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Useful links</strong>
+                        </h6>
+                        
+                        <p>
+                            <a href="#!" class="dark-grey-text">Your Account</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="dark-grey-text">Shipping Rates</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="dark-grey-text">Help</a>
+                        </p>
+                    </div>
+                    <!--/.Third column-->
+        
+                    <!--Fourth column-->
+                    <div class="col-md-4 col-lg-3 col-xl-3 dark-grey-text">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Contact</strong>
+                        </h6>
+                        
+                        <p>
+                            <i class="fa fa-home mr-3"></i> Brisbane, 4122, AUS</p>
+                        <p>
+                            <i class="fa fa-envelope mr-3"></i> info@diytour.com</p>
+                        <p>
+                            <i class="fa fa-phone mr-3"></i> + 61 234 567 88</p>
+                        <p>
+                            <i class="fa fa-print mr-3"></i> + 61 234 567 89</p>
+                    </div>
+                  
+        
+                </div>
+            </div>
+          
+    </footer> 
     <!--/.Footer-->
-   
+       
     <!-- Copyright-->
     <div class="copyright">
-                
-        <div class="row text-center">
-            <p>Copyright © 2018 All rights reserved</p>
-        </div>
-        
-                
+                    
+            <div class="row text-center">
+                <p>Copyright © 2018 All rights reserved</p>
+            </div>
+            
+                    
     </div>
-        <!--/.Copyright --> 
+        <!--/.Copyright -->
+        
+    
   
                           
         
         
-    </div>
+    
 
     
      <!-- Bootstrap core JavaScript
