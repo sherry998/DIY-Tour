@@ -61,7 +61,7 @@ body {
 	margin-bottom: 1.5rem;
 	text-align: center;
 }
-
+/*** modal *****/
 .m-header{
     padding:10px;
     text-align: center;
@@ -99,7 +99,22 @@ body {
     padding:10px 0 10px 0;
 }
 
-  
+/***** END of modal*****/
+
+/****** about page*******/
+
+.image-aboutus-banner {
+  	background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url("https://i.imgur.com/9DGkuDf.jpg");
+  	background-repeat: no-repeat;
+ 	background-size: cover;
+  	background-position: center center;
+  	color: #fff;
+  	padding-top: 110px;
+  	padding-bottom:110px;
+}
+/****** END of about page*******/
+
+/***** footer *******/  
 footer{
     background-color:#f0f0f0;
     padding: 10px 0px;
@@ -115,6 +130,8 @@ footer{
     font-size:12px;
     padding:15px 0 10px 0;
 }
+/***** END of footer*******/
+
 
 /******* my profile css****************/
 #profileDrop{
