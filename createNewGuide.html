@@ -189,22 +189,25 @@
             
     
             <div class="main col-md-9">
+				<div id="message">
+						
+				</div>
 					<h1> Create new guide </h1>
-                    <input type="text" name="title" class="form-control" placeholder="Enter title here" autocomplete="off">
+                    <input type="text" name="title" id="guideTitle" class="form-control" placeholder="Enter title here" autocomplete="off">
                     <hr class="featurette-divider">
                     <form id="editForm">
 						<div id="simpleInfro" class="form-group">
 						<!-- Icon to be added, also add spacing -->
 							<label for="location"><b>Location</b></label>
-							<input type="text" name="location">
+							<input type="text" id="guideLocation" name="location">
 							
 							<label for="departureD"><b>Departure Date</b></label>
-							<input type="date" name="bday">
+							<input type="date" id="guideDate" name="bday">
 							
 							<br>
 							
 							<label for="people"><b>People</b></label>
-								<select>
+								<select id="guideType">
 									<option value="individual">Individual</option>
 									<option value="friends">Friends	</option>
 									<option value="families">Family with children</option>
@@ -212,11 +215,11 @@
 									<option value="students">students</option>
 								</select>
 								
-							<label for="budget"><b>Budget per person</b></label>
-							<input type="text" name="budget">
+							<label for="budget"><b>Budget per person $</b></label>
+							<input type="number" name="budget" id="guideBudget" value= 0>
 						</div>
                         <div class="form-group">
-							<textarea name="summary" cols="88" rows="3" placeholder="Your trip summary here..." class="form-control"></textarea>
+							<textarea name="summary" cols="88" rows="3" placeholder="Your trip summary here..." id="guideSummary" class="form-control"></textarea>
                         </div>
 						
 						<div id="dayContainer">
@@ -232,16 +235,14 @@
                    
                         <hr>
                         <div class="update-btn pull-right">
-                            <button type="button" id="update" class=" btn btn-success" onclick="checkEditInput()">Update</button>
-                            <button type="button" id="cancel" class=" btn btn-danger" onclick="location.href='profile.html';">Cancel</button>
+                            <button type="button" id="update" class=" btn btn-success" onclick="checkGuideInput()">Update</button>
+                            <button type="button" id="cancel" class=" btn btn-danger" onclick="location.href='createNewGuide.html';">Cancel</button>
 
 
                         </div>
                     </form>
-                    <!-- for debug purpose
-                    <div id="error">
+
                     
-            </div> -->
             </div>
     </div>
 
@@ -344,6 +345,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="javascript/addGuide.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
-	<script type="text/javascript" src="javascript/checkInput.js"></script>
 </body>
 </html>

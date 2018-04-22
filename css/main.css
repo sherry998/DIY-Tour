@@ -259,4 +259,22 @@ footer{
 	margin-bottom:10px;
 }
 
+.messageSucess{
+	border-style: solid;
+    border-width: 1px;
+	border-color: #1E8449 ;
+	color: #1E8449;
+	background-color: #D4EFDF;
+	padding: 2px;
+}
+
+.messageFail{
+	border-style: solid;
+    border-width: 1px;
+	border-color: #922B21;
+	color: #922B21;
+	background-color: #F5B7B1 ;
+	padding: 2px;
+}
+
 

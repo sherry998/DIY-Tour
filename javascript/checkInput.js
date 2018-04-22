@@ -94,10 +94,12 @@ function changeInfo(){
 		data: {"callUpdateAccount":changeInput},
 		success: function(data){
 			document.getElementById("username").innerHTML = usernameInput;
-			console.log(data);
+			$( "#message" ).addClass( "messageSucess" );
+			document.getElementById("message").innerHTML = "Update profile successfully."; 
 		},
 		error: function(data){
-			console.log("Error connecting to database");
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
 		});
 }
@@ -113,10 +115,14 @@ function checkCorrectPassword(){
 			console.log(data);
 			if (data== "true"){
 					changePassword(currentPassword);
-				}
+			} else {
+				document.getElementById("Current_passwordLabel").innerHTML = "Incorrect password";
+			}
 		},
 		error: function(data){
 			console.log(data);
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
 	
 	});	
@@ -133,11 +139,12 @@ function changePassword(currentPassword){
 			type: 'post',
 			data: {"callChangePassword":newPassword},
 		success: function(data){
-			console.log("sucess");
-			window.location.href = 'profile.html';
+			$( "#message" ).addClass( "messageSucess" );
+			document.getElementById("message").innerHTML = "Password changed successfully."; 
 		},
 		error: function(data){
-			console.log(data);
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
 	});
 	}

@@ -20,7 +20,8 @@ $(document).ready(function() {
 				}
 		},
 		error: function(data){
-			console.log("error");
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
 	
 	});	
@@ -43,7 +44,8 @@ function deleteAccount(){
 			}
 		},
 		error: function(data){
-			console.log("error");
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
 	
 	});	
