@@ -80,7 +80,7 @@
                     </p>
 
                     <div class="form-group">
-                            <button type="button" onclick="checkInput()" class="btn btn-success btn-lg btn-block signup-button">Sign On</button>
+                            <button type="button" onclick="checkInput()" class="btn btn-success btn-lg btn-block signup-button">Create account</button>
                         
                     </div>
                     <div class="cancel-register">
@@ -90,17 +90,34 @@
                     </div>
     
                 </form>
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <p id="modalText">Welcome, please check your email to activate your account</p>
-                            <a href="index.html">Back home</a>	
-                        </div>
-                </div>
+                
             </div>
         </div>
     </div>
+	
+	 <div id="myModal" class="modal">
+            <!-- Modal content -->
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="modalText">Welcome! Please check your email to activate your account. </p>
+						<button type="button" class=" btn" onclick="location.href='index.html'">Back home</button>
+                    </div>
+                    <div class="modal-footer">
+                            <div class="modal-copyright">
+            
+                                    <div class="row text-center">
+                                        <p>Copyright © 2018 All rights reserved</p>
+                                    </div>              
+                            </div>
+            
+                    </div>
+
+                </div>
+              </div>
+            
+            </div>
+			
         
     <!--Footer-->
     <footer class="page-footer font-small lighten-5 pt-0">

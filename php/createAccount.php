@@ -32,16 +32,16 @@
 		session_start();
 		
 		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
+		$querySame = null;
 		
 		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
 			$id = $_SESSION['id'];
 			$querySame = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND userId='$id'");
-		} else {
-			$querySame = null;
-		}
+		} 
 		
-		
-		if(mysqli_num_rows($query) == 0 && mysqli_num_rows($querySame) == 0){
+		if (mysqli_num_rows($query) == 0  && $querySame == null){
+			echo "true";
+		} else if(mysqli_num_rows($query) == 0 && mysqli_num_rows($querySame) == 0){
 			echo "true";
 		} else if (mysqli_num_rows($querySame) == 1){
 			echo "same";
@@ -58,8 +58,8 @@
 		sendEmail($uname,$email,$hash);
 		
 		$sql = "INSERT INTO account (email, username, password, hash)
-			VALUES ('$email', '$uname', '$psw', '$hash')";
-			 	
+			VALUES ('$email', '$uname', '$psw', '$hash')";  
+				
 		if ($mysqli->query($sql) === TRUE) {
 			echo "Welcome, please check your email: " .$email . " to activate your account";
 			sendEmail($uname,$email,$hash);

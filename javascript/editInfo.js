@@ -20,6 +20,7 @@ $(document).ready(function() {
 				}
 		},
 		error: function(data){
+			console.log(data);
 			$( "#message" ).addClass( "messageFail" );
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}

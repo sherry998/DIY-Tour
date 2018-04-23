@@ -28,7 +28,7 @@
 		if ($mysqli->query($sqlInsertGuide) === TRUE) {
 			$guideId = mysqli_insert_id($mysqli);
 			createDay($dayTitle,$dayInfo,$guideId,$mysqli);
-			echo "Create guide sucess";
+			echo ($guideId);
 		}else{
 			echo ( mysqli_error($mysqli));
 		}

@@ -105,7 +105,8 @@ function createGuide(title, loc, date, people, budget, summary){
 		success: function(data){
 			// further styles required
 			$( "#message" ).addClass( "messageSucess" );
-			document.getElementById("message").innerHTML = data; 
+			document.getElementById("message").innerHTML = "Create new guide successfully"; 
+			window.location.href = "specificGuide.html?id="+data+"&title="+title;
 		},
 		error: function(data){
 			console.log("error");

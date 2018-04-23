@@ -34,17 +34,24 @@
 					$usname = $_GET['userName']; // Set username variable
 					
 					$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND hash='$hash' AND activated='false'");
-			
+					
+
 					$match  = mysqli_num_rows($query);
 					
 					if($match > 0){
+						$row = $query->fetch_assoc();
+						session_start();
+						$_SESSION['username'] = $row["username"];
+						$_SESSION['id'] = $row["userId"];  
 						// We have a match, activate the account
 						$query = mysqli_query($mysqli,"UPDATE account SET activated='true' WHERE email='$email' AND hash='$hash' AND activated='false'");
 						echo $usname;
 						echo '<p style="
 						margin-top: 20px; color=">Your account has been activated, click the button below to open your account</p>';
+						echo '<a href="profile.html">';
 						echo '<button type="button" class="btn btn-success" style="
 						margin-top: 20px;">Go to my account</button>';
+						echo '</a>';
 					}else{
 						// No match -> invalid url or account has already been activated.
 						  echo 'The url is either invalid or you already have activated your account.';

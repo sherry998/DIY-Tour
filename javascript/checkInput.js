@@ -47,10 +47,12 @@ function checkInput(){
 	console.log(dict["Email"]);
 	console.log(dict["Password"]);
 	console.log(dict["Username"]);
+	var email = $('#Email').val();
+	var username = $('#Username').val();
+	var psw = $('#Password').val();
+		
 	if (dict["Email"]==true && dict["Password"]==true && dict["Username"]==true){
-		var email = $('#Email').val();
-		var username = $('#Username').val();
-		var psw = $('#Password').val();
+		
 		var input = email + ":" + username + ":" + psw;
 		$.ajax({
 			url: 'php/createAccount.php',
@@ -68,8 +70,10 @@ function checkInput(){
 		});
 		
 	} else {
-		// css effects to be added onto the label
-		console.log('incorrect');
+		checkEmail(email);
+		checkUsername(username);
+		checkPassword(psw);
+		
 	}
 }	
 
@@ -176,8 +180,8 @@ function checkEmail(email){
 				dict[id] = false;
 				document.getElementById("EmailLabel").innerHTML = "Email already exists";
 				document.getElementById("EmailLabel").style.color = "#fd786e";
-				$( "#Shake1" ).effect( "shake", {times:2}, 1000 );
-				console.log(label);
+				$( "#Shake1" ).effect( "shake", {times:1}, 1000 );
+				console.log(data);
 			}
 		},
 		error: function(data){
