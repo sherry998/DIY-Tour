@@ -37,9 +37,34 @@
 
                             <ul class="dropdown-menu">
 								<!--Styles needed for this div when users logged in-->
-								<div id="profileDrop">
-									<h2 id="username"></h2>
-									<button type="button"  class="form-control btn btn-success" onclick="logout()">Log Out</button>
+								<div id="profileDrop" class="col-lg-12">
+                                    <div class="profile-userimg">
+                                        <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+                                    </div>
+                                    <div class="profile-user">
+
+                                        <div class="profile-username" id="username">
+
+                                        </div>
+
+                                        <div class="centered-text" id="">
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                            <span id="userRegion">Brisbane, Australia</span>
+                                        </div>
+                                        <div class="profile-usersummary">
+                                            <i class="glyphicon glyphicon-plane"></i>
+                                            <span id="userSummary">I love travel around the world.</span>
+                                        </div>    
+
+                                    </div>
+                                    <hr>
+                                    <div class="profileDrop-btn">
+                                        <button type="button" id="" class=" col-md-5 btn btn-success" onclick="location.href='profile.html';">My Profile</button>
+
+                                        <div class="col-md-2"></div>
+
+                                        <button type="button"  class="col-md-5 form-control btn btn-success" onclick="logout()">Log Out</button>
+                                    </div>
 								</div>
                                 <div id="logInDrop" class="col-lg-12">
                                     <div class="text-center">
