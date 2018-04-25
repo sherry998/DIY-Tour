@@ -11,182 +11,11 @@
     <link href="css/main.css?ver=1.1" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-default fixed-top" role="navigation" id="top">
-        <div class="container-fluid">
-            <!--Button Visible in small screen -->       
-            <div herf= "#" class="navbar-header">
-                <a href="index.html" class="navbar-brand"></a>
-                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                </button>
-            </div>
-
-            <div class="collapse navbar-collapse" id="navbarC">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">HOME</a></li>
-                    <li><a href="#">ABOUT</a></li>
-                    <li><a href="#">GUIDES</a></li>
-                    <li><a href="#">REGIONS</a></li>
-                </ul>
-                <!-- dropdown menu for login & register --> 
-                <ul class="nav navbar-nav navbar-right" id="navbarC">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" ></span></a>
-
-                            <ul class="dropdown-menu">
-								<!--Styles needed for this div when users logged in-->
-								<div id="profileDrop">
-									<h2 id="username"></h2>
-									<button type="button"  class="form-control btn btn-success" onclick="logout()">Log Out</button>
-								</div>
-                                <div id="logInDrop" class="col-lg-12">
-                                    <div class="text-center">
-                                        <h4><b>Log In</b></h4>
-									</div>
-									
-									<!-- Add style to make the error label and box red -->
-									<div>
-										<label id="errorLabel"></label>
-									</div>
-
-                                    <form id="login-form">
-                                        <div class="form-group">
-                                            <label for="username">E-mail</label>
-                                            <input type="text" name="email" id="email" class="form-control" placeholder="E-mail" autocomplete="off">
-											<label id="emailLabel"></label>
-										</div>
-
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" name="password" id="password"  class="form-control" placeholder="Password" autocomplete="off">
-											<label id="passwordLabel"></label>
-										</div>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-xs-7">
-                                                    <input type="checkbox" name="remember" id="remember">
-                                                    <label for="remember"> Remember Me</label>
-                                                </div>
-
-                                                <div class="col-xs-5 pull-right">
-													<button type="button" name="login-submit" id="login-submit" class="form-control btn btn-success" onclick="checkLogin()">Log In</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="text-center">
-                                                      <a href="#" class="forgot-password">Forgot Password?</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <input type="hidden" class="hide" name="" id="" value="">
-                                        
-                                        <li role="separator" class="divider"></li>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="text-center">
-                                                      New here ? <a href="register.html"><b>Sign UP NOW!</b></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                              
-                                              
-
-                                    
-                                    </form>
-                                </div>
-                            </ul>
-                    </li>
-                </ul>
-                 <!-- search function -->
-                <form class="navbar-form navbar-right">
-                    <div class="form-group ">
-                        <input class="form-control" type="text" placeholder="Search">
-                    </div>
-                    <button class="btn btn-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-	
+    <div id="header"></div>
 	<div class="container">
-            <div class="side col-md-3">
-              <div class="profile-userimg">
-                <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
-              </div>
-              <div class="profile-user">
-                <div class="profile-username">
-                                Vel KumarP
-                        </div>
-                        <div class="profile-usertitle">
-                                Travel Master
-                        </div>
-                <div class="centered-text" id="">
-                  <i class="glyphicon glyphicon-map-marker"></i>
-                  <span id="userRegion">Brisbane, Australia</span>
-                </div>
-                <div class="profile-usersummary">
-                  <i class="glyphicon glyphicon-plane"></i>
-                  <span id="userSummary">I love travel around the world.</span>
-                </div>
-                <hr>
-                <div class="profile-user-travel">
-                  <div class="column">
-                    <p>15</p>
-                    <p>Posts</p>
-                  </div>
-                  <div class="column">
-                    <p>8</p>
-                    <p>Travels</p>                            
-                  </div>                        
-                </div>
-                
-              </div>
-             
-              <div class="side-button">
-                    <ul class="nav">
-                            <li>
-                                <a id="myProfile" href="profile.html">
-                                <i class="glyphicon glyphicon-home"></i>
-                                My Profile</a>
-                            </li>
-                            <li>
-                                <a id="editProfile" href="editProfile.html">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Edit Profile </a>
-                            </li>
-                            <li>
-                                <a id="changePassword" href="changePassword.html">
-                                <i class="glyphicon glyphicon-lock"></i>
-                                Change Password </a>
-                            </li>
-                            <li>
-                                <a id="createNewGuide" href="createNewGuide.html">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                                Create new Guide </a>
-                            </li>
-                            <li>
-                                <a href="#"  onclick="logout()">
-                                <i class="glyphicon glyphicon-log-out"></i>
-                                Log Out </a>
-                            </li>
-                    </ul>
-                    
-                  <!-- <button type="button" id="logout" class="sidebtn form-control btn btn-success"  onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>Log Out</button>-->
-                  
-              </div>
-            </div>
+            <!--INCLUDE sideNav.HTML USING JQUERY-->  
+            <div id="sideNav"></div>
+
             <div class="main col-md-9">
 				<div id="main">
 					<h1 id="title">Guide Title</h1>
@@ -209,96 +38,12 @@
 				
     </div>
 
-    <!--Footer-->
-    <footer class="page-footer font-small">
-    
-            <!--Footer Links-->
-            <div class="container mt-5 mb-4 text-center text-md-left">
-                <div class="row mt-3">
-        
-                    <!--First column-->
-                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4 dark-grey-text">
-                        <h4 class="text-uppercase font-weight-bold">
-                            <strong>DIY TOUR</strong>
-                        </h4>
-                        
-                        <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
-                            amet, consectetur adipisicing elit.</p>
-                    </div>
-                    <!--/.First column-->
-        
-                    <!--Second column-->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <strong>Regions</strong>
-                        </h6>
-    
-                        <p>
-                            <a href="#!" class="dark-grey-text">Africa</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="dark-grey-text">Asia</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="dark-grey-text">Europe</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="dark-grey-text">Oceania</a>
-                        </p>
-                    </div>
-                    <!--/.Second column-->
-        
-                    <!--Third column-->
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 dark-grey-text">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <strong>Useful links</strong>
-                        </h6>
-                        
-                        <p>
-                            <a href="#!" class="dark-grey-text">Your Account</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="dark-grey-text">Shipping Rates</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="dark-grey-text">Help</a>
-                        </p>
-                    </div>
-                    <!--/.Third column-->
-        
-                    <!--Fourth column-->
-                    <div class="col-md-4 col-lg-3 col-xl-3 dark-grey-text">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <strong>Contact</strong>
-                        </h6>
-                        
-                        <p>
-                            <i class="fa fa-home mr-3"></i> Brisbane, 4122, AUS</p>
-                        <p>
-                            <i class="fa fa-envelope mr-3"></i> info@diytour.com</p>
-                        <p>
-                            <i class="fa fa-phone mr-3"></i> + 61 234 567 88</p>
-                        <p>
-                            <i class="fa fa-print mr-3"></i> + 61 234 567 89</p>
-                    </div>
-                  
-        
-                </div>
-            </div>
-          
-    </footer> 
-    <!--/.Footer-->
-       
-    <!-- Copyright-->
-    <div class="copyright">
-                    
-            <div class="row text-center">
-                <p>Copyright © 2018 All rights reserved</p>
-            </div>
-            
-                    
-    </div>
-    <!--/.Copyright -->
+     <!--INCLUDE footer.HTML USING JQUERY-->   
+     <div id="footer"></div>
+   
+     <div id="copyright"></div>
+     
+   
         
     
   
@@ -316,6 +61,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
 	<script type="text/javascript" src="javascript/retrieveGuide.js"></script>
-
+    <script type="text/javascript" src="javascript/loadHtml.js"></script>
 </body>
 </html>
