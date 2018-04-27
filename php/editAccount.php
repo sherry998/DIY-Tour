@@ -8,7 +8,9 @@
 	}
 	
 	if (isset($_POST['callGetAccountInfo'])) {
-        getAccountInfo($mysqli);
+		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+			echo (getAccountInfo($_SESSION['id'],$mysqli));
+		}
     }
 	
 	if (isset($_POST['callUpdateAccount'])) {
@@ -29,13 +31,11 @@
     }
 	
 	
-	function getAccountInfo($mysqli){
-		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = ".$_SESSION['id']);
-			if(mysqli_num_rows($query)==1){
-				echo json_encode(mysqli_fetch_assoc($query));
+	function getAccountInfo($id,$mysqli){
+		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = ".$id);
+		if(mysqli_num_rows($query)==1){
+			return json_encode(mysqli_fetch_assoc($query));
 		}
-	}
 	}
 	
 	function checkAccountPassword($currentPsw, $mysqli){

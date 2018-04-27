@@ -14,16 +14,56 @@
     <div id="header"></div>
 	<div class="container">
             <!--INCLUDE sideNav.HTML USING JQUERY-->  
-            <div id="sideNav"></div>
+            <div class="side col-md-3">
 
+                    <div class="profile-userimg">
+                      <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+                    </div>
+                    <div class="profile-user">
+                      <div class="profile-username">
+                                      Vel KumarP
+                              </div>
+                              <div class="profile-usertitle">
+                                      Travel Master
+                              </div>
+                      <div class="centered-text" id="">
+                        <i class="glyphicon glyphicon-map-marker"></i>
+                        <span id="userRegion">Brisbane, Australia</span>
+                      </div>
+                      <div class="profile-usersummary">
+                        <i class="glyphicon glyphicon-plane"></i>
+                        <span id="userSummary">I love travel around the world.</span>
+                      </div>
+                      <hr>
+                      <div class="profile-user-travel">
+                        <div class="column">
+                          <p>15</p>
+                          <p>Posts</p>
+                        </div>
+                        <div class="column">
+                          <p>8</p>
+                          <p>Travels</p>                            
+                        </div>                        
+                      </div>
+                      
+                    </div>
+                   
+                    <div id="side-day-guide">
+						<ul id="link">
+							<li><a href="#summary">Summary</a></li>
+						</ul>
+					</div>
+			</div>
+			
             <div class="main col-md-9">
+				<div id = "message"></div>
 				<div id="main">
 					<h1 id="title">Guide Title</h1>
 					<hr class="featurette-divider">
-					<p id="location">Location:</p>
-					<p id="date">Date:</p>
-					<p id="people">People:</p>
-					<p id="budget">Budget:</p>
+					<p id="location">Location: </p>
+					<p id="date">Date: </p>
+					<p id="people">People: </p>
+					<p id="budget">Budget: </p>
 					<p id="summary">Summary....</p>
 				</div>
 				
@@ -59,8 +99,8 @@
 	<script>window.jQuery || document.write('<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="javascript/loadHtml.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
 	<script type="text/javascript" src="javascript/retrieveGuide.js"></script>
-    <script type="text/javascript" src="javascript/loadHtml.js"></script>
 </body>
 </html>
