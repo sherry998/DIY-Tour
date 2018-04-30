@@ -137,6 +137,19 @@ footer{
 }
 /***** END of footer*******/
 
+/***** Create A New Guide *******/
+.new-title{
+	width:auto;!important
+}
+
+.create-btn{
+margin-right:6px;
+}
+
+/***** END of Create A New Guide *******/
+
+
+
 
 /******* my profile css****************/
 #profileDrop{

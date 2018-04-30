@@ -17,10 +17,10 @@ function duplicate() {
     clone.id = "day" + ++num;
 	dayList.push(clone.id);
     day.appendChild(clone);
-	$('#'+clone.id).children("h2").text("Day " + num);
+	$('#'+clone.id).children("h3").children("b").text("Day " + num);
 	// clean value
-	$('#'+clone.id).children("input").val("");
-	$('#'+clone.id).children("textarea").val("");
+	$('#'+clone.id).children(".form-inline").children("input").val("");
+	$('#'+clone.id).children(".form-group").children("textarea").val("");
 }
 
 //https://stackoverflow.com/questions/15420558/jquery-click-event-not-working-after-append-method
@@ -35,7 +35,7 @@ $('#dayContainer').on('click', '.delete',function(){
 function updateDayInfo(){
 	//console.log("run");
 	for (var i=0;i<dayList.length;i++){
-		$('#'+dayList[i]).children("h2").text("Day " + (i+1));
+		$('#'+dayList[i]).children("h3").text("Day " + (i+1));
 		$('#'+dayList[i]).attr('id', "day"+ (i+1));
 		dayList[i] = "day"+ (i+1);
 	}
