@@ -290,3 +290,12 @@ footer{
 	padding: 2px;
 }
 
+.searchResult {
+	border-style: solid;
+    border-width: 1px;
+	border-color: #D3D3D3;
+	padding: 5px;
+	display: none;
+	margin-bottom: 20px;
+}
+

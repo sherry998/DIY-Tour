@@ -13,8 +13,12 @@
         getGuideInfo($data[0],$data[1],$mysqli);
     }
 	
+	if (isset($_POST['callsearchGuide'])) {
+        searchGuide($_POST['callsearchGuide'],$mysqli);
+    }
+	
 	function getGuideInfo($id, $title, $mysqli){
-		$guideQuery = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  guideName = '$title' AND guideId =" . $id);
+		$guideQuery = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  guideName = '$title' AND guideId =".$id);
 		$dayQuery = mysqli_query($mysqli,"SELECT * FROM day WHERE guideId = ".$id);
 		
 		if(mysqli_num_rows($guideQuery)==1 && mysqli_num_rows($dayQuery)>=1){
@@ -32,6 +36,24 @@
 			$userInfo = json_decode(getAccountInfo($userId,$mysqli),true);
 			$guideJson["username"] = $userInfo['username'];
 			echo json_encode($guideJson);
+		} else {
+			echo json_encode("");
+		}
+	}
+	
+	function searchGuide ($keyword, $mysqli){
+		$searchResult = array();
+		$query = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE guideName LIKE '%".$keyword."%' OR country LIKE '%".$keyword."%' OR EXISTS 
+		( SELECT * FROM account WHERE travelguide.userId = account.userId AND username LIKE '%".$keyword."%')");
+		if(mysqli_num_rows($query)>=1){
+			 while($row = $query->fetch_assoc()) {
+				$userInfo = json_decode(getAccountInfo($row["userId"],$mysqli),true);
+				$row ["username"] = $userInfo['username'];
+				array_push($searchResult, $row);
+			 }
+			echo json_encode($searchResult);
+		} else {
+			echo "?";
 		}
 	}
 	

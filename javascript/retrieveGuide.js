@@ -37,11 +37,14 @@ $(document).ready(function() {
 					
 				}
 				createSideDayLink(dayCount);
+			} else {
+				console.log("no data matched");
 			}
 		},
-		error: function(data){
+		error: function(req, status, err){
 			console.log("error");
-			console.log(data);
+			//console.log(data);
+			console.log('Something went wrong', status, err);
 			$( "#message" ).addClass( "messageFail" );
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}

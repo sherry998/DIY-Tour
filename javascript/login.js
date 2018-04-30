@@ -63,3 +63,9 @@ function logout(){
 	
 	});	
 }
+
+function search(){
+	var search = $('#searchBar').val();
+	console.log(search);
+	window.location.href="searchGuide?keyword=" + search;
+}
