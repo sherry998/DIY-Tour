@@ -22,8 +22,10 @@
 				<div id="message">
                 
 						
-				</div>
-                    <h1> Create new guide </h1>
+				</div><span>
+                    <h1> Edit guide </h1>
+					<button type="button" id="addGuide" class="  btn btn-success" onclick="location.href='createNewGuide.html';">Add new guide</button>
+					</span>
                     <hr class="featurette-divider">
                     <div class="form-horizontal form-group">
                         <div class="form-group row">
@@ -112,7 +114,7 @@
                    
                         <hr>
                         <div class="update-btn pull-right">
-                            <button type="button" id="update" class=" btn btn-success" onclick="checkGuideInput()">Add new guide</button>
+                            <button type="button" id="update" class=" btn btn-success" onclick="checkGuideInput()">Update</button>
                             <button type="button" id="cancel" class=" btn btn-danger" onclick="location.href='createNewGuide.html';">Cancel</button>
 
 
@@ -138,6 +140,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="javascript/loadHtml.js"></script>
 	<script type="text/javascript" src="javascript/addGuide.js"></script>
+	<script type="text/javascript" src="javascript/retrieveGuide.js"></script>
     <script type="text/javascript" src="javascript/login.js"></script>
     
 </body>

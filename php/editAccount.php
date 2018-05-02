@@ -10,6 +10,8 @@
 	if (isset($_POST['callGetAccountInfo'])) {
 		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
 			echo (getAccountInfo($_SESSION['id'],$mysqli));
+		} else {
+			echo json_encode("{}");
 		}
     }
 	

@@ -10,20 +10,25 @@
        createGuide($_POST['callCreateGuide'],$mysqli);
     }
 	
+	if (isset($_POST['callUpdateGuide'])) {
+       updateGuide($_POST['callUpdateGuide'],$mysqli);
+    }
+	
 	function createGuide($json,$mysqli){
-		$guide = json_decode($json);
-		$title = $guide->title;
+		$guide= json_decode($json);
+		$title= $guide->title;
 		$loc = $guide->location;
 		$date = $guide->date;
-		$people = $guide->people;
-		$budget = $guide->budget;
-		$summary = $guide->summary;
-		$dayTitle = $guide->dayTitle;
-		$dayInfo = $guide->dayInfo;
+		$people= $guide->people;
+		$budget= $guide->budget;
+		$summary= $guide->summary;
+		$dayTitle= $guide->dayTitle;
+		$dayInfo= $guide->dayInfo;
 		
 		session_start();
 		$id = $_SESSION['id'];
-		$sqlInsertGuide = "INSERT INTO travelguide (userId, guideName, country, date, people, budget, overview) VALUES ('$id','$title','$loc','$date','$people','$budget','$summary')";
+		$sqlInsertGuide = "INSERT INTO travelguide (userId, guideName, country, date, people, budget, overview)".
+		"VALUES ('$id', '$title','$loc','$date', '$people', '$budget' , '$summary')";
 
 		if ($mysqli->query($sqlInsertGuide) === TRUE) {
 			$guideId = mysqli_insert_id($mysqli);
@@ -32,15 +37,74 @@
 		}else{
 			echo ( mysqli_error($mysqli));
 		}
+	}
+	
+	function updateGuide ($json,$mysqli){
+		$guide= json_decode($json);
+		$title= $guide->title;
+		$loc = $guide->location;
+		$date = $guide->date;
+		$people= $guide->people;
+		$budget= $guide->budget;
+		$summary= $guide->summary;
+		$dayTitle= $guide->dayTitle;
+		$dayInfo= $guide->dayInfo;
+		$guideId= $guide->id;
 		
+		session_start();
+		$id = $_SESSION['id'];
+		
+		$query = mysqli_query($mysqli,"UPDATE travelguide SET guideName = '$title'
+		,country = '$loc', date = '$date', people ='$people'
+		,budget = '$budget', overview = '$summary'
+		WHERE guideId = '$guideId' AND userId = '$id'");
+		
+		echo ("UPDATE travelguide SET guideName = '$title'
+		,country = '$loc', date = '$date', people ='$people'
+		,budget = '$budget', overview = '$summary'
+		WHERE guideId = '$guideId' AND userId = '$id'");
+		if ($query){
+			updateDay ($dayTitle,$dayInfo,$guideId,$mysqli);
+		}
+	}
+	
+	function updateDay($dayTitle,$dayInfo,$id,$mysqli){
+		$dayNum;
+		for ($i = 0; $i < count($dayTitle); $i++) {
+			$dayNum = $i+1;
+			$title = $dayTitle[$i];
+			$info =  $dayInfo[$i];
+			$query = mysqli_query($mysqli,"UPDATE day SET Title = '$title'
+			,description = '$info' WHERE dayNum = '$dayNum' AND guideId = '$id'");
+			$querySelect = mysqli_query($mysqli,"SELECT * FROM day WHERE dayNum = '$dayNum' AND guideId = '$id'");
+			if (mysqli_num_rows($querySelect)<1) {
+				echo $dayNum;
+				echo "add new";
+				$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$id','$title','$info','$dayNum')";
+				if ($mysqli->query($sql) === FALSE) {
+					echo "Error update your guide. Please try again later.";
+					break;
+				}
+			}
+		}
+		deleteDay ($dayNum,$id,$mysqli);
+		echo "Guide updated successfully";
+	}
+	
+	function deleteDay ($dayNum,$id,$mysqli){
+		$query = mysqli_query($mysqli,"DELETE FROM day WHERE guideId = '$id' AND dayNum >'$dayNum'");
+		if (!$query){
+			echo "Error creating new guide. Please try again later.";
+		}
 		
 	}
 	
 	function createDay($dayTitle,$dayInfo,$id,$mysqli){
 		for ($i = 0; $i < count($dayTitle); $i++) {
+			$dayNum = $i+1;
 			$title = $dayTitle[$i];
 			$info =  $dayInfo[$i];
-			$sql = "INSERT INTO day (guideId, title, description) VALUES ('$id','$title','$info')";
+			$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$id','$title','$info','$dayNum')";
 			if ($mysqli->query($sql) === FALSE) {
 				echo "Error creating new guide. Please try again later.";
 				break;
