@@ -19,10 +19,7 @@
 		$inputArray = explode(':', $_POST['callCheckAccount']);
         checkAccount($inputArray[0],$inputArray[1],$mysqli);
     }
-	
-	if (isset($_POST['callGetUsername'])) {
-        getUsername();
-    }
+
 	
 	if (isset($_POST['callAccountLogout'])) {
         accountLogout();
@@ -112,13 +109,6 @@
 		}else {
 			echo "This email doesn't seem be registered with DIY Tour";
 		}	
-	}
-	
-	function getUsername(){
-		session_start();
-		if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-			echo $_SESSION['username'];
-		}
 	}
 	
 	// https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php

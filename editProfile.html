@@ -52,6 +52,22 @@
 					</div>
                     <h1>Edit Profile</h1>
                     <hr class="featurette-divider">
+					
+					<h3><b>Profile Photo</b></h3>
+					<form id="imageForm" action="php/uploadImage.php"  method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+							<div class="profile-userimg" >
+                                <img src="profile_Image/default.png" id="editImage" 
+								class="img-responsive" alt="profile-img">
+                            </div>        
+                            <input id="uploadPhoto" style="margin-top:10px;"name="uploadPhoto" 
+							class="input-file" type="file"  size="25">
+							<button type="submit" id="uploadBtn" class=" btn btn-success">Save profile image</button>
+							<button type="button" id="cancelUpload" class=" btn btn-danger" onclick="revertImage()">Cancel</button>
+						</div>
+					</form>
+					
+					<h3><b>Basic Information</b></h3>
                     <form id="editForm">
                         <div class="form-group">
                             <label for="email">E-mail</label>
@@ -69,23 +85,16 @@
                             <label id="CountryLabel"></label>
                         </div>
                         <div class="form-group">
-                            <label for="country">Travel Title</label>
-                            <input type="text" name="travelTitle" id="TravelTitleEdit" class="form-control" placeholder="Travel Title" autocomplete="off">
-                            <label id="TravelTitleLabel"></label>
+                            <label for="about">Short sentence about you</label>
+                            <input type="text" name="about" id="AboutEdit" class="form-control" placeholder="About you" autocomplete="off">
+                            <label id="AboutLabel"></label>
                         </div>
-
-                        <div class="form-group">
-                            <label for="Upload photo">Upload photo</label>
-                            <input id="Upload photo" style="margin-top:10px;"name="Upload photo" class="input-file" type="file">
-                                                
-                        </div>
+					
                         <hr>
                         <div class="update-btn pull-right">
                             <button type="button" id="update" class=" btn btn-success" onclick="checkEditInput()">Update</button>
                             <button type="button" id="cancel" class=" btn btn-danger" onclick="location.href='profile.html';">Cancel</button>
                             <p>If you like to delete your account, <a href="#" onclick="openModal()">click here.</a></p>
-
-
                         </div>
                     </form>
                     
@@ -103,10 +112,9 @@
 	<script>window.jQuery || document.write('<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="javascript/login.js"></script>
 	<script type="text/javascript" src="javascript/loadHtml.js"></script>
 	<script type="text/javascript" src="javascript/editInfo.js"></script>
-	<script type="text/javascript" src="javascript/login.js"></script>
     <script type="text/javascript" src="javascript/checkInput.js"></script>
-   
 </body>
 </html>

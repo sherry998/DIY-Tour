@@ -77,7 +77,7 @@ function checkInput(){
 	}
 }	
 
-function checkEditInput(){;
+function checkEditInput(){
 	if (dict["EmailEdit"]==true && dict["UsernameEdit"]==true){
 		//console.log("run");
 		changeInfo();
@@ -88,9 +88,9 @@ function changeInfo(){
 	var emailInput = document.getElementById("EmailEdit").value;
 	var usernameInput = document.getElementById("UsernameEdit").value;
 	var countryInput = document.getElementById("CountryEdit").value;
-	var travelTInput = document.getElementById("TravelTitleEdit").value;
+	var aboutInput = document.getElementById("AboutEdit").value;
 	
-	var changeInput = emailInput + ":" + usernameInput + ":" + countryInput  + ":" + travelTInput;
+	var changeInput = emailInput + ":" + usernameInput + ":" + countryInput  + ":" + aboutInput;
 	
 	$.ajax({
 		url: 'php/editAccount.php',
@@ -99,7 +99,8 @@ function changeInfo(){
 		success: function(data){
 			document.getElementById("username").innerHTML = usernameInput;
 			$( "#message" ).addClass( "messageSucess" );
-			document.getElementById("message").innerHTML = "Update profile successfully."; 
+			document.getElementById("message").innerHTML = "Update profile successfully.";
+			location.reload();
 		},
 		error: function(data){
 			$( "#message" ).addClass( "messageFail" );

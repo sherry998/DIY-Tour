@@ -1,21 +1,76 @@
-$(document).ready(function() {
+var username;
+var travelT;
+var profileI;
+var country;
+var about;
+var count;
+
+function loadData(){
 	$.ajax({
-			url: 'php/createAccount.php',
+			url: 'php/editAccount.php',
 			type: 'post',
-			data: {"callGetUsername":""},
+			data: {"callGetAccountInfo":""},
+			dataType: 'json',
 		success: function(data){
-			if (data!== null && data !== ""){
+			if (data!= "{}" && data != ""){
 				$("#profileDrop").css("display", "block");
 				$("#logInDrop").css("display", "none");
-				document.getElementById("username").innerHTML = data;
+				username = data.username;
+				travelT = data.travelTitle;
+				profileI = data.profileImage;
+				country = data.country;
+				about = data.about;	
+				count = data.count;	
+				loadDropDown();	
+				loadSideNav();
 			}
-		},
+	},
 		error: function(data){
 			console.log("error");
 		}
 	
-	});	
-});
+	});
+}
+
+
+function loadDropDown(){
+		$("#profileDrop").css("display", "block");
+		$("#logInDrop").css("display", "none");
+		document.getElementById("username").innerHTML = username;
+		document.getElementById("usertitle").innerHTML = travelT;
+		document.getElementById("userimg").src=profileI;
+				
+		if (country!= null && country!= ""){
+			$("#originC").css("display", "block");
+			document.getElementById("userOrigin").innerHTML = country;
+		}
+				
+		if (about!= null && about!= ""){
+			$("#summaryC").css("display", "block");
+			document.getElementById("userSummary").innerHTML = about;
+		}
+}
+
+
+
+function loadSideNav(){
+	document.getElementById("profile-username").innerHTML = username;
+	document.getElementById("profile-usertitle").innerHTML = travelT;
+	document.getElementById("profile-img").src=profileI;
+	
+	if (country!= null && country!= ""){
+		$("#profile-userRegion").css("display", "block");
+		document.getElementById("userRegion").innerHTML = country;
+	}
+				
+	if (about!= null && about!= ""){
+		$("#profile-usersummary").css("display", "block");
+		document.getElementById("userAbout").innerHTML = about;
+	}
+	
+	document.getElementById("postCount").innerHTML = count;
+
+}
 	
 function checkLogin(){
 	var email = $('#email').val();

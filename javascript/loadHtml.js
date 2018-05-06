@@ -1,8 +1,8 @@
 $(document).ready(function(){ 
+	
   $.get("header.html", function(data) {
     $("#header").html(data);
   });
-  
   
   $.get("footer.html", function(data) {
     $("#footer").html(data);
@@ -15,6 +15,8 @@ $(document).ready(function(){
   $.get("sideNav.html", function(data) {
     $("#sideNav").html(data);
   });
+  
+  loadData();
 });
 
 

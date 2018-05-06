@@ -14,6 +14,7 @@
 			echo json_encode("{}");
 		}
     }
+
 	
 	if (isset($_POST['callUpdateAccount'])) {
 		$inputArray = explode(':', $_POST['callUpdateAccount']);
@@ -32,13 +33,16 @@
         changePassword($_POST['callChangePassword'],$mysqli);
     }
 	
-	
 	function getAccountInfo($id,$mysqli){
 		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = ".$id);
+		$queryCount = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE userId = ".$id);
 		if(mysqli_num_rows($query)==1){
-			return json_encode(mysqli_fetch_assoc($query));
+			$JSON = json_decode(json_encode(mysqli_fetch_assoc($query)),true);
+			$JSON["count"] = mysqli_num_rows($queryCount);
+			return json_encode($JSON);
 		}
 	}
+	
 	
 	function checkAccountPassword($currentPsw, $mysqli){
 		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
@@ -61,9 +65,9 @@
 		$query = mysqli_query($mysqli,"UPDATE account SET password = '$newpsw' WHERE userId =".$_SESSION['id']);
 	}
 	
-	function updateAccount($email,$username,$country, $travelTitle,$mysqli){
-		$query = mysqli_query($mysqli,"UPDATE account SET email = '$email', username = '$username', country = '$country', travelTitle = '$travelTitle'
-		WHERE userId =".$_SESSION['id']);
+	function updateAccount($email,$username,$country, $about,$mysqli){
+		$query = mysqli_query($mysqli,"UPDATE account SET email = '$email', username = '$username',
+		country = '$country', about = '$about' WHERE userId =".$_SESSION['id']);
 		
 		if ($query){
 			// update session username details
