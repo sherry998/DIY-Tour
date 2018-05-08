@@ -25,6 +25,9 @@
 				</div>
                     <h1> Create new guide </h1>
                     <hr class="featurette-divider">
+					
+					<form  action="php/createGuide.php" method="post" id="editForm" enctype='multipart/form-data' >
+					 
                     <div class="form-horizontal form-group">
                         <div class="form-group row">
                             <label class=" new-title col-sm-2 control-label" for="location">Title</label>     
@@ -33,7 +36,8 @@
                             </div> 
                         </div>  
                     </div>
-                    <form  class="" id="editForm" >
+					
+                   
 						<div id="simpleInfro" class="form-group">
 
                             <div class="from-group row">
@@ -63,7 +67,7 @@
                                 <div class="col-sm-6">
                                     <label for="people"><b>People</b></label>
                                 
-                                    <select class="form-control" id="guideType" >
+                                    <select class="form-control" id="guideType" name="type">
                                         <option value="individual">Individual</option>
                                         <option value="friends">Friends	</option>
                                         <option value="families">Family with children</option>
@@ -88,24 +92,30 @@
                         <div class="form-group">
                             <label for="summary"> <b>Summary</b></label>
                             <i class="glyphicon glyphicon-pencil"></i>
-							<textarea name="summary" cols="88" rows="3" placeholder="Your trip summary here..." id="guideSummary" class="form-control"></textarea>
+							<textarea name="overview" cols="88" rows="3" placeholder="Your trip summary here..." id="guideSummary" class="form-control"></textarea>
                         </div>
 						<hr>
 						<div id="dayContainer">
 							<div id="day1" class="form-group">
                                 <h3><b>Day 1</b></h3>
                                 <div class="form-inline">
-								    <input class="form-control"  type="text" name="title" placeholder="Title" style="width:50%;">
+								    <input class="form-control"  type="text" name="title1" placeholder="Title" style="width:50%;">
 								 
                                         <button type="button" name="deleteDay" class=" delete btn btn-danger pull-right" >Delete Day</button>
- 
-                                        <button type="button" name="addImage" class=" create-btn btn btn-success pull-right" onclick="">Add Images</button>
-                                </div>
+										<label for="image-upload" class="create-btn btn btn-success pull-right">
+											Add images
+											</label>
+											<input id="image-upload" name="image-upload1[]" type="file" style="display:none;" 
+											accept="image/x-png,image/gif,image/jpeg" multiple/>
+										
+								</div>
                                 <br>
                                 <div class="form-group">
-                                    <textarea name="summary" cols="88" rows="8" placeholder="Your day summary here..." class="form-control"></textarea>
+                                    <textarea name="summary1" cols="88" rows="8" placeholder="Your day summary here..." class="form-control"></textarea>
                                 </div>
-
+								<div id="preview1" class="imagePreview form-group">
+								
+								</div>
 							</div>
 						</div>
 						<button type="button" id="addDay" class="  btn btn-success" onclick="duplicate()">Add Another Day</button>

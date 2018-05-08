@@ -75,26 +75,19 @@ window.onclick = function(event) {
 }
 
 $("#uploadPhoto").change(function(){
-	var fileType = this.files[0]["type"];
-	var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
-	if ($.inArray(fileType, ValidImageTypes) < 0) {
-		// invalid file type code goes here.
-		$( "#message" ).addClass( "messageFail" );
-		document.getElementById("message").innerHTML = "Sorry, only JPG, JPEG, PNG & GIF files are allowed."; 
-		document.getElementById("uploadPhoto").value = "";
-		return;
-	}
 	
-	// https://stackoverflow.com/questions/16207575/how-to-preview-a-image-before-and-after-upload
-	var reader = new FileReader();
+	if ($("#uploadPhoto").val()!=null && $("#uploadPhoto").val()!=""){
+		// https://stackoverflow.com/questions/16207575/how-to-preview-a-image-before-and-after-upload
+		var reader = new FileReader();
 
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("editImage").src = e.target.result;
-    };
+		reader.onload = function (e) {
+			// get loaded data and render thumbnail.
+			document.getElementById("editImage").src = e.target.result;
+		};
 
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
+		// read the image file as a data URL.
+		reader.readAsDataURL(this.files[0]);
+	}
 });
 
 $('#imageForm').submit(function(e){

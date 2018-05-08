@@ -4,6 +4,7 @@ var profileI;
 var country;
 var about;
 var count;
+var pathname = window.location.pathname;
 
 function loadData(){
 	$.ajax({
@@ -22,7 +23,13 @@ function loadData(){
 				about = data.about;	
 				count = data.count;	
 				loadDropDown();	
-				loadSideNav();
+				if ($('#sideNav').length != 0){
+					loadSideNav();
+				}
+			} else {
+				if ($('#sideNav').length != 0){
+					window.location.href = "login.html";
+				}
 			}
 	},
 		error: function(data){
@@ -85,7 +92,11 @@ function checkLogin(){
 				data: {"callCheckAccount":input},
 			success: function(data){
 				if (data== "correct"){
-					window.location.href = 'profile.html';
+					if (pathname.includes("login")){
+						window.location.href = 'profile.html';
+					} else {
+						location.reload();
+					}
 				} else{
 					document.getElementById("errorLabel").innerHTML = data;
 				}
@@ -109,7 +120,11 @@ function logout(){
 			if (data!= null || data != ""){
 				$("#profileDrop").css("display", "none");
 				$("#logInDrop").css("display", "block");
-				window.location.href = 'index.html';
+				if ($('#sideNav').length != 0){
+					window.location.href = 'index.html';
+				} else {
+					location.reload();
+				}
 			}
 		},
 		error: function(data){

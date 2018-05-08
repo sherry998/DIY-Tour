@@ -1,5 +1,5 @@
 var day = document.getElementById('dayContainer');
-var originalDay = document.getElementById('day1');
+var originalDay;
 var dayCount;
 var title;
 var id;
@@ -9,9 +9,10 @@ $(document).ready(function() {
 	title = getURLParameter('title');
 	id = getURLParameter('id');
 	dataSend = id + ":" + title;
-	console.log(title);
-	console.log(id);
 	
+	originalDay = document.getElementById('day1');
+	console.log(originalDay);
+
 	$.ajax({
 			url: 'php/retrieveGuideInfo.php',
 			type: 'post',
@@ -74,6 +75,12 @@ function showGuide(data){
 		}
 			$("#day"+dayCount).children("h2").text("Day " + dayCount + ": " + data.day[dayCount].title);
 			$("#day"+dayCount).children("p").text(data.day[dayCount].description);
+			$("#day"+dayCount).children(".dayImages").empty();
+			
+			for(imageCount in data.day[dayCount].image){
+				$("#day"+dayCount).children(".dayImages")
+				.append('<img src="'+data.day[dayCount].image[imageCount]+'" style="width:100%; margin-bottom:20px;" />');
+			}
 					
 	}
 	createSideDayLink(dayCount);
@@ -127,6 +134,7 @@ function showEditGuide(data){
 			$("#day"+dayCount).children("h3").children("b").text("Day "+ dayCount);
 			$("#day"+dayCount).children(".form-inline").children("input").val(data.day[dayCount].title);
 			$("#day"+dayCount).children(".form-group").children("textarea").val(data.day[dayCount].description);
+			
 					
 	}
 	

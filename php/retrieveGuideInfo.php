@@ -27,9 +27,16 @@
 			$userId = $row["userId"];
 			$count=1;
 			while($dayRow = $dayQuery->fetch_assoc()) {
+				$dayId = $dayRow["dayId"];
+				$imageQuery = mysqli_query($mysqli,"SELECT * FROM image WHERE dayId = ".$dayId);
+				$imageArray = array ();
+				while($imageRow = $imageQuery->fetch_assoc()) {
+					array_push($imageArray,$imageRow["imageLink"]);
+				}
 				$guideJson["day"][$count] = array (
 					'title' => $dayRow["Title"],
-					'description' => $dayRow["description"]);
+					'description' => $dayRow["description"],
+					'image' => $imageArray);
 				$count++;
 			}
 			
@@ -40,6 +47,7 @@
 			echo json_encode("");
 		}
 	}
+
 	
 	function searchGuide ($keyword, $mysqli){
 		$searchResult = array();

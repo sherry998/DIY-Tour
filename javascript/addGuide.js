@@ -31,7 +31,14 @@ function duplicate() {
 	$('#'+clone.id).children("h3").children("b").text("Day " + num);
 	// clean value
 	$('#'+clone.id).children(".form-inline").children("input").val("");
+	$('#'+clone.id).children(".form-inline").children("input").attr("name", "title"+num);
 	$('#'+clone.id).children(".form-group").children("textarea").val("");
+	$('#'+clone.id).children(".form-group").children("textarea").attr("name", "summary"+num);
+	$('#'+clone.id).children(".form-inline").children(":file").attr("name", "image-upload"+num+"[]");
+	$('#'+clone.id).children(".form-inline").children(":file").attr("id", "image-upload"+num);
+	$('#'+clone.id).children(".form-inline").children("label").attr("for", "image-upload"+num);
+	$('#'+clone.id).children(".imagePreview").attr("id", "preview"+num);
+	$('#'+clone.id).children(".imagePreview").empty();
 }
 
 //https://stackoverflow.com/questions/15420558/jquery-click-event-not-working-after-append-method
@@ -73,6 +80,10 @@ function checkGuideInput(){
 		}
 	}
 	
+	$("#editForm").attr('action', 'php/createGuide.php?numDay='+num);
+	$("#editForm").submit();
+	
+	/*
 	console.log(valueArray);
 	if(createDayInfo()){
 		var pathname = window.location.pathname;
@@ -82,7 +93,7 @@ function checkGuideInput(){
 		} else if (pathname.includes("editGuide")){
 			updateGuide(guideId, valueArray[0],valueArray[1],valueArray[2],valueArray[3],valueArray[4],valueArray[5]);
 		}
-	}
+	}*/
 }
 
 function runCheck(value,inputType){
@@ -146,6 +157,7 @@ function createGuide(title, loc, date, people, budget, summary){
 	});	
 }
 
+
 function updateGuide(id,title, loc, date, people, budget, summary){
 	var guideInfo = {"id":id,"title":title, "location": loc, "date": date, "people" : people, "budget": budget,
 	"summary" : summary,"dayTitle":daytitleArray,"dayInfo": dayInfoArray}
@@ -179,6 +191,7 @@ function checkDay(value){
 	}
 }
 
+/*
 function createDayInfo(){
 	for (var i=0;i<dayList.length;i++){
 		var input = $('#'+dayList[i]).children(".form-inline").children("input").val();
@@ -192,4 +205,26 @@ function createDayInfo(){
 	}
 	return true;
 	
-}
+}*/
+
+$(document).on("change",'input[type="file"]', function(){
+	div = $(this).parent().parent().children(".imagePreview");
+	console.log(div.attr('id'));
+	div.empty();
+	console.log("run");
+	if (this.files) {
+            var filesAmount = this.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+	
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+					$('<div class="preview"></div>').appendTo("#"+div.attr('id'))
+					.css({'background-image':'url('+event.target.result+')'});
+                }
+
+                reader.readAsDataURL(this.files[i]);
+            }
+        }
+});

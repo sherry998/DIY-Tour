@@ -5,6 +5,10 @@
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
 	}
+		
+	if(isset($_GET['numDay'])){
+		createGuide ($_GET['numDay'], $mysqli);
+	}
 	
 	if (isset($_POST['callCreateGuide'])) {
        createGuide($_POST['callCreateGuide'],$mysqli);
@@ -14,16 +18,13 @@
        updateGuide($_POST['callUpdateGuide'],$mysqli);
     }
 	
-	function createGuide($json,$mysqli){
-		$guide= json_decode($json);
-		$title= $guide->title;
-		$loc = $guide->location;
-		$date = $guide->date;
-		$people= $guide->people;
-		$budget= $guide->budget;
-		$summary= $guide->summary;
-		$dayTitle= $guide->dayTitle;
-		$dayInfo= $guide->dayInfo;
+	function createGuide($num,$mysqli){
+		$title= $_POST['title'];
+		$loc = $_POST['location'];
+		$date = $_POST['bday'];
+		$people= $_POST['type'];
+		$budget= $_POST['budget'];
+		$summary= $_POST['overview'];
 		
 		session_start();
 		$id = $_SESSION['id'];
@@ -32,10 +33,54 @@
 
 		if ($mysqli->query($sqlInsertGuide) === TRUE) {
 			$guideId = mysqli_insert_id($mysqli);
-			createDay($dayTitle,$dayInfo,$guideId,$mysqli);
-			echo ($guideId);
+			//echo ($guideId);
 		}else{
 			echo ( mysqli_error($mysqli));
+			break;
+		}
+		
+		for ($i = 1; $i <= $num; $i++) {
+			$dtitle = $_POST['title'.$i];
+			$dinfo =  $_POST['summary'.$i];
+			
+			$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$guideId','$dtitle','$dinfo','$i')";
+			if ($mysqli->query($sql) === TRUE) {
+				$dayId = mysqli_insert_id($mysqli);
+				$countfiles = count((array_filter($_FILES['image-upload'.$i]['name']))); 
+				echo $countfiles;
+				for($j=0; $j<$countfiles; $j++){
+					$image =  $_FILES['image-upload'.$i];
+					
+					if (!addImage ($image,$dayId,$j,$mysqli)){
+						return;
+					}
+				}
+				header('Location: ../specificGuide.html?id='.$guideId.'&title='.$title);
+			}else{
+				echo ( mysqli_error($mysqli));
+				break;
+			}
+			
+
+		}
+	}
+	
+	function addImage($image,$id,$count,$mysqli){
+		$target_dir = "../guide_Image/";
+		$target_file = $target_dir . basename($image["name"][$count]);
+		
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	
+		$target_loc = "guide_Image/"."DayID".$id."_".$count.".".$imageFileType;
+		$query = mysqli_query($mysqli,"INSERT INTO image (imageLink,dayId) VALUES ('$target_loc','$id')");
+		
+		if ($query){
+			if (move_uploaded_file($image["tmp_name"][$count], "../".$target_loc)) {
+				return true;
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+				return false;
+			}
 		}
 	}
 	

@@ -1,22 +1,31 @@
 $(document).ready(function(){ 
 	
   $.get("header.html", function(data) {
-    $("#header").html(data);
+	  if ( $("#header")){
+		$("#header").html(data);
+	  }
   });
   
   $.get("footer.html", function(data) {
-    $("#footer").html(data);
+	  if ($("#footer")){
+		$("#footer").html(data);
+	  }
   });
   
   $.get("copyright.html", function(data) {
-    $("#copyright").html(data);
+	  if ($("#copyright")){
+		$("#copyright").html(data);
+	  }
   });
   
   $.get("sideNav.html", function(data) {
-    $("#sideNav").html(data);
+	  if ($("#sideNav")){
+		$("#sideNav").html(data);
+		loadData();
+	  }
   });
   
-  loadData();
+
 });
 
 

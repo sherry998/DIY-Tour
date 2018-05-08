@@ -13,14 +13,15 @@ $(document).ready(function() {
 			data: {"callsearchGuide":keyword},
 			dataType: 'json',
 		success: function(data){
+			console.log(data);
 			if (data!= null || data != ""){
-				console.log(data);
 				createResult(data);
 			} else {
 				$('#searchMessage').append( "<b>"+keyword+"</b>" );
 			}
 		},
 		error: function(data){
+			console.log(data);
 			$('#searchMessage').append( "<b>"+keyword+"</b>" );
 		}
 	
