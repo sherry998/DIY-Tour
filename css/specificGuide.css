@@ -1,0 +1,104 @@
+.guide-content {
+    margin-top: 30px;
+  }
+  
+  .guide-content ul li {
+    border-left: 3px solid #f0f0f0;
+  }
+  
+  
+  
+  .guide-content ul li a {
+    color: #78817d;
+    font-size: 14px;
+    font-weight: 600;
+    
+  }
+  
+  .guide-content ul li a i {
+    margin-right: 6px;
+    font-size: 14px;
+  }
+  
+  .guide-content ul li a:hover {
+    background-color: #fafcfd;
+    color:black;
+    border-left: 5px solid #f0f0f0;
+      
+  }
+
+
+  
+
+.subTitle{
+font-family: Chalkduster, fantasy;
+margin-bottom: 12px;
+}
+/** cus icons**/
+.cus- {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.cus--date {
+    width: 139px;
+    height: 152px;
+    background-position: -5px -5px;
+}
+
+.cus--location {
+    width: 91px;
+    height: 121px;
+    background-position: -5px -167px;
+}
+
+.cus--money {
+    width: 142px;
+    height: 79px;
+    background-position: -5px -298px;
+}
+.description{
+    font-family:Arial, sans-serif;
+    font-size:16px;
+}
+
+#dayContainer{
+    margin-bottom: 50px;
+}
+
+.rating .glyphicon {
+    font-size: 22px;
+}
+
+.rating-num {
+
+     font-size: 54px; 
+}
+
+.rSection{
+   
+    border-top: medium solid #F16E59;
+    color: black;
+    margin: 30px 0;
+}
+
+.rSection:after {
+    content:"Review";
+    display: inline-block;
+    position: relative;
+    top: -1em;
+    font-size: 24px;
+    font-weight: 800;
+    padding-right: 0.5em;
+    background: white;
+}
+
+.review-userimg img {
+    float: none;
+    margin: 0 auto;
+    width: 60%;
+    height: 60%;
+    border-radius: 50% !important;
+    box-shadow: 1px 1px 2px 2px #888888;
+}

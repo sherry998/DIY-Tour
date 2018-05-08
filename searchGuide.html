@@ -8,7 +8,8 @@
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom styles for our Website -->
-    <link href="css/main.css?ver=1.1" rel="stylesheet">
+	<link href="css/main.css?ver=1.1" rel="stylesheet">
+	<link href="css/searchGuide.css?ver=1.1" rel="stylesheet">
     <link href="css/modal.css?ver=1.1" rel="stylesheet">
 </head>
 <body>
@@ -57,10 +58,40 @@
 					</div>
 					
 					<div id ="resultContainer">
-						<div id="result" class ="searchResult">
-							<p><span class="writer">admin</span>|<span class="country">Australia</span> | <span class="type">Family</span> | <span class="date">1/1/2018</span> </p>
-							<a href="#"><h1>Best Trip in Brisbane</h1></a>
-							<p class="summary">....</p>
+						<div id="result" class ="row searchResult">
+							<div class="col-md-3">
+								<img src="" class="img-responsive" alt="guide-img">
+							</div>
+							<div class="col-md-9">
+									<div class="row ">
+											<div class= "col-md-3">
+											  <i class="glyphicon glyphicon-map-marker"></i>
+											  <span id="location">Location: </span>
+											</div>
+											<div class= "col-md-3">
+											  <i class="glyphicon glyphicon-calendar"></i>
+											  <span id="date">Date: </span>
+											</div>
+											<div class= "col-md-3">
+												<i class="glyphicon glyphicon-user"></i>
+											  <span id="people">People: </span>
+											</div>
+											<div class= "col-md-3">
+											  <i class="glyphicon glyphicon-usd"></i>
+											  <i class="cus- cus--date"></i>
+											  <span id="budget">Budget: </span>
+											</div> 
+									</div>
+							
+									<a href="#"><h3><b>Best Trip in Brisbane</h3></b></a>
+									<!--
+										<p><span class="writer">admin</span>|<span class="country">Australia</span> | <span class="type">Family</span> | <span class="date">1/1/2018</span> </p>
+										<a href="#"><h3>Best Trip in Brisbane</h3></a>
+									-->
+										<p class="summary">....</p>
+
+							</div>
+						
 						</div>
 					</div>
                     

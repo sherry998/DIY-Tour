@@ -9,10 +9,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom styles for our Website -->
     <link href="css/main.css?ver=1.1" rel="stylesheet">
+    <link href="css/specificGuide.css?ver=1.1" rel="stylesheet">
 </head>
 <body>
     <div id="header"></div>
-	<div class="container">
+	  <div class="container">
             <!--INCLUDE sideNav.HTML USING JQUERY-->  
             <div class="side col-md-3">
 
@@ -22,7 +23,7 @@
                     <div class="profile-user">
                       <div class="profile-username">
                                       Vel KumarP
-                              </div>
+                      </div>
                       <div class="centered-text" id="">
                         <i class="glyphicon glyphicon-map-marker"></i>
                         <span id="userRegion">Brisbane, Australia</span>
@@ -35,35 +36,105 @@
                       
                     </div>
                    
-                    <div id="side-day-guide">
-						<ul id="link">
-							<li><a href="#summary">Summary</a></li>
-						</ul>
-					</div>
-			</div>
+                    <div id="side-day-guide" class="guide-content">
+                      <h3><b>Content</b></h3>
+						          <ul id="link"class="nav">
+                        <li><a href="#summary">Summary</a></li>
+                        <li><a href="#day1">Day One</a></li>
+                        <li><a href="#day2">Day Two</a></li>
+                        <li><a href="#day3">Day Three</a></li>
+                        <li><a href="#day5">Day Five</a></li>
+						          </ul>
+					          </div>
+			      </div>
 			
             <div class="main col-md-9">
-				<div id = "message"></div>
-				<div id="main">
-					<h1 id="title">Guide Title</h1>
-					<button type="button" id="edit" class="  btn btn-success" onclick="openEdit()">Edit guide</button>   
-					<hr class="featurette-divider">
-					<p id="location">Location: </p>
-					<p id="date">Date: </p>
-					<p id="people">People: </p>
-					<p id="budget">Budget: </p>
-					<p id="summary">Summary....</p>
-				</div>
-				
-				<div id="dayContainer">
-					<div id="day1">
-						<h2>Day 1:</h2>
-						<p>Description</p>
-						<div class="dayImages">
-						</div>
-					</div>
-				</div>
+				      <div id = "message"></div>
+				      <div id="main">
+					      <h1 id="title">Guide Title</h1>
+					      <button type="button" id="edit" class="  btn btn-success" onclick="openEdit()">Edit guide</button>   
+                <hr class="featurette-divider">
+                <div class="ranking col-md-12">
+                  <p></p>
+                </div>
+                <div class="row ">
+                  <div class= "col-md-3">
+                    <i class="glyphicon glyphicon-map-marker"></i>
+                    <span id="location">Location: </span>
+                  </div>
+                  <div class= "col-md-3">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <span id="date">Date: </span>
+                  </div>
+                  <div class= "col-md-3">
+                      <i class="glyphicon glyphicon-user"></i>
+                    <span id="people">People: </span>
+                  </div>
+                  <div class= "col-md-3">
+                    <i class="glyphicon glyphicon-usd"></i>
+                    <span id="budget">Budget: </span>
+                  </div> 
+                </div>
+                <br>
+                <div class="guideSum">
+                  <p id="summary">Summary....</p>
+                </div>
+                <!-- 
+                <p id="location">Location: </p>
+					      <p id="date">Date: </p>
+					      <p id="people">People: </p>
+					      <p id="budget">Budget: </p>
+                <p id="summary">Summary....</p>
+                -->
+				      </div>
+              
+				      <div id="dayContainer">
+					      <div id="day1">
+                  <h3 class="subTitle">Day 1:</h3>
+                  
+                  <p class="description" >Description</p>
+                  
+                  <div class="dayImages">
+                  </div>      
+					      </div>
+              </div>
+              
+              <div class="reviewContainer ">
+               
+                <hr class="rSection">
+               
+                <!-- rating function -->
+                <div class="rating">      
+                
+                </div>
+                <!-- end of rating fuction-->
+                
+                
+                <div class="row">
+                    <div class="col-sm-3 review-userimg">
+                        <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+                    </div>
+                 
+
+                    <!-- review form-->
+                    <from class="col-sm-9 form-group">
+                      <div>
+                        <textarea class="form-control" placeholder="Write Your Review Here *" id="review"  rows="7"></textarea>
+    
+                      </div>
+                      <br>
+                      <div class="controls">
+                        <button id="review-submit" type="submit" class="btn btn-success  pull-right">Send</button>
+                      </div>
+                    </from> 
+                    <!-- end of review form-->
+
+                </div>
+              
+              </div>
+
             </div>
+
 			
 				
     </div>
