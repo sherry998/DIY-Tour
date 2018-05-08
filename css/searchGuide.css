@@ -5,7 +5,7 @@
 
 .searchResult {
 	padding: 5px;
-	display: block;
+	display: none;
 	margin-top: 20px;
 	border-radius: 2px 2px 2px 2px;
 	box-shadow: 0 10px 6px -6px #777;
