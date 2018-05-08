@@ -42,6 +42,9 @@
 			
 			$userInfo = json_decode(getAccountInfo($userId,$mysqli),true);
 			$guideJson["username"] = $userInfo['username'];
+			$guideJson["pImage"] = $userInfo['profileImage'];
+			$guideJson["about"] = $userInfo['about'];
+			$guideJson["pcountry"] = $userInfo['country'];
 			echo json_encode($guideJson);
 		} else {
 			echo json_encode("");

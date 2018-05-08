@@ -14,60 +14,33 @@
 <body>
     <div id="header"></div>
 	  <div class="container">
-            <!--INCLUDE sideNav.HTML USING JQUERY-->  
             <div class="side col-md-3">
 
                     <div class="profile-userimg">
-                      <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+                      <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img" id="profile-img">
                     </div>
                     <div class="profile-user">
                       <div class="profile-username">
                                       Vel KumarP
                       </div>
-                      <div class="centered-text" id="">
+                      <div class="centered-text" id="profile-userRegion" style="display:none;">
                         <i class="glyphicon glyphicon-map-marker"></i>
                         <span id="userRegion">Brisbane, Australia</span>
                       </div>
-                      <div class="profile-usersummary">
+                      <div id="profile-usersummary" style="display:none;">
                         <i class="glyphicon glyphicon-plane"></i>
                         <span id="userSummary">I love travel around the world.</span>
                       </div>
                       <hr>
                       
                     </div>
-                    <script type="text/javascript">  
-                      //onclick event for left content link 
-                          window.onload = function(){  
-                              var arr = document.getElementsByTagName('li');  
-                              for(var i = 0;i<arr.length;i++){  
-                                  arr[i].onclick = function(){      
-                                      //this is the actived link (是当前点击的链接   
-                                      if(this.className =='contentLink'){  
-                                          this.className ='contentLink2';  
-                                          var name = this.id;  
-                                          var title = document.getElementsByClassName('contentLink2');  
-                                          for(var j=0;j<title.length;j++){  
-                                              if(title[j].id!=name){
-                                                title[j].className ='contentLink';  
-                                              }  
-                                          }     
-                                      }  
-                                   }   
-                              }  
-                          }  
-                      </script>  
                    
                     <div id="side-day-guide" class="guide-content">
                       <h3><b>Content</b></h3>
 						          <ul id="link"class="nav">
-                        <li id = "1" class="contentLink2"><a href="#summary">Summary</a></li>
-                        <li id = "2" class="contentLink"><a href="#day1">Day One</a></li>
-                        <li id = "3" class="contentLink"><a href="#day2">Day Two</a></li>
-                        <li id = "4" class="contentLink"><a href="#day3">Day Three</a></li>
-                        <li id = "5" class="contentLink"><a href="#day5">Day Five</a></li>
+                        <li><a href="#summary" class="contentLink2">Summary</a></li>
 						          </ul>
-                    </div>
-                    
+					          </div>
 			      </div>
 			
             <div class="main col-md-9">
@@ -114,7 +87,10 @@
 					      <div id="day1">
                   <h3 class="subTitle">Day 1:</h3>
                   
-						      <p class="description" >Description</p>
+                  <p class="description" >Description</p>
+                  
+                  <div class="dayImages">
+                  </div>      
 					      </div>
               </div>
               
@@ -181,6 +157,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="javascript/loadHtml.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
-	<script type="text/javascript" src="javascript/retrieveGuide.js"></script>
+	<script type="text/javascript" src="javascript/retrieveGuide.js?version=3"></script>
 </body>
 </html>

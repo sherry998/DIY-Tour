@@ -41,12 +41,12 @@ function createResult(data){
 		clone.id = data[result].guideId;
 		$(clone).css("display","block");
 		results.appendChild(clone);
-		$("#"+clone.id).children("p").children(".writer").text(data[result].username);
-		$("#"+clone.id).children("p").children(".country").text(data[result].country);
-		$("#"+clone.id).children("p").children(".type").text(data[result].people);
-		$("#"+clone.id).children("p").children(".date").text(data[result].date);
-		$("#"+clone.id).children("a").children("h1").text(data[result].guideName);
-		$("#"+clone.id).children("a").attr("href", "specificGuide.html?id="+data[result].guideId+"&title="+data[result].guideName);
+		$("#"+clone.id).find(".writer").text(data[result].username);
+		$("#"+clone.id).find(".country").text(data[result].country);
+		$("#"+clone.id).find(".type").text(data[result].people);
+		$("#"+clone.id).find(".date").text(data[result].date);
+		$("#"+clone.id).children("a").children("h1").append(data[result].guideName);
+		$("#"+clone.id).children(".col-md-9").children("a").attr("href", "specificGuide.html?id="+data[result].guideId+"&title="+data[result].guideName);
 		$("#"+clone.id).children(".summary").text(data[result].overview);
 	}
 }

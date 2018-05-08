@@ -41,6 +41,8 @@ $(document).ready(function() {
 		}
 	});
 	
+	
+	
 });
 
 function getURLParameter(name) {
@@ -52,7 +54,7 @@ function getURLParameter(name) {
 function createSideDayLink (count){
 	for (var i=1; i<=count; i++){
 		$('#link').append(
-		$('<li>').append(
+		$('<li class="contentLink">').append(
 			$('<a>').attr('href','#day'+i).append("Day " + i)
 		));  
 	}
@@ -66,14 +68,27 @@ function showGuide(data){
 	$("#budget").append(data.budget);
 	$("#summary").text(data.overview);
 	$(".profile-username").text(data.username);
+	document.getElementById("profile-img").src=data.pImage;
+	
+	if (data.pcountry!= null && data.pcountry!= ""){
+		$("#profile-userRegion").css("display", "block");
+		document.getElementById("userRegion").innerHTML = data.pcountry;
+	}
 				
+	if (data.about!= null && data.about!= ""){
+		$("#profile-usersummary").css("display", "block");
+		document.getElementById("userSummary").innerHTML = data.about;
+	}
+	
+	
 	for(dayCount in data.day) {
 		if ($("#day"+dayCount).length == 0){
 			var clone = originalDay.cloneNode(true); 
 			clone.id = "day" + dayCount;
 			day.appendChild(clone);
 		}
-			$("#day"+dayCount).children("h2").text("Day " + dayCount + ": " + data.day[dayCount].title);
+			
+			$("#day"+dayCount).children(".subTitle").text("Day " + dayCount + ": " + data.day[dayCount].title);
 			$("#day"+dayCount).children("p").text(data.day[dayCount].description);
 			$("#day"+dayCount).children(".dayImages").empty();
 			
