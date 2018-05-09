@@ -1,37 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+
 .guide-content {
     margin-top: 30px;
   }
   
-  .contentLink  a {
+  /*.contentLink  a {
     color: #78817d;
     font-size: 14px;
     font-weight: 600;
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
 
-  }
+  }*/
 
-.contentLink2  a {
+/*.contentLink2  a {
     color: white;
     font-size: 14px;
     font-weight: 600;
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
 
-  }
+  }*/
   
 
   
 .contentLink {
     background-color: white;
     border-left: 5px solid #f0f0f0;
+    color: #78817d;
+    font-size: 14px;
+    font-weight: 600;
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
 }
+
 
 .contentLink2{
   background-color: #F16E59;
   border-top-right-radius:20px;
   border-bottom-right-radius:20px;
-
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
   border-left: 5px solid #f0f0f0;
 }
 
@@ -39,9 +50,11 @@
   
 
 .subTitle{
-font-family: Chalkduster, fantasy;
-margin-bottom: 12px;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 28px;
+	margin-bottom: 14px;
 }
+
 /** cus icons**/
 .cus- {
     background-image: url(spritesheet.png);
@@ -66,10 +79,12 @@ margin-bottom: 12px;
     height: 79px;
     background-position: -5px -298px;
 }
-.description{
+
+/*.description{
     font-family:Arial, sans-serif;
     font-size:16px;
 }
+*/
 
 #dayContainer{
     margin-bottom: 50px;

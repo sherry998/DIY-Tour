@@ -58,7 +58,7 @@
 			VALUES ('$email', '$uname', '$psw', '$hash')";  
 				
 		if ($mysqli->query($sql) === TRUE) {
-			echo "Welcome, please check your email: " .$email . " to activate your account";
+			echo "Please check your email: " .$email . " to activate your account";
 			sendEmail($uname,$email,$hash);
 		} else {
 			echo "Error: " . $sql . "<br>" . $mysqli->error;

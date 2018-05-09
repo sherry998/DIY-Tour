@@ -46,8 +46,8 @@
 						// We have a match, activate the account
 						$query = mysqli_query($mysqli,"UPDATE account SET activated='true' WHERE email='$email' AND hash='$hash' AND activated='false'");
 						echo $usname;
-						echo '<p style="
-						margin-top: 20px; color=">Your account has been activated, click the button below to open your account</p>';
+						echo '<p style=" margin-top: 20px; color=">Your account has been activated,</p>';
+						echo '<p>click the button below to open your account</p>';
 						echo '<a href="profile.html">';
 						echo '<button type="button" class="btn btn-success" style="
 						margin-top: 20px;">Go to my account</button>';
