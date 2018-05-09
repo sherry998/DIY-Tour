@@ -22,8 +22,21 @@
     border-bottom-right-radius:20px;
 
   }*/
-  
 
+ .sideBar{
+	 margin-top:80px;
+ }
+ 
+@media (min-width: 992px){ 
+.sideBar{
+	position:fixed;
+	
+}
+
+.guideContent{
+	margin-left:25%;
+}
+}
   
 .contentLink {
     background-color: white;
@@ -46,7 +59,14 @@
   border-left: 5px solid #f0f0f0;
 }
 
-
+.subTitle::before { 
+  display: block; 
+  content: " "; 
+  margin-top: -90px; 
+  height: 90px; 
+  visibility: hidden; 
+  pointer-events: none;
+}
   
 
 .subTitle{

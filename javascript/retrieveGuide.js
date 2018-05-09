@@ -3,6 +3,7 @@ var originalDay;
 var dayCount;
 var title;
 var id;
+var arr = document.getElementsByTagName('a');  
 
 $(document).ready(function() {
 	getURLParameter(window.location.href );
@@ -49,16 +50,30 @@ function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
 }
 
-
+function changeLink(thisLink){ 
+	console.log(thisLink);
+    if(thisLink.className =='contentLink'){  
+    thisLink.className ='contentLink2';  
+    var name = thisLink.id;  
+    var title = document.getElementsByClassName('contentLink2');  
+    for(var j=0;j<title.length;j++){  
+        if(title[j].id!=name){  
+            title[j].className ='contentLink';  
+        }  
+    }     
+	}   
+}
 
 function createSideDayLink (count){
 	for (var i=1; i<=count; i++){
 		$('#link').append(
 			$('<li>').append(
-				$('<a class="contentLink">').attr({'href':'#day'+i,'id':i}).append("Day " + i)
+				$('<a class="contentLink">').attr({'href':'#day'+i,'id':i, 'onclick':'changeLink(this)'}).append("Day " + i)
 		));  
 	}
 }
+
+
 
 function showGuide(data){
 	$("#title").text(data.guideName);

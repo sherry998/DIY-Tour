@@ -110,7 +110,8 @@ $('#imageForm').submit(function(e){
 			success: function(data){
 				console.log("sucess");
 				console.log(data);
-				document.getElementById("editImage").src=data;
+				document.getElementById("profile-img").src=data;
+				document.getElementById("userimg").src=data;
 				$("#message").removeClass();
 				$( "#message" ).addClass("messageSucess");
 				document.getElementById("message").innerHTML = "Profile image changed successfully!"; 
