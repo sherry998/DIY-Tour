@@ -9,7 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom styles for our Website -->
     <link href="css/main.css?ver=1.1" rel="stylesheet">
-    <link href="css/specificGuide.css?ver=1.1" rel="stylesheet">
+    <link href="css/specificGuide.css?ver=2.1" rel="stylesheet">
 </head>
 <body>
     <div id="header"></div>
@@ -34,12 +34,36 @@
                       <hr>
                       
                     </div>
-                   
+
+                    
                     <div id="side-day-guide" class="guide-content">
                       <h3><b>Content</b></h3>
-						          <ul id="link"class="nav">
-                        <li><a href="#summary" class="contentLink2">Summary</a></li>
-						          </ul>
+						            <ul id="link"class="nav">
+                                		<li><a href="#summary" id ="0" class="contentLink2">Summary</a></li>
+                                		<li><a href="#summary" id ="1" class="contentLink">Summary</a></li>
+                                		<li><a href="#summary" id ="2" class="contentLink">Summary</a></li>
+                      				
+                      					<script type="text/javascript">  
+                                  
+                        window.onload = function(){  
+                            var arr = document.getElementsByTagName('a');  
+                            for(var i = 0;i<arr.length;i++){  
+                                arr[i].onclick = function(){     
+                                    if(this.className =='contentLink'){  
+                                        this.className ='contentLink2';  
+                                        var name = this.id;  
+                                        var title = document.getElementsByClassName('contentLink2');  
+                                        for(var j=0;j<title.length;j++){  
+                                            if(title[j].id!=name){  
+                                                title[j].className ='contentLink';  
+                                            }  
+                                        }     
+                                    }  
+                                 }   
+                             }  
+                         }  
+                      </script>
+                    			    </ul>
 					          </div>
 			      </div>
 			
@@ -74,7 +98,7 @@
                 <div class="guideSum">
                   <p id="summary">Summary....</p>
                 </div>
-                <!-- 
+                <!--
                 <p id="location">Location: </p>
 					      <p id="date">Date: </p>
 					      <p id="people">People: </p>

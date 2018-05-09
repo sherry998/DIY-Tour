@@ -54,8 +54,8 @@ function getURLParameter(name) {
 function createSideDayLink (count){
 	for (var i=1; i<=count; i++){
 		$('#link').append(
-		$('<li class="contentLink">').append(
-			$('<a>').attr('href','#day'+i).append("Day " + i)
+			$('<li>').append(
+				$('<a class="contentLink">').attr({'href':'#day'+i,'id':i}).append("Day " + i)
 		));  
 	}
 }
