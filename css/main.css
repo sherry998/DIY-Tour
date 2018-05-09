@@ -295,8 +295,6 @@ margin-right:6px;
   
 }
 
-
-
 .main{
 	padding-left:8%;
 }
@@ -386,5 +384,10 @@ Reference :http://www.manongjc.com/article/2223.html
     background-position:center; 
 	margin:5px;
 	display: inline-block;
+}
+
+.right-main-btn{
+	margin-top: 22px;
+	margin-right: 10%;
 }
 

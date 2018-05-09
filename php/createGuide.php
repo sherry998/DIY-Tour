@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<img src="../img/Round Animated Loading Gif.gif" style=" width:20%; position: fixed;
+  top: 45%;
+  left: 53%;
+  transform: translate(-45%, -53%);"/>
+</body>
+</html>
+
 <?php
 	
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
@@ -9,10 +19,6 @@
 	if(isset($_GET['numDay'])){
 		createGuide ($_GET['numDay'], $mysqli);
 	}
-	
-	if (isset($_POST['callCreateGuide'])) {
-       createGuide($_POST['callCreateGuide'],$mysqli);
-    }
 	
 	if (isset($_POST['callUpdateGuide'])) {
        updateGuide($_POST['callUpdateGuide'],$mysqli);
@@ -39,6 +45,9 @@
 			break;
 		}
 		
+		$featureimage =  $_FILES['main-upload'];
+		createFeatureImage($featureimage,$mysqli,$guideId);
+		
 		for ($i = 1; $i <= $num; $i++) {
 			$dtitle = $_POST['title'.$i];
 			$dinfo =  $_POST['summary'.$i];
@@ -62,6 +71,25 @@
 			}
 			
 
+		}
+	}
+	
+	function createFeatureImage($image,$mysqli,$guideId){
+		$target_dir = "../guide_Image/";
+		$target_file = $target_dir . basename($image["name"]);
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		
+	
+		$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
+		$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = '$target_loc'
+		WHERE guideId =".$guideId);
+		
+		if ($query){
+			if (move_uploaded_file($image["tmp_name"], "../".$target_loc)) {
+				echo $target_loc;
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+			}
 		}
 	}
 	

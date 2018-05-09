@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 
 
-.guide-content {
-    margin-top: 30px;
-  }
   
   /*.contentLink  a {
     color: #78817d;
@@ -34,6 +31,7 @@
 }
 
 .guideContent{
+	 margin-top: 80px;
 	margin-left:25%;
 }
 }
@@ -124,6 +122,7 @@
     border-top: medium solid #F16E59;
     color: black;
     margin: 30px 0;
+	overflow: visible;
 }
 
 .rSection:after {

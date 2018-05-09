@@ -191,37 +191,25 @@ function checkDay(value){
 	}
 }
 
-/*
-function createDayInfo(){
-	for (var i=0;i<dayList.length;i++){
-		var input = $('#'+dayList[i]).children(".form-inline").children("input").val();
-		var textArea = $('#'+dayList[i]).children(".form-group").children("textarea").val();
-		if (checkDay(input) && checkDay(textArea)){
-			daytitleArray.push(input);
-			dayInfoArray.push(textArea);
-		} else {
-			return false;
-		}
-	}
-	return true;
-	
-}*/
-
 $(document).on("change",'input[type="file"]', function(){
 	div = $(this).parent().parent().children(".imagePreview");
-	console.log(div.attr('id'));
 	div.empty();
-	console.log("run");
+	id = $(this).attr('id');
 	if (this.files) {
             var filesAmount = this.files.length;
 
             for (i = 0; i < filesAmount; i++) {
 	
                 var reader = new FileReader();
-
+				
                 reader.onload = function(event) {
+					if ( id == "main-upload"){
+						console.log($("#feature-image"));
+						$("#feature-image").css({'background-image':'url('+event.target.result+')'});
+					} else if ( id == "image-upload"){
 					$('<div class="preview"></div>').appendTo("#"+div.attr('id'))
 					.css({'background-image':'url('+event.target.result+')'});
+				}
                 }
 
                 reader.readAsDataURL(this.files[i]);

@@ -24,10 +24,10 @@
 						
 				</div>
                     <h1> Create new guide </h1>
-                    <hr class="featurette-divider">
-					
 					<form  action="php/createGuide.php" method="post" id="editForm" enctype='multipart/form-data' >
-					 
+					
+					<hr class="featurette-divider">
+
                     <div class="form-horizontal form-group">
                         <div class="form-group row">
                             <label class=" new-title col-sm-2 control-label" for="location">Title</label>     
@@ -85,8 +85,10 @@
                                             <input class="form-control" type="number" name="budget" id="guideBudget" value= 0>
                                         </div>
                                 </div>
+											
                             </div>
-
+							
+											
                         </div>
                         
                         <div class="form-group">
@@ -94,7 +96,17 @@
                             <i class="glyphicon glyphicon-pencil"></i>
 							<textarea name="overview" cols="88" rows="3" placeholder="Your trip summary here..." id="guideSummary" class="form-control"></textarea>
                         </div>
-						<hr>
+						
+						<label for="main-upload" class="btn btn-success pull-right" >
+											Add featured image
+											</label>
+								<input id="main-upload" name="main-upload" type="file" style="display:none;" 
+											accept="image/x-png,image/gif,image/jpeg" />
+		 
+					<div id= "feature-image" style="width:70%;height:100px;  background-size: cover;"></div>
+						
+											
+						<hr style="margin-top:35px;">
 						<div id="dayContainer">
 							<div id="day1" class="form-group">
                                 <h3><b>Day 1</b></h3>

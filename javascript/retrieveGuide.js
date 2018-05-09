@@ -84,6 +84,9 @@ function showGuide(data){
 	$("#summary").text(data.overview);
 	$(".profile-username").text(data.username);
 	document.getElementById("profile-img").src=data.pImage;
+	if (data.featureImage!="guide_Image/NoPicAvailable.png"){
+	document.getElementById("feature-img").src=data.featureImage;
+	}
 	
 	if (data.pcountry!= null && data.pcountry!= ""){
 		$("#profile-userRegion").css("display", "block");
