@@ -1,25 +1,25 @@
 $(document).ready(function(){ 
 	
   $.get("header.html", function(data) {
-	  if ( $("#header")){
+	  if ( $("#header").length != 0){
 		$("#header").html(data);
 	  }
   });
   
   $.get("footer.html", function(data) {
-	  if ($("#footer")){
+	  if ($("#footer").length != 0){
 		$("#footer").html(data);
 	  }
   });
   
   $.get("copyright.html", function(data) {
-	  if ($("#copyright")){
+	  if ($("#copyright").length != 0){
 		$("#copyright").html(data);
 	  }
   });
   
   $.get("sideNav.html", function(data) {
-	  if ($("#sideNav")){
+	  if ($("#sideNav").length != 0){
 		$("#sideNav").html(data);
 		loadData();
 	  }
