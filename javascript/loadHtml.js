@@ -21,10 +21,10 @@ $(document).ready(function(){
   $.get("sideNav.html", function(data) {
 	  if ($("#sideNav").length != 0){
 		$("#sideNav").html(data);
-		loadData();
 	  }
   });
   
+  loadData();
 
 });
 
