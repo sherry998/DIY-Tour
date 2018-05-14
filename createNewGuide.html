@@ -102,9 +102,10 @@
 											</label>
 								<input id="main-upload" name="main-upload" type="file" style="display:none;" 
 											accept="image/x-png,image/gif,image/jpeg" />
-		 
-					<div id= "feature-image" style="width:70%;height:100px;  background-size: cover;"></div>
-						
+					<div class="img-wrap" style="width:70%;">
+						<span class="close" onclick="removeImage(this)">&times;</span>
+						<img id= "feature-image" style="width:100%;height:auto; "/>
+					</div>	
 											
 						<hr style="margin-top:35px;">
 						<div id="dayContainer">

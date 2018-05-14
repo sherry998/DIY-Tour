@@ -13,6 +13,7 @@ function loadData(){
 			data: {"callGetAccountInfo":""},
 			dataType: 'json',
 		success: function(data){
+			console.log(data);
 			if (data!= "{}" && data != ""){
 				$("#profileDrop").css("display", "block");
 				$("#logInDrop").css("display", "none");
@@ -34,6 +35,7 @@ function loadData(){
 	},
 		error: function(data){
 			console.log("error");
+			console.log(data);
 		}
 	
 	});

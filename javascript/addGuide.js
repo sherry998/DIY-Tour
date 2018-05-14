@@ -7,6 +7,7 @@ var dayInfoArray = [];
 var inputArray = ["guideTitle", "guideLocation","guideDate", "guideType", "guideBudget", "guideSummary"];
 var checkArray = ["guideTitle", "guideLocation","guideDate"];
 var guideId;
+var removedImage = [];
 	
 $(document).ready(function() {
 	dayList.push(originalDay.id);
@@ -79,21 +80,20 @@ function checkGuideInput(){
 			valueArray.push(value);
 		}
 	}
-	
-	$("#editForm").attr('action', 'php/createGuide.php?numDay='+num);
-	$("#editForm").submit();
-	
-	/*
-	console.log(valueArray);
-	if(createDayInfo()){
-		var pathname = window.location.pathname;
-		console.log(pathname);
+	var pathname = window.location.pathname;
 		if (pathname.includes("createNewGuide")){
-			createGuide(valueArray[0],valueArray[1],valueArray[2],valueArray[3],valueArray[4],valueArray[5]);
-		} else if (pathname.includes("editGuide")){
-			updateGuide(guideId, valueArray[0],valueArray[1],valueArray[2],valueArray[3],valueArray[4],valueArray[5]);
+			$("#editForm").attr('action', 'php/createGuide.php?numDay='+num);
+			$("#editForm").submit();
+		}else if (pathname.includes("editGuide")){
+			checkImage();
+			$("#editForm").attr('action', 'php/updateGuide.php?numDay='+num+"&id="+guideId);
+			$("#editForm").submit();
 		}
-	}*/
+}
+
+function checkImage(){
+	//if ()
+	
 }
 
 function runCheck(value,inputType){
@@ -192,6 +192,7 @@ function checkDay(value){
 }
 
 $(document).on("change",'input[type="file"]', function(){
+	
 	div = $(this).parent().parent().children(".imagePreview");
 	div.empty();
 	id = $(this).attr('id');
@@ -201,12 +202,16 @@ $(document).on("change",'input[type="file"]', function(){
             for (i = 0; i < filesAmount; i++) {
 	
                 var reader = new FileReader();
-				
                 reader.onload = function(event) {
 					if ( id == "main-upload"){
-						console.log($("#feature-image"));
-						$("#feature-image").css({'background-image':'url('+event.target.result+')'});
-					} else if ( id == "image-upload"){
+						if (event.target.result!=null){
+							$("#feature-image").attr({'src':event.target.result});
+							$(".img-wrap").children(".close").css({'display':'block'});
+						} else {
+							$("#feature-image").attr({'src':""});
+						}
+						
+					} else if ( id.includes("image-upload")){
 					$('<div class="preview"></div>').appendTo("#"+div.attr('id'))
 					.css({'background-image':'url('+event.target.result+')'});
 				}
@@ -216,3 +221,15 @@ $(document).on("change",'input[type="file"]', function(){
             }
         }
 });
+
+function removeImage(thisClose){
+	$(thisClose).css({'display':'none'});
+	if ($(thisClose).parent().find("img").length != 0){
+		$(thisClose).parent().find("img").attr({'src':""});
+		$("#main-upload").val("");
+	} else {
+		removedImage.push ($(thisClose).parent().find(".preview").attr('name'));
+		$(thisClose).parent().find(".preview").remove();
+		
+	}
+}

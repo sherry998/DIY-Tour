@@ -10,8 +10,7 @@ $(document).ready(function() {
 	title = getURLParameter('title');
 	id = getURLParameter('id');
 	dataSend = id + ":" + title;
-	
-	originalDay = document.getElementById('day1');
+
 	console.log(originalDay);
 
 	$.ajax({
@@ -24,9 +23,12 @@ $(document).ready(function() {
 			if (data!== null && data !== ""){
 				var pathname = window.location.pathname;
 				if(pathname.includes("specificGuide")){
+					originalDay = document.getElementById('day0');
 					showGuide(data);
 				} else if (pathname.includes("editGuide")){
+					originalDay = document.getElementById('day1');
 					showEditGuide(data);
+					
 				}
 				
 			} else {
@@ -42,7 +44,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	
+	//sliderInit();
 	
 });
 
@@ -100,24 +102,28 @@ function showGuide(data){
 	
 	
 	for(dayCount in data.day) {
-		if ($("#day"+dayCount).length == 0){
 			var clone = originalDay.cloneNode(true); 
 			clone.id = "day" + dayCount;
+			clone.id = "day" + dayCount;
 			day.appendChild(clone);
-		}
-			
+			clone.style.display = "block";
+
+			var slick = $("#day"+dayCount).find(".imgContainer");
+			console.log($("#day"+dayCount).find(".imgContainer"));
+			sliderInit(slick);
 			$("#day"+dayCount).children(".subTitle").text("Day " + dayCount + ": " + data.day[dayCount].title);
 			$("#day"+dayCount).children("p").text(data.day[dayCount].description);
 			$("#day"+dayCount).children(".dayImages").empty();
 			
 			for(imageCount in data.day[dayCount].image){
-				$("#day"+dayCount).children(".dayImages")
-				.append('<img src="'+data.day[dayCount].image[imageCount]+'" style="width:100%; margin-bottom:20px;" />');
+				$("#day"+dayCount).find(".imgContainer").slick('slickAdd','<div><img src="'+data.day[dayCount].image[imageCount]+'" class="sliderImage"/> </div>');
+				
 			}
 					
 	}
 	createSideDayLink(dayCount);
 	checkOwner(data.userId);
+	
 }
 
 function checkOwner(userId){
@@ -158,16 +164,42 @@ function showEditGuide(data){
 	$("#guideBudget").val(data.budget);
 	$("#guideSummary").val(data.overview);
 	
+	if (data.featureImage!="guide_Image/NoPicAvailable.png"){
+		$("#featureclose").css({'display':'block'});
+		document.getElementById("feature-image").src=data.featureImage;
+	}
+
 	for(dayCount in data.day){
 		if ($("#day"+dayCount).length == 0){
 			var clone = originalDay.cloneNode(true); 
 			clone.id = "day" + dayCount;
 			day.appendChild(clone);
 		}
+		
+		
 			$("#day"+dayCount).children("h3").children("b").text("Day "+ dayCount);
-			$("#day"+dayCount).children(".form-inline").children("input").val(data.day[dayCount].title);
+			$("#day"+dayCount).children(".form-inline").children("input[type=text]").val(data.day[dayCount].title);
+			$("#day"+dayCount).children(".form-inline").children("input[type=text]").attr("name", "title"+dayCount);
 			$("#day"+dayCount).children(".form-group").children("textarea").val(data.day[dayCount].description);
+			$("#day"+dayCount).children(".form-group").children("textarea").attr("name", "summary"+dayCount);
+			$("#day"+dayCount).children(".form-inline").children(":file").attr("name", "image-upload"+dayCount+"[]");
+			$("#day"+dayCount).children(".form-inline").children(":file").attr("id", "image-upload"+dayCount);
+			$("#day"+dayCount).children(".form-inline").children("label").attr("for", "image-upload"+dayCount);
+			$("#day"+dayCount).children(".imagePreview").attr("id", "preview"+dayCount);
+			$("#day"+dayCount).children(".imagePreview").empty();
+			$("#day"+dayCount).children(".originalreview").attr("id", "original"+dayCount);
+			$("#day"+dayCount).children(".originalreview").empty();
 			
+			for(imageCount in data.day[dayCount].image){
+				var parentContainer = $('<div class="img-wrap" > </div>');
+				var close = $('<span class="close" onclick="removeImage(this)">&times;</span>').css({'display':'block'});
+				var imageContainer = $('<div class="preview"></div>');
+				parentContainer.appendTo($("#day"+dayCount).find(".originalreview"));
+				close.appendTo(parentContainer);
+				imageContainer.appendTo(parentContainer).css({'background-image':'url('+data.day[dayCount].image[imageCount]+')'});
+				imageContainer.attr({'name':data.day[dayCount].image[imageCount]});
+				
+			}
 					
 	}
 	
@@ -175,8 +207,16 @@ function showEditGuide(data){
 	setNum($("#dayContainer").children('div[id^=day]').length);
 }
 
-
-
-function showCreatorInfo(name){
 	
+
+function sliderInit(slick){
+	slick.slick({
+		arrows: true,
+	  dots: true,
+	  infinite: false,
+	  speed: 300,
+	  slidesToShow: 2,
+	  slidesToScroll: 2,
+	
+	});
 }

@@ -395,3 +395,28 @@ Reference :http://www.manongjc.com/article/2223.html
 	margin-top: 80px;
 }
 
+.img-wrap {
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+}
+.img-wrap .close {
+	display:none;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 8px 5px 10px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.5;
+    text-align: center;
+    font-size: 30px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+.close:hover{
+    opacity: 0.8;
+}
