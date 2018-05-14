@@ -1,19 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
 #searchMessage{
     font-size:20px;
     font-weight: 800;
 }
 
+.side-t{
+	font-family: 'Oswald', sans-serif;
+	color: #F16E59;
+	margin-top:15px;
+	
+}
+.selection-t{
+	font-family: 'Oswald', sans-serif;
+	font-size:15px;
+	margin-top:10px;
+	margin-bottom:0px;
+}
+
+  
+.glyphicon-star{
+	color: #F16E59;
+}
 .searchResult {
 	padding: 5px;
 	display: none;
 	margin-top: 20px;
-	border-radius: 2px 2px 2px 2px;
-	box-shadow: 0 10px 6px -6px #777;
-	
+	border:none;
 	
 }
 
+
 .fImage{
-	height: 128px;
-width: 100%;
+	height: 136px;
+	width: 100%;
+	margin-right: 0px;
+}
+
+.guide-info{
+	border: 1.5px solid #E3E3E2;
+	padding: 10px;
+}
+
+.result-t{
+	font-family: 'Oswald', sans-serif;
+	font-size:30px;
+	color: grey;
 }
