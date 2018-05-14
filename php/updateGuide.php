@@ -27,27 +27,35 @@
 		$target_file = $target_dir . basename($image["name"]);
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 		
-	
-		$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
-		$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = '$target_loc'
-		WHERE guideId =".$guideId);
-		
-		if ($query){
-			if (move_uploaded_file($image["tmp_name"], "../".$target_loc)) {
-				echo $target_loc;
-			} else {
-				echo "Sorry, there was an error uploading your file.";
+		if(isset($_POST['feaureImageDelete'])){
+			
+			$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = 'guide_Image/NoPicAvailable.png'
+			WHERE guideId =".$guideId);
+			$image = "../". (string)$_POST['feaureImageDelete'];
+			echo($image);
+			unlink($image);
+		}else if ($_FILES['main-upload']['size'] != 0){
+			$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
+			$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = '$target_loc'
+			WHERE guideId =".$guideId);
+			
+			if ($query){
+				if (move_uploaded_file($image["tmp_name"], "../".$target_loc)) {
+					echo $target_loc;
+				} else {
+					echo "Sorry, there was an error uploading your file.";
+				}
 			}
 		}
 	}
 	
-	function addImage($image,$id,$count,$mysqli){
+	function addImage($image,$id,$count,$increase,$mysqli){
 		$target_dir = "../guide_Image/";
 		$target_file = $target_dir . basename($image["name"][$count]);
 		echo $image["name"][$count];
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 	
-		$target_loc = "guide_Image/"."DayID".$id."_".$count.".".$imageFileType;
+		$target_loc = "guide_Image/"."DayID".$id."_".($count+$increase).".".$imageFileType;
 		$query = mysqli_query($mysqli,"INSERT INTO image (imageLink,dayId) VALUES ('$target_loc','$id')");
 		
 		if ($query){
@@ -57,6 +65,18 @@
 				echo "Sorry, there was an error uploading your file.";
 				return false;
 			}
+		}
+	}
+	
+	function deleteImage($guideId, $mysqli){
+		$num = 0;
+		while (isset($_POST['image'.$num])&& $_POST['image'.$num]!="" && $_POST['image'.$num]!=null){
+			echo($_POST['image'.$num]);
+			$query = mysqli_query($mysqli,"DELETE FROM image WHERE imageLink ='".$_POST['image'.$num]."'");
+			echo "DELETE FROM image WHERE imageLink =".$_POST['image'.$num];
+			$image = "../".(string)$_POST['image'.$num];
+			unlink($image);
+			$num++;
 		}
 	}
 	
@@ -78,15 +98,16 @@
 		
 		$featureimage =  $_FILES['main-upload'];
 		changeFeatureImage($featureimage,$mysqli,$guideId);
+
+		deleteImage($guideId, $mysqli);
 		
 		for ($i = 1; $i <= $num; $i++) {
 			$dtitle = $_POST['title'.$i];
 			$dinfo =  $_POST['summary'.$i];
 			
 			$sql = "UPDATE day SET Title = '$dtitle'
-			,description = '$dinfo' WHERE dayNum = '$i' AND guideId = '$id'";
+			,description = '$dinfo' WHERE dayNum = '$i' AND guideId = '$guideId'";
 			$querySelect = mysqli_query($mysqli,"SELECT dayId FROM day WHERE dayNum = '$i' AND guideId = '$guideId'");
-echo "SELECT dayId FROM day WHERE dayNum = '$i' AND guideId = '$guideId'";
 			$dayId=mysqli_fetch_row($querySelect)[0];
 echo mysqli_num_rows($querySelect);
 			if (mysqli_num_rows($querySelect)<1) {
@@ -98,14 +119,18 @@ echo mysqli_num_rows($querySelect);
 					break;
 				}
 			}
-			deleteDay ($i,$id,$mysqli);
+			deleteDay ($i,$guideId,$mysqli);
 			if ($mysqli->query($sql) === TRUE) {
 				$countfiles = count((array_filter($_FILES['image-upload'.$i]['name']))); 
+				$result=mysqli_query($mysqli,"SELECT count(*) as total from image WHERE dayId = ".$dayId);
+				$data=mysqli_fetch_assoc($result);
+				echo $data['total'];
 				echo $countfiles;
 				for($j=0; $j<$countfiles; $j++){
 					$image =  $_FILES['image-upload'.$i];
 					
-					if (!addImage ($image,$dayId,$j,$mysqli)){
+
+					if (!addImage ($image,$dayId,$j,$data['total'],$mysqli)){
 						return;
 					}
 				}
@@ -144,8 +169,9 @@ echo mysqli_num_rows($querySelect);
 	
 	function deleteDay ($dayNum,$id,$mysqli){
 		$query = mysqli_query($mysqli,"DELETE FROM day WHERE guideId = '$id' AND dayNum >'$dayNum'");
+		echo "DELETE FROM day WHERE guideId = '$id' AND dayNum >'$dayNum'";
 		if (!$query){
-			echo "Error creating new guide. Please try again later.";
+			echo "Error creating new guide. Please try again later.?";
 		}
 		
 	}

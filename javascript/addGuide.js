@@ -87,12 +87,27 @@ function checkGuideInput(){
 		}else if (pathname.includes("editGuide")){
 			checkImage();
 			$("#editForm").attr('action', 'php/updateGuide.php?numDay='+num+"&id="+guideId);
+			console.log($("#editForm"));
 			$("#editForm").submit();
 		}
 }
 
 function checkImage(){
-	//if ()
+	if ($("#feature-image").attr("src")==""||$("#feature-image").attr("src")==null){
+		var inputFeature = $("<input>")
+               .attr("type", "hidden")
+               .attr("name", "feaureImageDelete").val(originalFeatureImage);
+		$('#editForm').append($(inputFeature));
+		
+	}
+	console.log(removedImage.length);
+	for (var i=0; i<removedImage.length; i++){
+		var inputImages = $("<input>")
+               .attr("type", "hidden")
+               .attr("name", "image"+i).val(removedImage[i]);
+		$('#editForm').append($(inputImages));
+	}
+
 	
 }
 
@@ -232,4 +247,5 @@ function removeImage(thisClose){
 		$(thisClose).parent().find(".preview").remove();
 		
 	}
+	console.log(originalFeatureImage);
 }

@@ -3,7 +3,8 @@ var originalDay;
 var dayCount;
 var title;
 var id;
-var arr = document.getElementsByTagName('a');  
+var arr = document.getElementsByTagName('a'); 
+var originalFeatureImage; 
 
 $(document).ready(function() {
 	getURLParameter(window.location.href );
@@ -44,7 +45,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	//sliderInit();
 	
 });
 
@@ -167,6 +167,8 @@ function showEditGuide(data){
 	if (data.featureImage!="guide_Image/NoPicAvailable.png"){
 		$("#featureclose").css({'display':'block'});
 		document.getElementById("feature-image").src=data.featureImage;
+		originalFeatureImage = data.featureImage;
+		console.log (originalFeatureImage);
 	}
 
 	for(dayCount in data.day){
