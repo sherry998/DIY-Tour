@@ -1,0 +1,170 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(https://fonts.googleapis.com/css?family=Permanent+Marker);
+
+
+.about-user{
+    margin-bottom: 80px;
+}
+.col-md-6{
+    margin-bottom: 10px;
+}
+
+.aboutSum  {
+	font-family: 'Permanent Marker', cursive;
+    color:black;
+    font-size:1.2em;
+	padding: 1em 1.5em 1em 2.5em;
+	position: relative;
+	line-height: 150%;
+	text-indent: 20px;
+}
+
+
+.aboutSum:before {
+	
+  	color: black;
+  	content: "\201C";
+  	font-size: 2.5em;
+  	position:absolute;
+  	left:-15px;
+  	top: 20px;
+  	line-height: 0.1em;
+  	padding:5px;
+}
+
+
+.aboutSum:after {
+
+    color: black;
+  	content: "\201D";
+ 	font-size: 2.5em;
+  	position:absolute;
+  	right:15px;
+  	bottom: 0em;
+  	line-height: 0.1em;
+  	padding:5px;
+  }
+
+#map {
+    height: 400px;
+    width: 100%;
+    margin-top: 30px;
+    margin-top: 30px;
+
+}
+.accordion {
+  width: 100%;
+  max-width: 1080px;
+  height: 350px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  margin-top: 30px;
+
+}
+
+.all-guide-list {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+.guide-list{
+  display: table-cell;
+  vertical-align: bottom;
+  position: relative;
+  width: 16.666%;
+  height: 350px;
+  /* background-repeat: no-repeat;
+  background-position: center center; */
+  transition: all 500ms ease;
+  background-size: cover;
+}
+
+.list-info {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.accordion ul li div a {
+  display: block;
+  height: 350px;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+  
+  padding: 15px 20px;
+  box-sizing: border-box;
+  color: #fff;
+  text-decoration: none;
+  font-family: Open Sans, sans-serif;
+  transition: all 200ms ease;
+}
+.accordion ul li div a * {
+  opacity: 0;
+  margin: 0;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+  transform: translateX(-20px);
+  transition: all 400ms ease;
+}
+
+.accordion ul li div a h2 {
+  font-family: Montserrat, sans-serif;
+  text-overflow: clip;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  top: 160px;
+}
+
+.accordion ul li div a p {
+  top: 160px;
+  font-size: 12px;
+  word-wrap:break-word;
+}
+
+.accordion ul li:nth-child(1) { background-image: url(../img/5.jpg); }
+
+.accordion ul li:nth-child(2) { background-image: url(../img/1.jpg); }
+
+.accordion ul li:nth-child(3) { background-image: url(../img/6.jpg); }
+
+.accordion ul li:nth-child(4) { background-image: url(../img/4.jpg); }
+
+.accordion ul li:nth-child(5) { background-image: url(../img/3.jpg); }
+
+
+.accordion ul:hover li { width: 8%; }
+
+.accordion ul:hover li:hover { width: 60%; }
+
+.accordion ul:hover li:hover a { background: rgba(0, 0, 0, 0.4); }
+
+.accordion ul:hover li:hover a * {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+ @media (max-width: 600px) {
+
+body { margin: 0; }
+
+.accordion { height: auto; }
+
+.accordion ul li,
+.accordion ul li:hover,
+.accordion ul:hover li,
+.accordion ul:hover li:hover {
+  position: relative;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  transition: none;
+}
+ }
