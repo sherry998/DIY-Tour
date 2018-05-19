@@ -27,13 +27,65 @@
 @media (min-width: 992px){ 
 .sideBar{
 	position:fixed;
+
+}
+
+@media (min-width: 992px){ 
+.guideContent{
+	margin-left: 25%;
 	
 }
 
 .guideContent{
-	 margin-top: 80px;
-	margin-left:25%;
+	margin-top: 80px;	
 }
+
+
+/******** blockquote mark */
+
+.guideSum {
+	border-left: 0.8em solid #e46c58;
+	font-family: 'Permanent Marker', cursive;
+	border-radius: 5px;
+    color:black;
+    font-size:1.2em;
+	padding: 1em 1.5em 1em 2.5em;
+	position: relative;
+	line-height: 120%;
+	text-indent: 20px;
+}
+
+
+.guideSum:before {
+	
+  	color: black;
+  	content: "\201C";
+  	font-size: 3em;
+  	position:absolute;
+  	left:-15px;
+  	top: 20px;
+  	line-height: 0.1em;
+  	padding:5px;
+}
+
+
+.guideSum:after {
+
+    color: black;
+  	content: "\201D";
+ 	font-size: 3em;
+  	position:absolute;
+  	right:15px;
+  	bottom: 0em;
+  	line-height: 0.1em;
+  	padding:5px;
+  }
+
+/************ END of block quote style ***********/ 
+
+
+.guide-type{
+	font-size: 12px;
 }
   
 .contentLink {
@@ -145,14 +197,15 @@
     box-shadow: 1px 1px 2px 2px #888888;
 }
 
-
 .sliderImage {
 	max-width: 100%;
 	height: 20rem;
 	padding: 5px;
 	object-fit:cover;
-}
+ }
+
 
 .slick-prev:before, .slick-next:before { 
     color:grey !important;
 }
+

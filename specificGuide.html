@@ -10,8 +10,8 @@
 	<link href="css/slick/slick.css?ver=1.1" rel="stylesheet">
 	<link href="css/slick/slick-theme.css?ver=1.1" rel="stylesheet">
 	<!-- Custom styles for our Website -->
-    <link href="css/main.css?ver=1.1" rel="stylesheet">
-    <link href="css/specificGuide.css?ver=2.1" rel="stylesheet">
+    <link href="css/main.css?ver=3" rel="stylesheet">
+    <link href="css/specificGuide.css?ver=3" rel="stylesheet">
 </head>
 <body>
     <div id="header"></div>
@@ -48,7 +48,7 @@
 					          </div>
 			      </div>
 			
-            <div class="guideContent main col-md-9">
+            <div class="guideContent main col-md-9" >
 				      <div id = "message"></div>
 				      <div id="main">
 					      <h1 id="title">Guide Title</h1>
@@ -59,25 +59,27 @@
                 </div>
                 <div class="row ">
                   <div class= "col-md-3">
-                    <i class="glyphicon glyphicon-map-marker"></i>
-                    <span id="location">Location: </span>
+                    <i class="glyphicon glyphicon-map-marker" style="color:#e46c58;"></i>
+                    <span class="guide-type" id="location"></span>
                   </div>
                   <div class= "col-md-3">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                    <span id="date">Date: </span>
+                    <i class="glyphicon glyphicon-calendar" style="color:#22B5AF;"></i>
+                    <span class="guide-type" id="date">Date: </span>
                   </div>
                   <div class= "col-md-3">
-                      <i class="glyphicon glyphicon-user"></i>
-                    <span id="people">People: </span>
+                      <i class="glyphicon  glyphicon-plane"  style="color:#5cb85c;"></i>
+                    <span class="guide-type" id="people">People: </span>
                   </div>
                   <div class= "col-md-3">
-                    <i class="glyphicon glyphicon-usd"></i>
-                    <span id="budget">Budget: </span>
+                    <i class="glyphicon glyphicon-usd"  style="color:#d1bc3e;"></i>
+                    <span class="guide-type" id="budget">Budget: </span>
                   </div> 
                 </div>
                 <br>
                 <div class="guideSum">
-                  <p id="summary">Summary....</p>
+                
+                  		<p id="summary">Summary....</p>
+                  
                 </div>
 				<img id="feature-img" style="width:100%"/>
 				
@@ -90,7 +92,7 @@
                   <p class="description" >Description</p>
                   
 				<div class="imgContainer">
-					<div>
+					<div class="sliderImaCon">
 						<img  src="http://placehold.it/200x150" alt="" class="sliderImage" />
 					</div>
 				
@@ -113,13 +115,13 @@
                 
                 
                 <div class="row">
-                    <div class="col-sm-3 review-userimg">
+                    <div class="col-sm-3 col-xs-3 review-userimg">
                         <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
                     </div>
                  
 
                     <!-- review form-->
-                    <from class="col-sm-9 form-group">
+                    <from class="col-sm-9 col-xs-9 form-group">
                       <div>
                         <textarea class="form-control" placeholder="Write Your Review Here *" id="review"  rows="7"></textarea>
     
@@ -167,6 +169,6 @@
 	
 	<script type="text/javascript" src="javascript/loadHtml.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
-	<script type="text/javascript" src="javascript/retrieveGuide.js?version=3"></script>
+	<script type="text/javascript" src="javascript/retrieveGuide.js?version=4"></script>
 </body>
 </html>
