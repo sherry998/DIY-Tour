@@ -20,6 +20,7 @@
 	function getGuideInfo($id, $title, $mysqli){
 		$guideQuery = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  guideName = '$title' AND guideId =".$id);
 		$dayQuery = mysqli_query($mysqli,"SELECT * FROM day WHERE guideId = ".$id);
+		$reviewQuery = mysqli_query($mysqli,"SELECT * FROM review WHERE guideID = ".$id);
 		
 		if(mysqli_num_rows($guideQuery)==1 && mysqli_num_rows($dayQuery)>=1){
 			$row = $guideQuery->fetch_assoc();
@@ -37,6 +38,17 @@
 					'title' => $dayRow["Title"],
 					'description' => $dayRow["description"],
 					'image' => $imageArray);
+				$count++;
+			}
+			
+			$reviewQuery = mysqli_query($mysqli,"SELECT * FROM review WHERE guideID = ".$id);
+			while($reviewRow = $reviewQuery->fetch_assoc()) {
+				$userInfo = json_decode(getAccountInfo($reviewRow["userId"],$mysqli),true);
+				$guideJson["review"][$count] = array (
+					'reviewer' => $userInfo['username'],
+					'date' => $reviewRow["date"],
+					'rating' => $reviewRow["rating"],
+					'paragraph' => $reviewRow["paragraph"]);
 				$count++;
 			}
 			

@@ -92,9 +92,7 @@
                   <p class="description" >Description</p>
                   
 				<div class="imgContainer">
-					<div class="sliderImaCon">
-						<img  src="http://placehold.it/200x150" alt="" class="sliderImage" />
-					</div>
+	
 				
 				</div>
 		
@@ -116,25 +114,39 @@
                 
                 <div class="row">
                     <div class="col-sm-3 col-xs-3 review-userimg">
-                        <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+                        <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img" id="review-img">
                     </div>
                  
 
                     <!-- review form-->
-                    <from class="col-sm-9 col-xs-9 form-group">
+                    <div id="reviewForm" class="col-sm-9 col-xs-9 form-group">
                       <div>
+						<input id="rating" type="text"/>
                         <textarea class="form-control" placeholder="Write Your Review Here *" id="review"  rows="7"></textarea>
     
                       </div>
                       <br>
                       <div class="controls">
-                        <button id="review-submit" type="submit" class="btn btn-success  pull-right">Send</button>
+                        <button id="review-submit" type="submit" class="btn btn-success  pull-right" onclick="submitReview()">Send</button>
                       </div>
-                    </from> 
+                    </div> 
                     <!-- end of review form-->
-
+					
+					
                 </div>
-              
+				
+				<div id="existingReview">
+					<div id="r0" class="row">
+						<div class="col-sm-3 col-xs-3 review-userimg">
+                        <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
+                    </div>
+						<p class="reviewer"></p>
+						<p class="rating"></p>
+						<p class="text"></p>
+					
+					</div>
+				</div>
+					
               </div>
 
             </div>
@@ -166,7 +178,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="css/slick/slick.min.js"></script>
-	
 	<script type="text/javascript" src="javascript/loadHtml.js"></script>
 	<script type="text/javascript" src="javascript/login.js"></script>
 	<script type="text/javascript" src="javascript/retrieveGuide.js?version=4"></script>

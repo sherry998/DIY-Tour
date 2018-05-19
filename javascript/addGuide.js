@@ -40,6 +40,7 @@ function duplicate() {
 	$('#'+clone.id).children(".form-inline").children("label").attr("for", "image-upload"+num);
 	$('#'+clone.id).children(".imagePreview").attr("id", "preview"+num);
 	$('#'+clone.id).children(".imagePreview").empty();
+	$('#'+clone.id).children(".originalreview").empty();
 }
 
 //https://stackoverflow.com/questions/15420558/jquery-click-event-not-working-after-append-method

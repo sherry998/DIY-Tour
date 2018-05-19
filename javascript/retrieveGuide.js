@@ -1,19 +1,19 @@
 var day = document.getElementById('dayContainer');
 var originalDay;
 var dayCount;
+var reviewCount = 0;
 var title;
 var id;
 var arr = document.getElementsByTagName('a'); 
 var originalFeatureImage; 
+var originalReview = document.getElementById('r0'); 
+var review = document.getElementById('existingReview'); 
 
-$(document).ready(function() {
+function loadGuide(){
 	getURLParameter(window.location.href );
 	title = getURLParameter('title');
 	id = getURLParameter('id');
 	dataSend = id + ":" + title;
-
-	console.log(originalDay);
-
 	$.ajax({
 			url: 'php/retrieveGuideInfo.php',
 			type: 'post',
@@ -44,9 +44,7 @@ $(document).ready(function() {
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
 	});
-	
-	
-});
+}
 
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
@@ -104,7 +102,6 @@ function showGuide(data){
 	for(dayCount in data.day) {
 			var clone = originalDay.cloneNode(true); 
 			clone.id = "day" + dayCount;
-			clone.id = "day" + dayCount;
 			day.appendChild(clone);
 			clone.style.display = "block";
 
@@ -121,6 +118,12 @@ function showGuide(data){
 			}
 					
 	}
+	
+	for(reviewCount in data.review) {
+		createReview(data.review[reviewCount].reviewer,data.review[reviewCount].date,data.review[reviewCount].rating,
+		data.review[reviewCount].paragraph)
+	}
+	
 	createSideDayLink(dayCount);
 	checkOwner(data.userId);
 	
@@ -210,7 +213,6 @@ function showEditGuide(data){
 }
 
 	
-
 function sliderInit(slick){
 	slick.slick({
 		arrows: true,
@@ -221,4 +223,50 @@ function sliderInit(slick){
 	  slidesToScroll: 2,
 	
 	});
+}
+
+function getReview(){
+	
+}
+
+function submitReview(){
+	var rating = $("#rating").val();
+	var reviewText = $("#review").val();
+	var date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+
+	var dataSend=rating+":"+reviewText+":"+id+":"+date;
+	console.log(dataSend);
+
+	$.ajax({
+			url: 'php/addReview.php',
+			type: 'post',
+			data: {"callAddReview":dataSend},
+		success: function(data){
+			console.log(data);
+			createReview(username,date,rating,reviewText);
+	
+		},
+		error: function(req, status, err){
+			console.log("error");
+			//console.log(data);
+			console.log('Something went wrong', status, err);
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
+		}
+	});
+}
+
+function createReview(username,date,rating,reviewText){
+	var clone = originalReview.cloneNode(true);
+			reviewCount+=1;
+			var reviewId = 	"r" + (reviewCount);
+			clone.id = reviewId;
+
+			review.insertBefore(clone,review.firstChild);
+			
+			$("#"+reviewId).find(".reviewer").text(username + " on " + date);
+			$("#"+reviewId).find(".rating").text(rating);
+			$("#"+reviewId).find(".text").text(reviewText);
+			$("#"+reviewId).find(".img-responsive").attr("src",profileI);
+			clone.style.display = "block";
 }

@@ -27,13 +27,19 @@
 		$target_file = $target_dir . basename($image["name"]);
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 		
-		if(isset($_POST['feaureImageDelete'])){
-			
+		if(isset($_POST['feaureImageDelete'])&& $_POST['feaureImageDelete']!=null){
 			$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = 'guide_Image/NoPicAvailable.png'
 			WHERE guideId =".$guideId);
 			$image = "../". (string)$_POST['feaureImageDelete'];
-			echo($image);
-			unlink($image);
+			if (file_exists($image)) 
+               {
+                 unlink($image);
+                  echo "File Successfully Delete."; 
+              }
+              else
+              {
+               echo "File does not exists"; 
+              }
 		}else if ($_FILES['main-upload']['size'] != 0){
 			$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
 			$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = '$target_loc'
@@ -119,52 +125,29 @@ echo mysqli_num_rows($querySelect);
 					break;
 				}
 			}
-			deleteDay ($i,$guideId,$mysqli);
+			
 			if ($mysqli->query($sql) === TRUE) {
 				$countfiles = count((array_filter($_FILES['image-upload'.$i]['name']))); 
 				$result=mysqli_query($mysqli,"SELECT count(*) as total from image WHERE dayId = ".$dayId);
 				$data=mysqli_fetch_assoc($result);
-				echo $data['total'];
-				echo $countfiles;
+				echo "_????_";
+				echo $i;
+				echo "_????_";
 				for($j=0; $j<$countfiles; $j++){
 					$image =  $_FILES['image-upload'.$i];
 					
-
-					if (!addImage ($image,$dayId,$j,$data['total'],$mysqli)){
+					if (!addImage ($image,$dayId,$j,$data['total']+1,$mysqli)){
 						return;
 					}
 				}
-				header('Location: ../specificGuide.html?id='.$guideId.'&title='.$title);
 			}else{
 				echo ( mysqli_error($mysqli));
 				break;
 			}
 			
-
 		}
-	}
-	
-	function updateDay($dayTitle,$dayInfo,$id,$mysqli){
-		$dayNum;
-		for ($i = 0; $i < count($dayTitle); $i++) {
-			$dayNum = $i+1;
-			$title = $dayTitle[$i];
-			$info =  $dayInfo[$i];
-			$query = mysqli_query($mysqli,"UPDATE day SET Title = '$title'
-			,description = '$info' WHERE dayNum = '$dayNum' AND guideId = '$id'");
-			$querySelect = mysqli_query($mysqli,"SELECT * FROM day WHERE dayNum = '$dayNum' AND guideId = '$id'");
-			if (mysqli_num_rows($querySelect)<1) {
-				echo $dayNum;
-				echo "add new";
-				$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$id','$title','$info','$dayNum')";
-				if ($mysqli->query($sql) === FALSE) {
-					echo "Error update your guide. Please try again later.";
-					break;
-				}
-			}
-		}
-		deleteDay ($dayNum,$id,$mysqli);
-		echo "Guide updated successfully";
+		deleteDay ($i,$guideId,$mysqli);
+		header('Location: ../specificGuide.html?id='.$guideId.'&title='.$title);
 	}
 	
 	function deleteDay ($dayNum,$id,$mysqli){

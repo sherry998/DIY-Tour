@@ -32,6 +32,12 @@ function loadData(){
 					window.location.href = "login.html";
 				}
 			}
+				
+			var pathname = window.location.pathname;
+			if(pathname.includes("specificGuide")){
+				console.log(profileI);
+				document.getElementById("review-img").src=profileI;
+			}
 	},
 		error: function(data){
 			console.log("error");
@@ -66,7 +72,8 @@ function loadSideNav(){
 	document.getElementById("profile-username").innerHTML = username;
 	document.getElementById("profile-usertitle").innerHTML = travelT;
 	document.getElementById("profile-img").src=profileI;
-	
+
+		
 	if (country!= null && country!= ""){
 		$("#profile-userRegion").css("display", "block");
 		document.getElementById("userRegion").innerHTML = country;

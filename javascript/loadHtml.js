@@ -24,8 +24,12 @@ $(document).ready(function(){
 	  }
   });
   
-  loadData();
-
+	loadData();
+	
+	var pathname = window.location.pathname;
+	if(pathname.includes("specificGuide")){
+		loadGuide();
+	}
 });
 
 

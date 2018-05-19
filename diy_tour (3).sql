@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2018 at 02:23 PM
+-- Generation Time: May 19, 2018 at 12:42 PM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.19
 
@@ -36,7 +36,7 @@ CREATE TABLE `account` (
   `activated` varchar(5) NOT NULL DEFAULT 'false',
   `profileImage` varchar(50) NOT NULL DEFAULT 'profile_Image/default.png',
   `travelTitle` varchar(50) NOT NULL DEFAULT 'Virtual traveler',
-  `about` text NOT NULL
+  `about` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -47,7 +47,9 @@ INSERT INTO `account` (`userId`, `email`, `username`, `password`, `country`, `ha
 (18, 'tinayao333@gmail.com', 'Tina', '4c3d4812131d941b6042c5e59037d685', 'Brisbane, Australia', '30bb3825e8f631cc6075c0f87bb4978c', 'true', 'profile_Image/profileImage18.png', 'Cultural explorer', ' I love travel around the world!'),
 (19, 'g@hotmail.com', 'admin', '4c3d4812131d941b6042c5e59037d685', NULL, '8b5040a8a5baf3e0e67386c2e3a9b903', 'false', 'profile_Image/default.png', 'Virtual traveler', ''),
 (20, 'juvia@hotmail.com', 'admin', '4c3d4812131d941b6042c5e59037d685', NULL, 'fc8001f834f6a5f0561080d134d53d29', 'false', 'profile_Image/default.png', 'Virtual traveler', ''),
-(22, 'Juvia333@hotmail.com', 'admin', '4c3d4812131d941b6042c5e59037d685', NULL, 'fa7cdfad1a5aaf8370ebeda47a1ff1c3', 'true', 'profile_Image/default.png', 'Gentle explorer', '');
+(22, 'Juvia333@hotmail.com', 'admin', '4c3d4812131d941b6042c5e59037d685', NULL, 'fa7cdfad1a5aaf8370ebeda47a1ff1c3', 'true', 'profile_Image/default.png', 'Gentle explorer', ''),
+(23, 'r@hotmail.com', 'admin', '4c3d4812131d941b6042c5e59037d685', NULL, '941e1aaaba585b952b62c14a3a175a61', 'true', 'profile_Image/default.png', 'Virtual traveler', NULL),
+(24, 't@hotmail.com', 'admin', '4c3d4812131d941b6042c5e59037d685', NULL, '55743cc0393b1cb4b8b37d09ae48d097', 'false', 'profile_Image/default.png', 'Virtual traveler', NULL);
 
 -- --------------------------------------------------------
 
@@ -69,9 +71,11 @@ CREATE TABLE `day` (
 
 INSERT INTO `day` (`dayId`, `guideId`, `dayNum`, `Title`, `description`) VALUES
 (1, 1, 1, 'City Trip', 'Take the CityCat all the way to the South Bank, where youâ€™ll find beautiful gardens, numerous food and drink options, oodles of culture, and even a beach. Culture vultures should head straight to the Cultural Center, which includes the Queensland Art Gallery and the Gallery of Modern Art. Thereâ€™s also the Queensland Museum in this area, plus the Queensland Performing Arts Center. If all that sounds like too much, set yourself down and relax on the man-made beach instead.'),
-(2, 1, 2, 'Mount Coot-tha Lookout', 'The journey up to the Mount Coot-tha Lookout is pleasant enough, but the sweeping views of the sprawling cityscape (and beyond on a clear day) will take your breath away.'),
-(13, 12, 1, 'sdf', 'sdf'),
-(14, 13, 1, 'sfd', 'sfs');
+(13, 12, 1, 'sdf', 'sdfsdsd'),
+(14, 13, 1, 'sfd', 'sfs'),
+(15, 14, 1, 'dsf', 'dsf'),
+(32, 12, 2, 'ad', 'dsf'),
+(46, 1, 2, 'Mount Coot-tha Lookout', 'The journey up to the Mount Coot-tha Lookout is pleasant enough, but the sweeping views of the sprawling cityscape (and beyond on a clear day) will take your breath away.');
 
 -- --------------------------------------------------------
 
@@ -90,9 +94,10 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`imageId`, `imageLink`, `dayId`) VALUES
-(1, 'guide_Image/DayID1_0.jpg', 1),
 (2, 'guide_Image/DayID1_1.jpg', 1),
-(3, 'guide_Image/DayID2_0.jpg', 2);
+(4, 'guide_Image/DayID15_0.jpg', 15),
+(5, 'guide_Image/DayID15_1.jpg', 15),
+(10, 'guide_Image/DayID1_2.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -105,8 +110,18 @@ CREATE TABLE `review` (
   `userId` int(8) NOT NULL,
   `rating` int(5) NOT NULL,
   `paragraph` text NOT NULL,
+  `date` date NOT NULL,
   `guideID` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`reviewId`, `userId`, `rating`, `paragraph`, `date`, `guideID`) VALUES
+(6, 18, 4, 'sfs', '2018-05-19', 1),
+(12, 18, 5, 'sdf', '2018-05-19', 1),
+(13, 18, 4, 'sdfsd', '2018-05-19', 1);
 
 -- --------------------------------------------------------
 
@@ -132,9 +147,10 @@ CREATE TABLE `travelguide` (
 --
 
 INSERT INTO `travelguide` (`guideId`, `userId`, `guideName`, `country`, `date`, `people`, `budget`, `overview`, `rating`, `featureImage`) VALUES
-(1, 18, '2 Days in Brisbane', 'Brisbane, Australia', '2018-05-02', 'families', 5000, 'With beautiful parks, fantastic food, and the stunning river that meanders through it, thereâ€™s more to Brisbane than work, play, and trips to the coast. Hereâ€™s your guide to spending three days in one of Australiaâ€™s most underrated cities.', 0, 'guide_Image/NoPicAvailable.png'),
-(12, 18, 'dsf', 'sdf', '2018-05-09', 'individual', 100, 'sdf', 0, 'guide_Image/GuideID12.png'),
-(13, 18, 'df', 'sdf', '2018-05-08', 'individual', 0, 'sdf', 0, 'guide_Image/GuideID13.png');
+(1, 18, '2 Days in Brisbane', 'Brisbane, Australia', '2018-05-02', 'families', 5000, 'With beautiful parks, fantastic food, and the stunning river that meanders through it, thereâ€™s more to Brisbane than work, play, and trips to the coast. Hereâ€™s your guide to spending three days in one of Australiaâ€™s most underrated cities.', 0, 'guide_Image/GuideID1.jpg'),
+(12, 18, 'dsf', 'sdf', '2018-05-09', 'individual', 100, 'sdf', 0, 'guide_Image/NoPicAvailable.png'),
+(13, 18, 'df', 'sdf', '2018-05-08', 'individual', 0, 'sdf', 0, 'guide_Image/NoPicAvailable.png'),
+(14, 18, 'fdf', 'sdf', '2018-05-10', 'individual', 0, 'ds', 0, 'guide_Image/GuideID14.png');
 
 --
 -- Indexes for dumped tables
@@ -167,8 +183,8 @@ ALTER TABLE `image`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`reviewId`),
-  ADD UNIQUE KEY `guideID` (`guideID`),
-  ADD KEY `Review_ibfk_1` (`userId`);
+  ADD KEY `Review_ibfk_1` (`userId`),
+  ADD KEY `guideID` (`guideID`) USING BTREE;
 
 --
 -- Indexes for table `travelguide`
@@ -185,27 +201,27 @@ ALTER TABLE `travelguide`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `userId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `userId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `day`
 --
 ALTER TABLE `day`
-  MODIFY `dayId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `dayId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `imageId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `imageId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `reviewId` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `reviewId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `travelguide`
 --
 ALTER TABLE `travelguide`
-  MODIFY `guideId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `guideId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- Constraints for dumped tables
 --
@@ -220,14 +236,14 @@ ALTER TABLE `day`
 -- Constraints for table `image`
 --
 ALTER TABLE `image`
-  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`);
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `review`
 --
 ALTER TABLE `review`
-  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `account` (`userId`),
-  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`guideID`) REFERENCES `travelguide` (`guideId`);
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `account` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`guideID`) REFERENCES `travelguide` (`guideId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `travelguide`
