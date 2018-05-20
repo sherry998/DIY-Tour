@@ -4,6 +4,8 @@ var profileI;
 var country;
 var about;
 var count;
+var rcount;
+var userId;
 var pathname = window.location.pathname;
 
 function loadData(){
@@ -23,6 +25,8 @@ function loadData(){
 				country = data.country;
 				about = data.about;	
 				count = data.count;	
+				rcount = data.rcount;
+				userId = data.userId;
 				loadDropDown();	
 				if ($('#sideNav').length != 0){
 					loadSideNav();
@@ -85,7 +89,7 @@ function loadSideNav(){
 	}
 	
 	document.getElementById("postCount").innerHTML = count;
-
+	document.getElementById("reviewCount").innerHTML = rcount;
 }
 	
 function checkLogin(){

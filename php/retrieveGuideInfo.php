@@ -41,10 +41,13 @@
 				$count++;
 			}
 			
+			$count=1;
 			$reviewQuery = mysqli_query($mysqli,"SELECT * FROM review WHERE guideID = ".$id);
 			while($reviewRow = $reviewQuery->fetch_assoc()) {
 				$userInfo = json_decode(getAccountInfo($reviewRow["userId"],$mysqli),true);
 				$guideJson["review"][$count] = array (
+					'reviewId' => $reviewRow['reviewId'],
+					'reviewerId' => $userInfo['userId'],
 					'reviewer' => $userInfo['username'],
 					'date' => $reviewRow["date"],
 					'rating' => $reviewRow["rating"],

@@ -53,7 +53,14 @@
 				      <div id="main">
 					      <h1 id="title">Guide Title</h1>
 					      <button type="button" id="edit" class="right-main-btn pull-right  btn btn-success" onclick="openEdit()">Edit guide</button>   
-                <hr class="featurette-divider">
+                <div id="guideRating">
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='1'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='2'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='3'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='4'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='5'></i>
+						</div>
+				<hr class="featurette-divider">
                 <div class="ranking col-md-12">
                   <p></p>
                 </div>
@@ -121,7 +128,13 @@
                     <!-- review form-->
                     <div id="reviewForm" class="col-sm-9 col-xs-9 form-group">
                       <div>
-						<input id="rating" type="text"/>
+						<div id="rating">
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='1'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='2'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='3'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='4'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='5'></i>
+						</div>
                         <textarea class="form-control" placeholder="Write Your Review Here *" id="review"  rows="7"></textarea>
     
                       </div>
@@ -140,8 +153,17 @@
 						<div class="col-sm-3 col-xs-3 review-userimg">
                         <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
                     </div>
+						<button type="button" name="deleteReview" class="deleteR btn btn-danger pull-right" 
+						onclick="deleteRe(this)">Delete</button>
+										
 						<p class="reviewer"></p>
-						<p class="rating"></p>
+						<div class="oldRating">
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='1'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='2'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='3'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='4'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='5'></i>
+						</div>
 						<p class="text"></p>
 					
 					</div>

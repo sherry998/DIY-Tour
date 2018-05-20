@@ -36,9 +36,11 @@
 	function getAccountInfo($id,$mysqli){
 		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = ".$id);
 		$queryCount = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE userId = ".$id);
+		$reviewCount = mysqli_query($mysqli,"SELECT * FROM review WHERE userId = ".$id);
 		if(mysqli_num_rows($query)==1){
 			$JSON = json_decode(json_encode(mysqli_fetch_assoc($query)),true);
 			$JSON["count"] = mysqli_num_rows($queryCount);
+			$JSON["rcount"] = mysqli_num_rows($reviewCount);
 			return json_encode($JSON);
 		}
 	}

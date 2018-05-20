@@ -8,6 +8,56 @@ var arr = document.getElementsByTagName('a');
 var originalFeatureImage; 
 var originalReview = document.getElementById('r0'); 
 var review = document.getElementById('existingReview'); 
+var onStar;
+var reviewJson;
+
+$(document).ready(function(){
+  //https://codepen.io/depy/pen/vEWWdw
+  /* 1. Visualizing things on Hover - See next part for action on click */
+  $('.ratingStar').on('mouseover', function(){
+	  
+    onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+   
+    // Now highlight all the stars that's not after the current hovered star
+    $(this).parent().children('.ratingStar').each(function(e){
+      if (e < onStar) {
+        $(this).addClass('star');
+      }
+      else {
+        $(this).removeClass('star');
+      }
+    });
+    
+  }).on('mouseout', function(){
+    $(this).parent().children('.ratingStar').each(function(e){
+      $(this).removeClass('star');
+    });
+  });
+  
+  
+  /* 2. Action to perform on click */
+  $('.ratingStar').on('click', function(){
+    onStar = parseInt($(this).data('value'), 10); // The star currently selected
+    var stars = $(this).parent().children('.ratingStar');
+    for (i = 0; i < stars.length; i++) {
+      $(stars[i]).removeClass('selected');
+    }
+    
+    for (i = 0; i < onStar; i++) {
+      $(stars[i]).addClass('selected');
+    }
+    
+  });
+  
+  
+});
+
+function updateRating(rating){
+		var stars = $("#guideRating").find('.ratingStar');
+			for (i = 0; i < rating; i++) {
+				$(stars[i]).addClass('selected');
+			}
+}
 
 function loadGuide(){
 	getURLParameter(window.location.href );
@@ -98,6 +148,7 @@ function showGuide(data){
 		document.getElementById("userSummary").innerHTML = data.about;
 	}
 	
+	updateRating(data.rating);
 	
 	for(dayCount in data.day) {
 			var clone = originalDay.cloneNode(true); 
@@ -118,10 +169,16 @@ function showGuide(data){
 			}
 					
 	}
+	console.log(data.review);
 	
-	for(reviewCount in data.review) {
-		createReview(data.review[reviewCount].reviewer,data.review[reviewCount].date,data.review[reviewCount].rating,
-		data.review[reviewCount].paragraph)
+	reviewJson = data.review;
+	for(reviewNum in data.review) {
+		var owner = false;
+		if (userId == data.review[reviewNum].reviewerId){
+			owner = true;
+		}
+		createReview(data.review[reviewNum].reviewer,data.review[reviewNum].reviewId,data.review[reviewNum].date,data.review[reviewNum].rating,
+		data.review[reviewNum].paragraph,owner)
 	}
 	
 	createSideDayLink(dayCount);
@@ -225,26 +282,21 @@ function sliderInit(slick){
 	});
 }
 
-function getReview(){
-	
-}
-
 function submitReview(){
-	var rating = $("#rating").val();
 	var reviewText = $("#review").val();
 	var date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 
-	var dataSend=rating+":"+reviewText+":"+id+":"+date;
-	console.log(dataSend);
+	var dataSend=onStar+":"+reviewText+":"+id+":"+date;
 
 	$.ajax({
 			url: 'php/addReview.php',
 			type: 'post',
 			data: {"callAddReview":dataSend},
 		success: function(data){
+			var value = data.split(":");
 			console.log(data);
-			createReview(username,date,rating,reviewText);
-	
+			createReview(username,value[0],date,onStar,reviewText,true);
+			updateRating(value[1]);
 		},
 		error: function(req, status, err){
 			console.log("error");
@@ -256,17 +308,50 @@ function submitReview(){
 	});
 }
 
-function createReview(username,date,rating,reviewText){
+function createReview(username,reviewId,date,rating,reviewText,isOwner){
 	var clone = originalReview.cloneNode(true);
-			reviewCount+=1;
-			var reviewId = 	"r" + (reviewCount);
+			
+			var reviewId = 	"r" + (reviewId);
 			clone.id = reviewId;
 
 			review.insertBefore(clone,review.firstChild);
 			
+			var stars = $("#"+reviewId).find('.ratingStar');
+			for (i = 0; i < rating; i++) {
+				$(stars[i]).addClass('selected');
+			}
+	
 			$("#"+reviewId).find(".reviewer").text(username + " on " + date);
 			$("#"+reviewId).find(".rating").text(rating);
 			$("#"+reviewId).find(".text").text(reviewText);
 			$("#"+reviewId).find(".img-responsive").attr("src",profileI);
+			if (isOwner){
+				$("#"+reviewId).find(".deleteR").css("display", "block");
+			} else {
+				$("#"+reviewId).find(".deleteR").css("display", "none");
+			}
+			
 			clone.style.display = "block";
 }
+
+function deleteRe(thisR){
+	var reviewId = String($(thisR).parent().attr("id"));
+	$.ajax({
+			url: 'php/addReview.php',
+			type: 'post',
+			data: {"callDeleteReview":	reviewId.slice(1)+":"+id},
+		success: function(data){
+			console.log(data);
+			updateRating(data);
+			$(thisR).parent().remove();
+		},
+		error: function(req, status, err){
+			console.log("error");
+			//console.log(data);
+			console.log('Something went wrong', status, err);
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
+		}
+	});
+}
+
