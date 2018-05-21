@@ -36,6 +36,8 @@ $(document).ready(function(){
 		if (pathname.includes("editGuide")||pathname.includes("newGuide")){
 			activatePlaceSearch();
 		}
+	}else if (pathname.includes("profile")){
+		loadProfileGuideResult();
 	}
 	});
 	

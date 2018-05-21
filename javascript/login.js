@@ -9,6 +9,7 @@ var userId;
 var pathname = window.location.pathname;
 
 function loadData(){
+	var pathname = window.location.pathname;	
 	$.ajax({
 			url: 'php/editAccount.php',
 			type: 'post',
@@ -29,7 +30,7 @@ function loadData(){
 				userId = data.userId;
 				
 				loadDropDown();
-				var pathname = window.location.pathname;	
+				
 				if ($('#sideNav').length != 0 && !pathname.includes("specificGuide")&& !pathname.includes("searchGuide")){
 
 					loadSideNav();
@@ -154,4 +155,8 @@ function search(){
 	var search = $('#searchBar').val();
 	console.log(search);
 	window.location.href="searchGuide.html?keyword=" + search;
+}
+
+function allGuide(){
+	window.location.href="searchGuide.html?all";
 }

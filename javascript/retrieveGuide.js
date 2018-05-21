@@ -20,7 +20,7 @@ function updateRating(rating){
 			}
 }
 
-function loadGuide(){
+function loadGuide($offset,$mysqli){
 	getURLParameter(window.location.href );
 	title = getURLParameter('title');
 	id = getURLParameter('id');

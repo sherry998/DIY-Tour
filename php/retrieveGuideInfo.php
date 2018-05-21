@@ -23,6 +23,20 @@
         getGuideLocation($id,$mysqli);
     }
 	
+	if (isset($_POST['callallGuide'])) {
+		$data = explode(":",$_POST['callallGuide']);
+        allGuide($data[1],$data[2],$mysqli);
+    }
+	
+	if (isset($_POST['callsearchCountryGuide'])) {
+		$data = explode(":",$_POST['callsearchCountryGuide']);
+        searchCountryGuide($data[0],$data[1],$data[2],$mysqli);
+    }
+	
+	if (isset($_POST['callGetProfileGuide'])) {
+        getProfileGuide($_POST['callGetProfileGuide'],$mysqli);
+    }
+	
 	function getGuideLocation($id,$mysqli){
 		$query = mysqli_query($mysqli,"SELECT country FROM travelguide WHERE  userId =".$id);
 		$json;
@@ -88,6 +102,26 @@
 	}
 
 	
+	function getProfileGuide ($offset,$mysqli){
+		$id = $_SESSION['id'];
+		$searchResult = array();
+		$query = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  userId = ".$id." LIMIT 5 OFFSET ".$offset);
+
+		if(mysqli_num_rows($query)>=1){
+			 while($row = $query->fetch_assoc()) {
+				array_push($searchResult, $row);
+			 }
+			 if (mysqli_num_rows($query)<5){
+				 $searchResult ["end"] = true;
+			 } else {
+				 $searchResult ["end"] = false;
+			 }
+			echo json_encode($searchResult);
+		} else {
+			echo json_encode("noMore");
+		}
+	}
+	
 	function searchGuide ($keyword,$offset,$filter, $mysqli){
 		$string="";
 		if ($filter!=""){
@@ -96,10 +130,7 @@
 		$searchResult = array();
 		$query = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  (guideName LIKE '%".$keyword."%' OR country LIKE '%".$keyword."%' OR EXISTS 
 		( SELECT * FROM account WHERE travelguide.userId = account.userId AND username LIKE '%".$keyword."%')) ".$string." LIMIT 5 OFFSET ".$offset);
-		
-		/*echo "SELECT * FROM travelguide WHERE  guideName LIKE '%".$keyword."%' OR country LIKE '%".$keyword."%' OR EXISTS 
-		( SELECT * FROM account WHERE travelguide.userId = account.userId AND username LIKE '%".$keyword."%') ".$string." LIMIT 5 OFFSET ".$offset;
-		*/
+
 		if(mysqli_num_rows($query)>=1){
 			 while($row = $query->fetch_assoc()) {
 				$userInfo = json_decode(getAccountInfo($row["userId"],$mysqli),true);
@@ -123,7 +154,36 @@
 			$string = getFilter($filter);
 		}
 		$searchResult = array();
-		$query = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  country LIKE '%".$country."%' LIMIT 5 OFFSET ".$offset);
+		$query = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE  (country LIKE '%".$country."%') ".$string." LIMIT 5 OFFSET ".$offset);
+		
+		if(mysqli_num_rows($query)>=1){
+			 while($row = $query->fetch_assoc()) {
+				$userInfo = json_decode(getAccountInfo($row["userId"],$mysqli),true);
+				$row ["username"] = $userInfo['username'];
+				array_push($searchResult, $row);
+			 }
+			 if (mysqli_num_rows($query)<5){
+				 $searchResult ["end"] = true;
+			 } else {
+				 $searchResult ["end"] = false;
+			 }
+			echo json_encode($searchResult);
+		} else {
+			echo json_encode("noMore");
+		}
+	}
+	
+	function allGuide ($offset,$filter,$mysqli){
+		$string="";
+		$queryString = "SELECT * FROM travelguide LIMIT 5 OFFSET ".$offset;
+		if ($filter!=""&&$filter!=null){
+			$string = getFilter($filter);
+			$string = substr($string,3);
+			$queryString = "SELECT * FROM travelguide WHERE ".$string." LIMIT 5 OFFSET ".$offset;
+			//echo $queryString;
+		}
+		$searchResult = array();
+		$query = mysqli_query($mysqli,$queryString);
 		
 		if(mysqli_num_rows($query)>=1){
 			 while($row = $query->fetch_assoc()) {
@@ -144,27 +204,30 @@
 	
 	function getFilter($filter){
 			$monthDict = array();
-	$monthDict['Jan-Mar'] = " AND 1<=MONTH(date)<=3";
-	$monthDict['Apr-Jun'] = " AND 4<=MONTH(date)<=6";
-	$monthDict['Jul-Sep'] = " AND 7<=MONTH(date)<=9";
-	$monthDict['Oct-Dec'] = " AND 10<=MONTH(date)<=12";
+	$monthDict['Jan-Mar'] = " OR( MONTH(date)>=1 AND MONTH(date) <=3)";
+	$monthDict['Apr-Jun'] = " OR(  MONTH(date)>=4 AND MONTH(date) <=5)";
+	$monthDict['Jul-Sep'] = " OR(  MONTH(date)>=7 AND MONTH(date) <=9)";
+	$monthDict['Oct-Dec'] = " OR(  MONTH(date)>=10 AND MONTH(date) <=12)";
 
-		$filterArrary = explode("+",$_POST['callsearchGuide']);
-		$string = "";
+		$filterArrary = explode("+",$filter);
+		$string = "AND (";
+		
 		foreach  ($filterArrary as $filterValue){
+			
 			$value = explode("|",$filterValue);
 			if ($value[0]=="date"){
 				$string .= $monthDict[$value[1]];
 			}else if ($value[0]=="budget"){
 				$number = explode("-",$value[1]);
-				$string .= " AND ".$number[0]. "<= budget <=".$number[1];
+				$string .= " OR( budget>=".$number[0]. " AND budget <=".$number[1].")";
 			} else if ($value[0]=="people"){
-				$string .= " AND people = ".$value[1];
+				$string .= " OR people = '".$value[1]."'";
 			}else if ($value[0]=="rating"){
-				$string .= " AND rating = ".$value[1];
+				$string .= " OR rating = ".$value[1];
 			}
 		}
-		return 	$string;
+		$string = substr($string, 0, 5) . substr($string, 8);
+		return 	$string.")";
 	}
 	$mysqli->close();
 	

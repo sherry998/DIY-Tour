@@ -1,31 +1,47 @@
 var originalResult = document.getElementById('result');
 var results = document.getElementById('resultContainer');
+var profileGuide = document.getElementById('myGuideContainer');
+var originalprofileGuide = document.getElementById('g0');
 var offset =0;
 var keyword;
-var country;
+var countryLink;
+var all;
 var filterArray = [];
 var divClone = $("#resultContainer").clone();
+var filter = "";
 
 $(document).ready(function() {
 	getURLParameter(window.location.href);
 	keyword = getURLParameter('keyword');
-	country = getURLParameter('country');
+	countryLink = getURLParameter('country');
+	console.log(countryLink);
+	all = getURLParameter('all');
 	$('#searchTitle').append(keyword);
-	loadSearchResult(offset,"");
+	loadSearchResult();
 });
 
-function loadSearchResult(offset,filter){
+function loadSearchResult(){
+	console.log(countryLink);
 	if (keyword!="" && keyword!=null){
+		loadDisplay("callsearchGuide",keyword);
+	} else if (countryLink!="" && countryLink!=null){
+		
+		loadDisplay("callsearchCountryGuide",countryLink);
+	}else if(all=="all"){
+		loadDisplay("callallGuide","a");	
+	}
+}
+
+function loadProfileGuideResult(){
 	$.ajax({
 			url: 'php/retrieveGuideInfo.php',
 			type: 'post',
-			data: {"callsearchGuide":keyword+":"+offset+":"+filter},
+			data: {"callGetProfileGuide":offset},
 			dataType: 'json',
 		success: function(data){
 			console.log(data);
 			if (String(data) == "noMore"){
 				$("#moreGuide").css("display","none");
-				$('#searchMessage').append( "<b>"+keyword+"</b>" );
 			}
 			else if (data!= null || data != ""){
 				if (data.end == true){
@@ -33,44 +49,64 @@ function loadSearchResult(offset,filter){
 				}else{
 					$("#moreGuide").css("display","block");
 				}
-				createResult(data);
+				for(result in data) {
+					if (result != "end"){
+						var clone = originalprofileGuide.cloneNode(true);		
+						clone.id = data[result].guideId;
+						$(clone).css("display","block");
+						profileGuide.appendChild(clone);
+						$("#"+clone.id).find(".myDate").text(data[result].date);
+						$("#"+clone.id).find(".myTitle").text(data[result].guideName);
+						$("#"+clone.id).find("a").attr("href", "specificGuide.html?id="+data[result].guideId+"&title="+data[result].guideName);
+						$("#"+clone.id).find("img").attr("src",data[result].featureImage);
+					}
 			} 
-		},
-		error: function(data){
-			console.log(data);
-			$('#searchMessage').append( "<b>"+keyword+"</b>" );
-		}
-	
-	});	
-	} else if (country!="" && country!=null){
-		$.ajax({
-			url: 'php/retrieveGuideInfo.php',
-			type: 'post',
-			data: {"callsearchCountryGuide":country+":"+offset+":"+filter},
-			dataType: 'json',
-		success: function(data){
-			console.log(data);
-			if (String(data) == "noMore"){
-				$("#moreGuide").css("display","none");
-				$('#searchMessage').append( "<b>"+keyword+"</b>" );
 			}
-			else if (data!= null || data != ""){
-				if (data.end == true){
-					$("#moreGuide").css("display","none");
-				}else{
-					$("#moreGuide").css("display","block");
-				}
-				createResult(data);
-			} 
 		},
 		error: function(data){
+			console.log("error");
 			console.log(data);
-			$('#searchMessage').append( "<b>"+keyword+"</b>" );
-		}
+		} 
 	
 	});
-	}
 }
+
+function loadDisplay(functionName,value){
+	var fulldata = value+":"+offset+":"+filter;
+	console.log(fulldata);
+	var dataObj = {};
+
+	dataObj[functionName]=fulldata;
+
+	$.ajax({
+			url: 'php/retrieveGuideInfo.php',
+			type: 'post',
+			data: dataObj,
+			dataType: 'json',
+		success: function(data){
+			console.log(data);
+			if (String(data) == "noMore"){
+				$("#moreGuide").css("display","none");
+				$('#searchMessage').append( "<b>"+value+"</b>" );
+			}
+			else if (data!= null || data != ""){
+				if (data.end == true){
+					$("#moreGuide").css("display","none");
+				}else{
+					$("#moreGuide").css("display","block");
+				}
+				createResult(data);
+			} 
+		},
+		error: function(data){
+			console.log("error");
+			console.log(data);
+			$('#searchMessage').append( "<b>"+keyword+"</b>" );
+		} 
+	
+	});
+}
+
 
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
@@ -107,7 +143,7 @@ function truncateText(selector, maxLength) {
 
 function loadMore(){
 	offset+=5;
-	loadSearchResult(offset);
+	loadSearchResult();
 }
 
 function removeStar(){
@@ -121,18 +157,21 @@ function removeStar(){
 function addFilter(){
 	console.log(onStar);
 	offset =0;
-	var stringFilter = "rating|"+onStar;
+	filter="";
+	if (onStar!=0){
+		filter = "rating|"+onStar;
+	}
 	$('input[type=checkbox]').each(function () {
    if (this.checked){
-	   stringFilter += "+" + $(this).attr("name");
+	   filter += "+" + $(this).attr("name");
    }
   
    
 });
-console.log(stringFilter);
+console.log(filter);
  var cntnt = document.getElementById("resultContainer");
  while (cntnt.lastChild.id !== 'result') {
     cntnt.removeChild(cntnt.lastChild);
 }
-	loadSearchResult(offset,stringFilter);
+	loadSearchResult();
 }
