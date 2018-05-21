@@ -251,3 +251,5 @@ function checkSamePassword(psw){
 		dict["Typed_password"] = true;
 	}
 }
+
+

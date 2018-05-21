@@ -24,35 +24,34 @@
 				<hr>
 				<p class="selection-t">Overall Rating</p>
 				
-					<div class="rating">
-							<i class='glyphicon glyphicon-star'></i>
-							<i class='glyphicon glyphicon-star'></i>
-							<i class='glyphicon glyphicon-star'></i>
-							<i class='glyphicon glyphicon-star-empty'></i>
-							<i class='glyphicon glyphicon-star-empty'></i>
-					</div>
+					<div id="rating">
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='1'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='2'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='3'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='4'></i>
+							<i class='ratingStar glyphicon glyphicon-star'  data-value='5'></i>
+						</div>
+						<button type="button" id="removeStar" class="btn btn-success" onclick="removeStar()">No stars</button>
+					
 				<p class="selection-t" >Month</p>
-				<input calss="checkbox-success" type="checkbox"> Jan - Mar<br>
-				<input type="checkbox"> Apr - Jun<br>
-				<input type="checkbox"> Jul - Sep<br>
-				<input type="checkbox"> Oct - Dec<br>
-				<p class="selection-t">Number of days</p>
-				<input type="checkbox"> 1 - 3 days<br>
-				<input type="checkbox"> 4 - 7 days<br>
-				<input type="checkbox"> 8 - 10 days<br>
-				<input type="checkbox"> 16+ days<br>
+				<input type="checkbox" name="date|Jan-Mar"> Jan - Mar<br>
+				<input type="checkbox" name="date|Apr-Jun"> Apr - Jun<br>
+				<input type="checkbox" name="date|Jul-Sep"> Jul - Sep<br>
+				<input type="checkbox" name="date|Oct-Dec"> Oct - Dec<br>
 				<p class="selection-t">Budgets</p>
-				<input type="checkbox"> $1 - $999<br>
-				<input type="checkbox"> $1000 - $2999<br>
-				<input type="checkbox"> $3000 - $4999<br>
-				<input type="checkbox"> $5000 - $9999<br>
-				<input type="checkbox"> $10000+<br>
+				<input type="checkbox" name="budget|0-999"> $0 - $999<br>
+				<input type="checkbox" name="budget|1000-2999"> $1000 - $2999<br>
+				<input type="checkbox" name="budget|3000-4999"> $3000 - $4999<br>
+				<input type="checkbox" name="budget|5000-9999"> $5000 - $9999<br>
+				<input type="checkbox" name="budget|10000"> $10000+<br>
 				<p class="selection-t">People</p>
-				<input type="checkbox"> Individual<br>
-				<input type="checkbox"> Friends<br>
-				<input type="checkbox"> Families<br>
-				<input type="checkbox"> Couple<br>
-				<input type="checkbox"> Students<br>
+				<input type="checkbox" name="people|Individual"> Individual<br>
+				<input type="checkbox" name="people|Friends"> Friends<br>
+				<input type="checkbox" name="people|Families"> Families<br>
+				<input type="checkbox" name="people|Couple"> Couple<br>
+				<input type="checkbox" name="people|Students"> Students<br>
+				
+				<button type="button" id="filter" class="btn btn-success" onclick="addFilter()">Filter Result</button>
 			</div>
     
             <div class="searchC main col-md-9">
@@ -92,26 +91,29 @@
 												<i class="glyphicon glyphicon-plane" style="color:#5cb85c;"></i>
 											  <span class="type guide-type">Family</span>
 											</div>
+										
 											
 									</div>
 							
 									<a href="#"><h3 class= "result-t"><b>Best Trip in Brisbane</h3></b></a>
-									<!--
-										<p><span class="writer">admin</span>|<span class="country">Australia</span> | <span class="type">Family</span> | <span class="date">1/1/2018</span> </p>
-										<a href="#"><h3>Best Trip in Brisbane</h3></a>
-									-->
+									
 										<p class="summary">....</p>
 
 							</div>
 						
 						</div>
+						
+						
+						
 					</div>
-                    
+                    <button type="button" id="moreGuide" class="  btn btn-success" onclick="loadMore()" style="display:none">More guide</button>
+					
             </div>
     </div>
 
     <!--INCLUDE footer.HTML USING JQUERY-->   
- 
+    <div id="footer"></div>
+   
     <div id="copyright"></div>
     
      <!-- Bootstrap core JavaScript

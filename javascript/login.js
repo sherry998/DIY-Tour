@@ -27,8 +27,11 @@ function loadData(){
 				count = data.count;	
 				rcount = data.rcount;
 				userId = data.userId;
-				loadDropDown();	
-				if ($('#sideNav').length != 0){
+				
+				loadDropDown();
+				var pathname = window.location.pathname;	
+				if ($('#sideNav').length != 0 && !pathname.includes("specificGuide")&& !pathname.includes("searchGuide")){
+
 					loadSideNav();
 				}
 			} else {
@@ -37,7 +40,7 @@ function loadData(){
 				}
 			}
 				
-			var pathname = window.location.pathname;
+			
 			if(pathname.includes("specificGuide")){
 				console.log(profileI);
 				document.getElementById("review-img").src=profileI;

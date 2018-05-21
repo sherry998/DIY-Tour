@@ -34,10 +34,14 @@
 		
 		session_start();
 		$id = $_SESSION['id'];
-		$sqlInsertGuide = "INSERT INTO travelguide (userId, guideName, country, date, people, budget, overview)".
-		"VALUES ('$id', '$title','$loc','$date', '$people', '$budget' , '$summary')";
 
-		if ($mysqli->query($sqlInsertGuide) === TRUE) {
+		$sqlInsertGuide = "INSERT INTO travelguide (userId, guideName, country, date, people, budget, overview)".
+		"VALUES (?,?,?,?,?,?,?)";
+	
+		$stmt = $mysqli->prepare($sqlInsertGuide); 
+		$stmt->bind_param("issssis", $id, $title,$loc,$date, $people, $budget, $summary);
+		
+		if ($stmt->execute()) {
 			$guideId = mysqli_insert_id($mysqli);
 			//echo ($guideId);
 		}else{
@@ -46,14 +50,19 @@
 		}
 		
 		$featureimage =  $_FILES['main-upload'];
-		createFeatureImage($featureimage,$mysqli,$guideId);
+		if ($_FILES['main-upload']['size'] != 0){
+			createFeatureImage($featureimage,$mysqli,$guideId);
+		}
 		
 		for ($i = 1; $i <= $num; $i++) {
 			$dtitle = $_POST['title'.$i];
 			$dinfo =  $_POST['summary'.$i];
 			
-			$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$guideId','$dtitle','$dinfo','$i')";
-			if ($mysqli->query($sql) === TRUE) {
+			$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES (?,?,?,?)";
+			$stmt = $mysqli->prepare($sql);
+			$stmt->bind_param("issi", $guideId, $dtitle,$dinfo,$i);
+			
+			if ($stmt->execute()) {
 				$dayId = mysqli_insert_id($mysqli);
 				$countfiles = count((array_filter($_FILES['image-upload'.$i]['name']))); 
 				echo $countfiles;

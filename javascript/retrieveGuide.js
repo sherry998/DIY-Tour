@@ -8,52 +8,13 @@ var arr = document.getElementsByTagName('a');
 var originalFeatureImage; 
 var originalReview = document.getElementById('r0'); 
 var review = document.getElementById('existingReview'); 
-var onStar;
+
 var reviewJson;
 
-$(document).ready(function(){
-  //https://codepen.io/depy/pen/vEWWdw
-  /* 1. Visualizing things on Hover - See next part for action on click */
-  $('.ratingStar').on('mouseover', function(){
-	  
-    onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-   
-    // Now highlight all the stars that's not after the current hovered star
-    $(this).parent().children('.ratingStar').each(function(e){
-      if (e < onStar) {
-        $(this).addClass('star');
-      }
-      else {
-        $(this).removeClass('star');
-      }
-    });
-    
-  }).on('mouseout', function(){
-    $(this).parent().children('.ratingStar').each(function(e){
-      $(this).removeClass('star');
-    });
-  });
-  
-  
-  /* 2. Action to perform on click */
-  $('.ratingStar').on('click', function(){
-    onStar = parseInt($(this).data('value'), 10); // The star currently selected
-    var stars = $(this).parent().children('.ratingStar');
-    for (i = 0; i < stars.length; i++) {
-      $(stars[i]).removeClass('selected');
-    }
-    
-    for (i = 0; i < onStar; i++) {
-      $(stars[i]).addClass('selected');
-    }
-    
-  });
-  
-  
-});
+
 
 function updateRating(rating){
-		var stars = $("#guideRating").find('.ratingStar');
+		var stars = $("#guideRating").find('.glyphicon');
 			for (i = 0; i < rating; i++) {
 				$(stars[i]).addClass('selected');
 			}
@@ -172,8 +133,11 @@ function showGuide(data){
 	console.log(data.review);
 	
 	reviewJson = data.review;
+	
 	for(reviewNum in data.review) {
-		var owner = false;
+			var owner = false;
+			console.log(data.review[reviewNum].reviewerId);
+			console.log(userId);
 		if (userId == data.review[reviewNum].reviewerId){
 			owner = true;
 		}
@@ -321,6 +285,7 @@ function createReview(username,reviewId,date,rating,reviewText,isOwner){
 				$(stars[i]).addClass('selected');
 			}
 	
+			$("#"+reviewId).children("div").css("display","block");
 			$("#"+reviewId).find(".reviewer").text(username + " on " + date);
 			$("#"+reviewId).find(".rating").text(rating);
 			$("#"+reviewId).find(".text").text(reviewText);
@@ -332,10 +297,11 @@ function createReview(username,reviewId,date,rating,reviewText,isOwner){
 			}
 			
 			clone.style.display = "block";
+			
 }
 
 function deleteRe(thisR){
-	var reviewId = String($(thisR).parent().attr("id"));
+	var reviewId = String($(thisR).parent().parent().parent().attr("id"));
 	$.ajax({
 			url: 'php/addReview.php',
 			type: 'post',
@@ -343,11 +309,11 @@ function deleteRe(thisR){
 		success: function(data){
 			console.log(data);
 			updateRating(data);
-			$(thisR).parent().remove();
+			$(thisR).parent().parent().parent().remove();
 		},
 		error: function(req, status, err){
 			console.log("error");
-			//console.log(data);
+			console.log(data);
 			console.log('Something went wrong', status, err);
 			$( "#message" ).addClass( "messageFail" );
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 

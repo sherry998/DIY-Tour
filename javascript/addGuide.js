@@ -81,6 +81,7 @@ function checkGuideInput(){
 			valueArray.push(value);
 		}
 	}
+	console.log("run");
 	var pathname = window.location.pathname;
 		if (pathname.includes("createNewGuide")){
 			$("#editForm").attr('action', 'php/createGuide.php?numDay='+num);
@@ -249,4 +250,10 @@ function removeImage(thisClose){
 		
 	}
 	console.log(originalFeatureImage);
+}
+
+// https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
+function activatePlaceSearch(){
+	var input = document.getElementById('guideLocation');
+	var autocomplete = new google.maps.places.Autocomplete(input);
 }
