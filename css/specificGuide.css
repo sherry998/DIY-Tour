@@ -20,7 +20,7 @@
 
   }*/
 
- .sideBar{
+.sideBar{
 	 margin-top:80px;
  }
  
@@ -44,7 +44,7 @@
 /******** blockquote mark */
 
 .guideSum {
-	border-left: 0.8em solid #e46c58;
+
 	font-family: 'Permanent Marker', cursive;
 	border-radius: 5px;
     color:black;
@@ -125,36 +125,6 @@
 	margin-bottom: 14px;
 }
 
-/** cus icons**/
-.cus- {
-    background-image: url(spritesheet.png);
-    background-repeat: no-repeat;
-    display: block;
-}
-
-.cus--date {
-    width: 139px;
-    height: 152px;
-    background-position: -5px -5px;
-}
-
-.cus--location {
-    width: 91px;
-    height: 121px;
-    background-position: -5px -167px;
-}
-
-.cus--money {
-    width: 142px;
-    height: 79px;
-    background-position: -5px -298px;
-}
-
-/*.description{
-    font-family:Arial, sans-serif;
-    font-size:16px;
-}
-*/
 
 #dayContainer{
     margin-bottom: 50px;
@@ -212,4 +182,40 @@
 #r0{
 	display:none;
 }
+.comment-cotent {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
 
+.comment-heading {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px 5px 25px 5px;
+    position: relative;
+    margin-bottom: -1px;
+}
+.comment-heading:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-width: 1px 0 0 1px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 10px;
+    left: -6px;
+}
+.comment-box{
+
+margin-bottom: 15px;
+}
+.reviewer{
+    margin-left: 6px;
+    float: left;
+}
+
+.oldRating{
+    margin-right: 6px;
+}

@@ -10,8 +10,8 @@
 	<link href="css/slick/slick.css?ver=1.1" rel="stylesheet">
 	<link href="css/slick/slick-theme.css?ver=1.1" rel="stylesheet">
 	<!-- Custom styles for our Website -->
-    <link href="css/main.css?ver=3" rel="stylesheet">
-    <link href="css/specificGuide.css?ver=3" rel="stylesheet">
+    <link href="css/main.css?ver=1.1" rel="stylesheet">
+    <link href="css/specificGuide.css?ver=3.1" rel="stylesheet">
 </head>
 <body>
     <div id="header"></div>
@@ -120,7 +120,7 @@
                 
                 
                 <div class="row">
-                    <div class="col-sm-3 col-xs-3 review-userimg">
+                    <div class="col-sm-3 col-xs-3 review-userimg img-responsives">
                         <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img" id="review-img">
                     </div>
                  
@@ -149,8 +149,36 @@
                 </div>
 				
 				<div id="existingReview">
-					<div id="r0" class="row">
-						<div class="col-sm-3 col-xs-3 review-userimg">
+					
+            		<div id="r0" class="row comment-box">
+                		<div style="display:none;">
+                       		<div class="col-sm-3 col-xs-3 review-userimg img-responsive">
+                                <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive " alt="profile-img">
+                            </div>
+                       		<div class="comment-body col-sm-9 col-xs-9">
+                            	<div class="comment-heading">
+                              <p class="reviewer ">Azar Hank</p>
+                              <div class="oldRating pull-right">
+                                  <i class='ratingStar glyphicon glyphicon-star'  data-value='1'></i>
+                                  <i class='ratingStar glyphicon glyphicon-star'  data-value='2'></i>
+                                  <i class='ratingStar glyphicon glyphicon-star'  data-value='3'></i>
+                                  <i class='ratingStar glyphicon glyphicon-star'  data-value='4'></i>
+                                  <i class='ratingStar glyphicon glyphicon-star'  data-value='5'></i>
+                              </div>
+                            </div>
+                           		<p class="text comment-cotent">
+                             
+                           </p>
+                           		<button type="button" name="deleteReview" class="deleteR btn btn-danger pull-right" onclick="deleteRe(this)">Delete</button>
+                         
+                            </div>
+                    	</div>
+        
+                    </div>
+          
+					<!-- 
+          <div id="r0" class="row">
+					  <div class="col-sm-3 col-xs-3 review-userimg">
                         <img src="https://i.imgur.com/aETM27E.png?1" class="img-responsive" alt="profile-img">
                     </div>
 						<button type="button" name="deleteReview" class="deleteR btn btn-danger pull-right" 
@@ -166,7 +194,8 @@
 						</div>
 						<p class="text"></p>
 					
-					</div>
+          </div>
+          -->
 				</div>
 					
               </div>
@@ -178,8 +207,6 @@
     </div>
 
      <!--INCLUDE footer.HTML USING JQUERY-->   
-     <div id="footer"></div>
-   
      <div id="copyright"></div>
      
    
@@ -200,8 +227,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="css/slick/slick.min.js"></script>
-	<script type="text/javascript" src="javascript/loadHtml.js"></script>
-	<script type="text/javascript" src="javascript/login.js"></script>
-	<script type="text/javascript" src="javascript/retrieveGuide.js?version=4"></script>
+	<script type="text/javascript" src="javascript/loadHtml.js?version=1.1"></script>
+	<script type="text/javascript" src="javascript/login.js?ver=1.1"></script>
+	<script type="text/javascript" src="javascript/retrieveGuide.js?version=1.1"></script>
 </body>
 </html>
