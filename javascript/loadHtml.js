@@ -8,12 +8,6 @@ $(document).ready(function(){
 	  }
   });
   
-  var footerLoad =  $.get("footer.html", function(data) {
-	  if ($("#footer").length != 0){
-		$("#footer").html(data);
-	  }
-  });
-  
   var copyrightLoad =  $.get("copyright.html", function(data) {
 	  if ($("#copyright").length != 0){
 		$("#copyright").html(data);
@@ -26,7 +20,7 @@ $(document).ready(function(){
 	  }
   });
   
-  $.when(headerLoad, footerLoad,copyrightLoad,sideLoad ).done(function() {
+  $.when(headerLoad,copyrightLoad,sideLoad ).done(function() {
 	var pathname = window.location.pathname;
 
 	if(!pathname.includes("register")&&!pathname.includes("login")){
