@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
     <!-- Custom styles for our Website -->
 	<link href="css/main.css?ver=1.1" rel="stylesheet">
-	<link href="css/searchGuide.css?ver=2.1" rel="stylesheet">
+	<link href="css/searchGuide.css?ver=12" rel="stylesheet">
 	<link href="css/modal.css?ver=2.1" rel="stylesheet">
 	
 </head>
@@ -19,7 +19,7 @@
     <div id="header"></div>
 
     <div class="container"> 
-            <div class="searchC side col-md-3">
+            <div class="searchC side col-md-3 col-xs-3">
 				<h3 class="side-t">Refine your search</h3>
 				<hr>
 				<p class="selection-t">Overall Rating</p>
@@ -51,43 +51,45 @@
 				<input type="checkbox" name="people|Couple"> Couple<br>
 				<input type="checkbox" name="people|Students"> Students<br>
 				
-				<button type="button" id="filter" class="btn btn-success" onclick="addFilter()">Filter Result</button>
+				<button type="button" id="filter" class="btn btn-warning" onclick="addFilter()">Filter Result</button>
 			</div>
     
-            <div class="searchC main col-md-9">
-                    <h1 id="searchTitle">Search Results for </h1>
+            <div class="searchC main col-md-9 col-xs-9">
+                    <h1 id="searchTitle">Search Results for:</h1>
                     <hr class="featurette-divider">
 					<div id="noResult">
-					<p id="searchMessage">We're sorry, we couldn't find any guide matches </p>
-					<p>Suggestions:</p>
-					<ul>
-						<li>Make sure all words are spelled correctly.</li>
-						<li>Try different keywords.</li>
-						<li>Try more general keywords.</li>
-					</ul>
+						<p id="searchMessage">We're sorry, we couldn't find any guide matches </p>
+						<p>Suggestions:</p>
+						<ul>
+							<li>Make sure all words are spelled correctly.</li>
+							<li>Try different keywords.</li>
+							<li>Try more general keywords.</li>
+						</ul>
 					</div>
 					
 					<div id ="resultContainer">
 						<div id="result" class ="row searchResult">
-							<div class="col-md-3"style="padding-right: 0px;">
+							<div class="col-md-3  resultImg">
 								<img src="" class="fImage img-responsive" alt="guide-img">
 							</div>
 							<div class="col-md-9 guide-info">
 									<div class="row ">
-											<div class= "col-md-2">
+											<div class= "col-md-2 col-xs-6">
 													<i class="glyphicon glyphicon-pencil"></i>
 												  <span class="writer guide-type">admin </span>
 											</div>
 
-											<div class= "col-md-4">
+											<div class= "col-md-4 col-xs-6">
 											  <i class="glyphicon glyphicon-map-marker" style="color:#e46c58;"></i>
 											  <span class="country guide-type">Australia</span>
 											</div>
-											<div class= "col-md-3">
+
+											<div class= "col-md-3 col-xs-6">
 											  <i class="glyphicon glyphicon-calendar" style="color:#22B5AF;"></i>
 											  <span class="date guide-type">1/1/2018</span>
 											</div>
-											<div class= "col-md-3">
+
+											<div class= "col-md-3 col-xs-6">
 												<i class="glyphicon glyphicon-plane" style="color:#5cb85c;"></i>
 											  <span class="type guide-type">Family</span>
 											</div>
@@ -97,7 +99,7 @@
 							
 									<a href="#"><h3 class= "result-t"><b>Best Trip in Brisbane</h3></b></a>
 									
-										<p class="summary">....</p>
+									<p class="summary">....</p>
 
 							</div>
 						
@@ -106,7 +108,8 @@
 						
 						
 					</div>
-                    <button type="button" id="moreGuide" class="  btn btn-success" onclick="loadMore()" style="display:none">More guide</button>
+
+                    <button type="button" id="moreGuide" class="  btn btn-warning" onclick="loadMore()" style="display:none">More guide<span class="caret" style=" margin-left: 5px;"></span></button>
 					
             </div>
     </div>

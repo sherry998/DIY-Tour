@@ -22,31 +22,67 @@
 .glyphicon-star{
 	color: #F16E59;
 }
+
+#removeStar, #filter{
+margin-top: 5px;
+font-family: 'Oswald', sans-serif;
+}
+
 .searchResult {
-	padding: 5px;
+
 	display: none;
-	margin-top: 20px;
 	border:none;
-	
+	margin:0px 0px 30px 0px;
+
 }
 
 .guide-type{
 	font-size: 12px;
 }
   
-.fImage{
+.resultImg{
 	height: 136px;
+	padding: 0px;
+}
+.fImage{
+	height: 100%;
 	width: 100%;
 	margin-right: 0px;
 }
 
 .guide-info{
-	border: 1.5px solid #E3E3E2;
 	padding: 10px;
+	border: 1.5px solid #E3E3E2;
+	height: 136px;
 }
 
 .result-t{
 	font-family: 'Oswald', sans-serif;
 	font-size:30px;
 	color: grey;
+	margin-top: 10px;
+	
 }
+#moreGuide{
+	font-family: 'Oswald', sans-serif;
+	margin-right:10%;
+	margin-left:10%;
+	margin-bottom:10px;
+	width:80%;
+	font-weight: 800;
+}
+
+@media only screen and (max-width: 600px) {
+	.summary{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.main{
+		padding-left:0px !important;
+	}
+	.side{
+		padding: 80px 10px 0px 15px;
+	}
+}
+
