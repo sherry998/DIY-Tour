@@ -97,10 +97,15 @@ function changeInfo(){
 		type: 'post',
 		data: {"callUpdateAccount":changeInput},
 		success: function(data){
-			document.getElementById("username").innerHTML = usernameInput;
-			$( "#message" ).addClass( "messageSucess" );
-			document.getElementById("message").innerHTML = "Update profile successfully.";
-			location.reload();
+		console.log(data);
+			if (data="sucess"){
+				document.getElementById("username").innerHTML = usernameInput;
+				$( "#message" ).addClass( "messageSucess" );
+				document.getElementById("message").innerHTML = "Update profile successfully.";
+				location.reload();
+			} else {
+				console.log(data);
+			}
 		},
 		error: function(data){
 			$( "#message" ).addClass( "messageFail" );

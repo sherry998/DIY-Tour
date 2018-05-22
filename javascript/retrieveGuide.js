@@ -15,9 +15,19 @@ var reviewJson;
 
 function updateRating(rating){
 		var stars = $("#guideRating").find('.glyphicon');
+		if (rating == 0){
+			for (i = 0; i <= stars.length; i++) {
+				$(stars[i]).removeClass('selected');
+			}
+		}else{
 			for (i = 0; i < rating; i++) {
 				$(stars[i]).addClass('selected');
 			}
+		}
+}
+
+function goBack() {
+    window.history.back();
 }
 
 function loadGuide($offset,$mysqli){
@@ -47,10 +57,10 @@ function loadGuide($offset,$mysqli){
 				console.log("no data matched");
 			}
 		},
-		error: function(req, status, err){
+		error: function(data){
 			console.log("error");
-			//console.log(data);
-			console.log('Something went wrong', status, err);
+			console.log(data);
+			//console.log('Something went wrong', status, err);
 			$( "#message" ).addClass( "messageFail" );
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
@@ -251,7 +261,7 @@ function submitReview(){
 	var date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 
 	var dataSend=onStar+":"+reviewText+":"+id+":"+date;
-
+	
 	$.ajax({
 			url: 'php/addReview.php',
 			type: 'post',
@@ -302,6 +312,7 @@ function createReview(username,reviewId,date,rating,reviewText,isOwner){
 
 function deleteRe(thisR){
 	var reviewId = String($(thisR).parent().parent().parent().attr("id"));
+	
 	$.ajax({
 			url: 'php/addReview.php',
 			type: 'post',

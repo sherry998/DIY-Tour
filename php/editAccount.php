@@ -34,9 +34,10 @@
     }
 	
 	function getAccountInfo($id,$mysqli){
-		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE userId = ".$id);
-		$queryCount = mysqli_query($mysqli,"SELECT * FROM travelguide WHERE userId = ".$id);
-		$reviewCount = mysqli_query($mysqli,"SELECT * FROM review WHERE userId = ".$id);
+		
+		$query = prepareSql("SELECT * FROM account WHERE userId = ?",$mysqli,$id);
+		$queryCount = prepareSql("SELECT * FROM travelguide WHERE userId = ?",$mysqli,$id);
+		$reviewCount = prepareSql("SELECT * FROM review WHERE userId = ? ",$mysqli,$id);
 		if(mysqli_num_rows($query)==1){
 			$JSON = json_decode(json_encode(mysqli_fetch_assoc($query)),true);
 			$JSON["count"] = mysqli_num_rows($queryCount);
@@ -45,15 +46,23 @@
 		}
 	}
 	
+	function prepareSql($sql,$mysqli,$id){
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("i", $id );
+		if ($stmt->execute()){
+			$result = $stmt->get_result();
+			return $result;
+		}
+		return false;
+	}
 	
 	function checkAccountPassword($currentPsw, $mysqli){
 		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-			$query = mysqli_query($mysqli,"SELECT password FROM account WHERE userId = ".$_SESSION['id']);
+			$query = prepareSql("SELECT password FROM account WHERE userId = ? ",$mysqli,$_SESSION['id']);
 			if(mysqli_num_rows($query)==1){
 				$originalpsw = mysqli_fetch_row($query)[0];
-				$currentPsw = md5($currentPsw);
 
-				if ($originalpsw == $currentPsw){
+				if (password_verify($currentPsw,$originalpsw)){
 					echo "true";
 				} else{
 					echo "false";
@@ -63,17 +72,20 @@
 	}
 	
 	function changePassword ($newpsw, $mysqli){
-		$newpsw = md5($newpsw);
-		$query = mysqli_query($mysqli,"UPDATE account SET password = '$newpsw' WHERE userId =".$_SESSION['id']);
+		$newpsw = password_hash($newpsw, PASSWORD_BCRYPT );
+		$sql = "UPDATE account SET password = ? WHERE userId = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("si", $newpsw, $_SESSION['id'] );
+		$stmt->execute();
 	}
 	
 	function updateAccount($email,$username,$country, $about,$mysqli){
-		$query = mysqli_query($mysqli,"UPDATE account SET email = '$email', username = '$username',
-		country = '$country', about = '$about' WHERE userId =".$_SESSION['id']);
+		$sql = "UPDATE account SET email = ?, username = ?,
+		country = ?, about = ? WHERE userId = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("ssssi", $email, $username,$country,$about,$_SESSION['id'] );
 		
-		if ($query){
-			// update session username details
-			$_SESSION['username'] = $username;
+		if ($stmt->execute()){
 			echo("sucess");
 		}else{
 			echo("failure");
@@ -81,11 +93,11 @@
 	}
 	
 	function deleteCurrentAccount ($mysqli){
-		$query = mysqli_query($mysqli,"DELETE FROM account WHERE userId = ".$_SESSION['id']);
-		session_destroy();
-		if ($query){
-			echo("sucess");
+		$stmt = prepareSql("DELETE FROM account WHERE userId = ?",$mysqli,$_SESSION['id']);
+		if (!$stmt){
+			echo "sucess";
 		}
+		session_destroy();
 	}
 	
 	$mysqli->close();

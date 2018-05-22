@@ -21,7 +21,6 @@ $(document).ready(function() {
 });
 
 function loadSearchResult(){
-	console.log(countryLink);
 	if (keyword!="" && keyword!=null){
 		loadDisplay("callsearchGuide",keyword);
 	} else if (countryLink!="" && countryLink!=null){
@@ -29,6 +28,8 @@ function loadSearchResult(){
 		loadDisplay("callsearchCountryGuide",countryLink);
 	}else if(all=="all"){
 		loadDisplay("callallGuide","a");	
+	} else{
+		loadProfileGuideResult();
 	}
 }
 
@@ -44,6 +45,7 @@ function loadProfileGuideResult(){
 				$("#moreGuide").css("display","none");
 			}
 			else if (data!= null || data != ""){
+				$("#notice").css("display","none");
 				if (data.end == true){
 					$("#moreGuide").css("display","none");
 				}else{
@@ -157,7 +159,7 @@ function removeStar(){
 function addFilter(){
 	console.log(onStar);
 	offset =0;
-	filter="";
+	filter=" ";
 	if (onStar!=0){
 		filter = "rating|"+onStar;
 	}

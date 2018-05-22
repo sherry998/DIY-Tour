@@ -28,20 +28,31 @@
 	function checkEmail($email,$mysqli){
 		session_start();
 		
-		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
-		$querySame = null;
+		$sql = "SELECT * FROM account WHERE email = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("s", $email );
+		$stmt->execute();
+		$query = $stmt->get_result();
+
+		$querySame = 0;
 		
 		if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
 			$id = $_SESSION['id'];
-			$querySame = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND userId='$id'");
+			$sameSql = "SELECT * FROM account WHERE email = ? AND userId= ?";
+			$sameStmt = $mysqli->prepare($sameSql);
+			$sameStmt->bind_param("si", $email,$id );
+			$sameStmt->execute();
+			$querySame = $sameStmt->get_result();
 		} 
 		
 		if (mysqli_num_rows($query) == 0  && $querySame == null){
 			echo "true";
-		} else if(mysqli_num_rows($query) == 0 && mysqli_num_rows($querySame) == 0){
-			echo "true";
-		} else if (mysqli_num_rows($querySame) == 1){
-			echo "same";
+		} else if($querySame != null){
+			if(mysqli_num_rows($query) == 0 && mysqli_num_rows($querySame) == 0){
+				echo "true";
+			} else if (mysqli_num_rows($querySame) == 1){
+				echo "same";
+			}
 		}else{
 			echo "false";
 		}	
@@ -50,19 +61,22 @@
 	
 	function createAccount($email,$uname,$psw,$mysqli){
 		
+		//hash for email, simple md5
 		$hash = md5( rand(0,1000) );
-		$psw = md5 ($psw);
-		sendEmail($uname,$email,$hash);
-		
+		//https://www.sitepoint.com/hashing-passwords-php-5-5-password-hashing-api/
+		$psw = password_hash($psw, PASSWORD_BCRYPT );
 		$sql = "INSERT INTO account (email, username, password, hash)
-			VALUES ('$email', '$uname', '$psw', '$hash')";  
+			VALUES (?, ?, ?, ?)";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("ssss", $email,$uname,$psw,$hash );
 				
-		if ($mysqli->query($sql) === TRUE) {
+		if ($stmt->execute()) {
 			echo "Please check your email: " .$email . " to activate your account";
 			sendEmail($uname,$email,$hash);
 		} else {
 			echo "Error: " . $sql . "<br>" . $mysqli->error;
 		}
+		
 	}
 	
 	// needed to be changed when upload to uq server
@@ -85,14 +99,22 @@
 	}
 	
 	function checkAccount($email,$psw,$mysqli){
-		$psw = md5 ($psw);
-		$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email'");
-		$queryActivate = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND activated = 'true'");
+
+		$sql = "SELECT * FROM account WHERE email = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("s", $email );
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		$activateSql = "SELECT * FROM account WHERE email = ? AND activated = 'true'";
+		$activateStmt = $mysqli->prepare($activateSql);
+		$activateStmt->bind_param("s", $email );
+		$activateStmt->execute();
+		$activateResult = $activateStmt->get_result();
 		
-		if(mysqli_num_rows($query) == 1 && mysqli_num_rows($queryActivate) == 1){
-			$query = mysqli_query($mysqli,"SELECT * FROM account WHERE email = '$email' AND password= '$psw' ");
-			if(mysqli_num_rows($query) == 1){
-				$row = mysqli_fetch_array($query);
+		if(mysqli_num_rows($result) == 1 && mysqli_num_rows($activateResult) == 1){
+			$row = mysqli_fetch_array($result);
+			if(password_verify($psw, $row['password'])){
 				$username = $row['username'];
 				$id = $row['userId'];
 		
@@ -104,7 +126,7 @@
 			} else{
 				echo "Incorrect password";
 			}
-		} else if (mysqli_num_rows($query) == 1 && mysqli_num_rows($queryActivate) == 0){
+		} else if (mysqli_num_rows($result) == 1 && mysqli_num_rows($activateResult) == 0){
 			echo "This account doesn't seem be activated, please check your email";
 		}else {
 			echo "This email doesn't seem be registered with DIY Tour";

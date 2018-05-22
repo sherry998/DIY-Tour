@@ -82,16 +82,29 @@ function checkGuideInput(){
 		}
 	}
 	console.log("run");
-	var pathname = window.location.pathname;
-		if (pathname.includes("createNewGuide")){
-			$("#editForm").attr('action', 'php/createGuide.php?numDay='+num);
-			$("#editForm").submit();
-		}else if (pathname.includes("editGuide")){
-			checkImage();
-			$("#editForm").attr('action', 'php/updateGuide.php?numDay='+num+"&id="+guideId);
-			console.log($("#editForm"));
-			$("#editForm").submit();
-		}
+	if (createDayInfo()){
+		
+		createInvisibleInput("numDay", num);
+		var pathname = window.location.pathname;
+			if (pathname.includes("createNewGuide")){
+				$("#editForm").attr('action', 'php/createGuide.php');
+				$("#editForm").submit();
+			}else if (pathname.includes("editGuide")){
+				checkImage();
+				createInvisibleInput("id", guideId);
+				$("#editForm").attr('action', 'php/updateGuide.php');
+				console.log($("#editForm"));
+				$("#editForm").submit();
+			}
+	}
+}
+
+function createInvisibleInput(name, value,formName){
+	var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", name);
+        hiddenField.setAttribute("value", value);
+		$("#editForm").append(hiddenField);
 }
 
 function checkImage(){
@@ -118,9 +131,7 @@ function runCheck(value,inputType){
 	$( "#message" ).removeClass();
 	if (value != null && value !=""){
 		if (inputType == "guideDate"){
-			// to done later
 			return checkDate(value);
-			//return true;
 		} else {
 			return true;
 		}
@@ -145,57 +156,16 @@ function checkDate(date){
 	}
 }
 
-function createGuide(title, loc, date, people, budget, summary){
-	var guideInfo = {"title":title, "location": loc, "date": date, "people" : people, "budget": budget,
-	"summary" : summary,"dayTitle":daytitleArray,"dayInfo": dayInfoArray}
-	var guideInfoJSON = JSON.stringify(guideInfo);
-	console.log(guideInfo);
-	$.ajax({
-			url: 'php/createGuide.php',
-			type: 'post',
-			data: {"callCreateGuide":guideInfoJSON},
-		success: function(data){
-			document.getElementById("message").innerHTML = data; 
-			console.log(data);
-			if (data!=null && data !=""){
-				// further styles required
-				$( "#message" ).addClass( "messageSucess" );
-				//document.getElementById("message").innerHTML = "Create new guide successfully"; 
-				// go to the published version of the guide
-				window.location.href = "specificGuide.html?id="+data+"&title="+title;
-			}else{
-				console.log(data);
-			}
-		},
-		error: function(data){
-			console.log("error");
+function createDayInfo(){
+	for (var i=0;i<dayList.length;i++){
+		var input = $('#'+dayList[i]).children(".form-inline").children("input").val();
+		var textArea = $('#'+dayList[i]).children(".form-group").children("textarea").val();
+		if (!checkDay(input) || !checkDay(textArea)){
+			return false;
 		}
+	}
+	return true;
 	
-	});	
-}
-
-
-function updateGuide(id,title, loc, date, people, budget, summary){
-	var guideInfo = {"id":id,"title":title, "location": loc, "date": date, "people" : people, "budget": budget,
-	"summary" : summary,"dayTitle":daytitleArray,"dayInfo": dayInfoArray}
-	var guideInfoJSON = JSON.stringify(guideInfo);
-	$.ajax({
-			url: 'php/createGuide.php',
-			type: 'post',
-			data: {"callUpdateGuide":guideInfoJSON},
-		success: function(data){
-			// further styles required
-			$( "#message" ).addClass( "messageSucess" );
-			console.log(data);
-			document.getElementById("message").innerHTML = data; 
-			// go to the published version of the guide
-			window.location.href = "specificGuide.html?id="+id+"&title="+title;
-		},
-		error: function(data){
-			console.log("error");
-		}
-	
-	});	
 }
 
 function checkDay(value){

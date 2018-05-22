@@ -20,9 +20,13 @@
 	function addReview($rating,$review,$guideId,$date,$mysqli){
 		session_start();
 		$id = $_SESSION['id'];
-		$query = mysqli_query($mysqli,"INSERT INTO review (userId,rating,paragraph,date,guideID) VALUES ('$id','$rating','$review','$date','$guideId')");
-		$reviewId = mysqli_insert_id($mysqli);
-		if ($query){
+		
+		$sql = "INSERT INTO review (userId,rating,paragraph,date,guideID) VALUES (?,?,?,?,?)";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("iissi", $id,$rating,$review,$date,$guideId);
+
+		if ($stmt->execute()){
+			$reviewId = mysqli_insert_id($mysqli);
 			echo $reviewId;
 			echo ":";
 			updateRating($guideId,$mysqli);
@@ -31,23 +35,36 @@
 	}
 	
 	function deleteReview($id,$guideId, $mysqli){
-		$query = mysqli_query($mysqli,"DELETE FROM review WHERE reviewId = '$id'");
-		if ($query){
+		$sql = "DELETE FROM review WHERE reviewId = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("i", $id);
+		
+		if ($stmt->execute()){
 			updateRating($guideId,$mysqli);
 		}
 		
 	}
 	
 	function updateRating($guideId,$mysqli){
-		$query = mysqli_query($mysqli,"SELECT AVG(rating) AS avg FROM review WHERE guideID='$guideId'");
-		$rating = 0;
-		if ($query){
-			$result = mysqli_fetch_assoc($query);
-			$rating = $result['avg'];
-			
+		$sql = "SELECT AVG(rating) AS avg FROM review WHERE guideID=?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("i", $guideId);
+		
+		$rating=0;
+		
+		if ($stmt->execute()){
+			$sqlResult = $stmt->get_result();
+			$result = mysqli_fetch_assoc($sqlResult);
+			if ($result['avg'] !=null && $result['avg'] !=""){
+				$rating = $result['avg'];
+			}
 		} 
-		$query = mysqli_query($mysqli,"UPDATE travelguide SET rating = '$rating' WHERE guideID='$guideId'");
-			echo $rating;
+		
+		$sqlRating = "UPDATE travelguide SET rating = ? WHERE guideId=?";
+		$stmtRating = $mysqli->prepare($sqlRating);
+		$stmtRating->bind_param("ii", $rating,$guideId);
+		
+		echo $rating;
 	}
 
 	

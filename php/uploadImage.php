@@ -13,20 +13,31 @@
 	
 	//https://www.w3schools.com/php/php_file_upload.asp
 	function changeProfileImage($image,$mysqli){
-		$target_dir = "../profile_Image/";
-		$target_file = $target_dir . basename($image["name"]);
-		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-		
-	
+		$imageFileType = getImageType("../profile_Image/",$image["name"]);
+
 		$target_loc = "profile_Image/"."profileImage".$_SESSION['id'].".".$imageFileType;
-		$query = mysqli_query($mysqli,"UPDATE account SET profileImage = '$target_loc'
-		WHERE userId =".$_SESSION['id']);
+
+		$sql = "UPDATE account SET profileImage = ? WHERE userId =?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("si", $target_loc, $_SESSION['id']);
 		
-		if ($query){
-			if (move_uploaded_file($image["tmp_name"], "../".$target_loc)) {
+		uploadImage ($target_loc,$image["tmp_name"],$stmt);
+	}
+	
+	function getImageType($target_dir,$image){
+		$target_file = $target_dir . basename($image);
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		return $imageFileType;
+	}
+
+	function uploadImage($target_loc,$image,$stmt){
+		if ($stmt->execute()){
+			if (move_uploaded_file($image, "../".$target_loc)) {
 				echo $target_loc;
+				return true;
 			} else {
 				echo "Sorry, there was an error uploading your file.";
+				return false;
 			}
 		}
 	}

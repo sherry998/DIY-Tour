@@ -43,7 +43,7 @@ function deleteAccount(){
 			type: 'post',
 			data: {"callDeleteCurrentAccount":""},
 		success: function(data){
-			document.getElementById("error").innerHTML = data; 
+			console.log(data)
 			if (data == "sucess"){
 				// for debug purpose
 				//document.getElementById("error").innerHTML = data; 

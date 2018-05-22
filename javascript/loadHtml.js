@@ -27,17 +27,22 @@ $(document).ready(function(){
   });
   
   $.when(headerLoad, footerLoad,copyrightLoad,sideLoad ).done(function() {
-    loadData();
-	
 	var pathname = window.location.pathname;
+
+	if(!pathname.includes("register")&&!pathname.includes("login")){
+		loadData();
+	}
+	
+	
 	console.log(pathname.includes("editGuide"));
+	
 	if(pathname.includes("specificGuide")||pathname.includes("editGuide")){
 		loadGuide();
-		if (pathname.includes("editGuide")||pathname.includes("newGuide")){
+		
+	}
+	if (pathname.includes("editGuide")||pathname.includes("createNewGuide")){
+			console.log("run");
 			activatePlaceSearch();
-		}
-	}else if (pathname.includes("profile")){
-		loadProfileGuideResult();
 	}
 	});
 	
@@ -47,7 +52,6 @@ $(document).ready(function(){
 	  //https://codepen.io/depy/pen/vEWWdw
   /* 1. Visualizing things on Hover - See next part for action on click */
   $('.ratingStar').on('mouseover', function(){
-	  
     onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
    
     // Now highlight all the stars that's not after the current hovered star

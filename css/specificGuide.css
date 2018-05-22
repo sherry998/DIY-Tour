@@ -27,6 +27,7 @@
 @media (min-width: 992px){ 
 .sideBar{
 	position:fixed;
+	width:15%;
 
 }
 

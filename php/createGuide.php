@@ -10,14 +10,16 @@
 
 <?php
 	
+	include 'uploadImage.php';
+
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
 	}
-		
-	if(isset($_GET['numDay'])){
-		createGuide ($_GET['numDay'], $mysqli);
+	
+	if(isset($_POST['numDay'])&& !isset($_POST['id'])){
+		createGuide ($_POST['numDay'], $mysqli);
 	}
 	
 	if (isset($_POST['callUpdateGuide'])) {
@@ -32,7 +34,6 @@
 		$budget= $_POST['budget'];
 		$summary= $_POST['overview'];
 		
-		session_start();
 		$id = $_SESSION['id'];
 
 		$sqlInsertGuide = "INSERT INTO travelguide (userId, guideName, country, date, people, budget, overview)".
@@ -58,11 +59,7 @@
 			$dtitle = $_POST['title'.$i];
 			$dinfo =  $_POST['summary'.$i];
 			
-			$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES (?,?,?,?)";
-			$stmt = $mysqli->prepare($sql);
-			$stmt->bind_param("issi", $guideId, $dtitle,$dinfo,$i);
-			
-			if ($stmt->execute()) {
+			if (createDay($dtitle,$dinfo,$guideId,$mysqli,$i)->execute()) {
 				$dayId = mysqli_insert_id($mysqli);
 				$countfiles = count((array_filter($_FILES['image-upload'.$i]['name']))); 
 				echo $countfiles;
@@ -78,120 +75,40 @@
 				echo ( mysqli_error($mysqli));
 				break;
 			}
-			
-
 		}
 	}
 	
 	function createFeatureImage($image,$mysqli,$guideId){
-		$target_dir = "../guide_Image/";
-		$target_file = $target_dir . basename($image["name"]);
-		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		$imageFileType = getImageType("../guide_Image/",$image["name"]);
 		
-	
 		$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
-		$query = mysqli_query($mysqli,"UPDATE travelGuide SET featureImage = '$target_loc'
-		WHERE guideId =".$guideId);
+
+		$sql = "UPDATE travelGuide SET featureImage = ? WHERE guideId = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("si", $target_loc, $guideId);
 		
-		if ($query){
-			if (move_uploaded_file($image["tmp_name"], "../".$target_loc)) {
-				echo $target_loc;
-			} else {
-				echo "Sorry, there was an error uploading your file.";
-			}
-		}
+		uploadImage($target_loc,$image["tmp_name"],$stmt);
 	}
 	
 	function addImage($image,$id,$count,$mysqli){
-		$target_dir = "../guide_Image/";
-		$target_file = $target_dir . basename($image["name"][$count]);
-		
-		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	
+		$imageFileType = getImageType("../guide_Image/",$image["name"][$count]);
+
 		$target_loc = "guide_Image/"."DayID".$id."_".$count.".".$imageFileType;
-		$query = mysqli_query($mysqli,"INSERT INTO image (imageLink,dayId) VALUES ('$target_loc','$id')");
+
+		$sql = "INSERT INTO image (imageLink,dayId) VALUES (?,?)";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("si", $target_loc, $id);
 		
-		if ($query){
-			if (move_uploaded_file($image["tmp_name"][$count], "../".$target_loc)) {
-				return true;
-			} else {
-				echo "Sorry, there was an error uploading your file.";
-				return false;
-			}
-		}
+		return uploadImage($target_loc,$image["tmp_name"][$count],$stmt);
 	}
 	
-	function updateGuide ($json,$mysqli){
-		$guide= json_decode($json);
-		$title= $guide->title;
-		$loc = $guide->location;
-		$date = $guide->date;
-		$people= $guide->people;
-		$budget= $guide->budget;
-		$summary= $guide->summary;
-		$dayTitle= $guide->dayTitle;
-		$dayInfo= $guide->dayInfo;
-		$guideId= $guide->id;
-		
-		session_start();
-		$id = $_SESSION['id'];
-		
-		$query = mysqli_query($mysqli,"UPDATE travelguide SET guideName = '$title'
-		,country = '$loc', date = '$date', people ='$people'
-		,budget = '$budget', overview = '$summary'
-		WHERE guideId = '$guideId' AND userId = '$id'");
-		
-		echo ("UPDATE travelguide SET guideName = '$title'
-		,country = '$loc', date = '$date', people ='$people'
-		,budget = '$budget', overview = '$summary'
-		WHERE guideId = '$guideId' AND userId = '$id'");
-		if ($query){
-			updateDay ($dayTitle,$dayInfo,$guideId,$mysqli);
-		}
-	}
-	
-	function updateDay($dayTitle,$dayInfo,$id,$mysqli){
-		$dayNum;
-		for ($i = 0; $i < count($dayTitle); $i++) {
-			$dayNum = $i+1;
-			$title = $dayTitle[$i];
-			$info =  $dayInfo[$i];
-			$query = mysqli_query($mysqli,"UPDATE day SET Title = '$title'
-			,description = '$info' WHERE dayNum = '$dayNum' AND guideId = '$id'");
-			$querySelect = mysqli_query($mysqli,"SELECT * FROM day WHERE dayNum = '$dayNum' AND guideId = '$id'");
-			if (mysqli_num_rows($querySelect)<1) {
-				echo $dayNum;
-				echo "add new";
-				$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$id','$title','$info','$dayNum')";
-				if ($mysqli->query($sql) === FALSE) {
-					echo "Error update your guide. Please try again later.";
-					break;
-				}
-			}
-		}
-		deleteDay ($dayNum,$id,$mysqli);
-		echo "Guide updated successfully";
-	}
-	
-	function deleteDay ($dayNum,$id,$mysqli){
-		$query = mysqli_query($mysqli,"DELETE FROM day WHERE guideId = '$id' AND dayNum >'$dayNum'");
-		if (!$query){
-			echo "Error creating new guide. Please try again later.";
-		}
-		
-	}
-	
-	function createDay($dayTitle,$dayInfo,$id,$mysqli){
-		for ($i = 0; $i < count($dayTitle); $i++) {
-			$dayNum = $i+1;
-			$title = $dayTitle[$i];
-			$info =  $dayInfo[$i];
-			$sql = "INSERT INTO day (guideId, title, description,dayNum) VALUES ('$id','$title','$info','$dayNum')";
-			if ($mysqli->query($sql) === FALSE) {
-				echo "Error creating new guide. Please try again later.";
-				break;
-			}
-		}
+	function createDay($dayTitle,$dayInfo,$id,$mysqli,$dayNum){
+			$sqlNewDay = "INSERT INTO day (guideId, Title, description,dayNum) VALUES (?,?,?,?)";
+			echo "INSERT INTO day ('$id' '$dayTitle', '$dayInfo','$dayNum') VALUES (?,?,?,?)";
+			$stmtNewDay = $mysqli->prepare($sqlNewDay);
+			$stmtNewDay->bind_param("issi", $id,$dayTitle, $dayInfo,$dayNum);
+			
+			return $stmtNewDay;
 	}
 	
 	$mysqli->close();
