@@ -12,7 +12,7 @@
 
     <!-- Custom styles for our Website -->
 
-    <link href="css/main.css" type="text/css" rel="stylesheet">
+    <link href="css/main.css?ver=4.1" type="text/css" rel="stylesheet">
 	</head>
 <body>
     <nav class="navbar navbar-toggleable-md navbar-default fixed-top" role="navigation" id="top">
@@ -25,8 +25,8 @@
        
     </nav>
     
-    <div class="signup">
-        <div class="row">
+    <div class="signup container">
+       
             <div class="main-signup main-center">
                 <form class="form-horizontal" id="signInForm">
                     <div class="form-group">
@@ -85,24 +85,32 @@
                         
                     </div>
                     <div class="cancel-register">
-                            <a  class="cancelbtn"
-                            href="index.html" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</a>
+                            <a 
+                            href="login.html" class="cancelbtn">Have an account? LogIn Now!</a>
 
                     </div>
     
                 </form>
                 
             </div>
-        </div>
+      
     </div>
 	
 	<div id="myModal" class="modal">
             <!-- Modal content -->
               <div class="modal-dialog">
                 <div class="modal-content">
+                     <div class="m-header">
+                        <div align="center">
+                            <img src="https://i.imgur.com/UBpNYtU.png" width="300" height="80" alt="My Logo">
+                        </div>
+
+                    </div>
                     <div class="modal-body">
-                        <p id="modalText">Welcome! Please check your email to activate your account. </p>
-						<button type="button" class=" btn" onclick="location.href='index.html'">Back home</button>
+                        <b><h1 class="modal-title">Welcome!</h1></b>
+                        <p id="modalText">Please check your email</p>
+                        <p>to activate your account. </p>
+						<button type="button" class=" btn btn-success" onclick="location.href='index.html'">Back home</button>
                     </div>
                     <div class="modal-footer">
                             <div class="modal-copyright">
@@ -120,12 +128,12 @@
     </div>
 
     <!--INCLUDE footer.HTML USING JQUERY-->   
-    <div id="footer"></div>
+
    
     <div id="copyright"></div>
   
 		
-	    <script type="text/javascript" src="javascript/checkInput.js"></script>
+	    <script type="text/javascript" src="javascript/checkInput.js?ver=1.1"></script>
     <script type="text/javascript" src="javascript/loadHtml.js"></script>
 	
 </body>

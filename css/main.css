@@ -5,10 +5,11 @@
 *{margin:0;padding:0};
 img{border:none}
 
-body {
+html,body {
 	background-color: white;
   	font-family: "Open Sans", Merriweather，sans-serif;
  	margin: 0;
+ 	height:100%;
 }
 
 h1{
@@ -36,14 +37,19 @@ h1{
 .container-fluid{
 	margin-top: 15px;
 }
-
+.full-content{
+	padding: 50px;
+	min-height: 100%;
+	margin: 0 auto -50px;
+}
 .dropdown-menu{
 	min-width: 260px;
 }
 
 .signup{
-  	/*background-image: url(https://i.imgur.com/5MN1l26.jpg);*/
-  	background-repeat: no-repeat;
+  	min-height: 100%;
+    margin-bottom: -50px;
+    padding:20px;
   	background-position: 50% 50%;
   	background-position: center center;
 }
@@ -52,12 +58,14 @@ h1{
   	margin-top: 30px;
   	margin: 0 auto;
   	max-width: 330px;
-  	padding: 40px 40px;
+  	padding: 90px 40px;
+
 
 }
 
 .signup-button{
 	margin-top: 5px;
+
 }
 
 .cancel-register{
@@ -137,16 +145,17 @@ h1{
 }
 /****** END of about page*******/
 
-/***** footer *******/  
+/***** footer 
 footer{
     background-color:#f0f0f0;
     padding: 10px 0px;
     margin: 0;
 }
-  
+*******/  
   
 .copyright{
     background-color:#d3d1d1;
+    height: 50px;
 }
   
 .copyright p{
@@ -258,7 +267,7 @@ margin-right:6px;
 }
 
 #sideNav{
-	margin-top:80px;
+	margin-top:50px;
 }
 
 .searchC{
@@ -355,6 +364,7 @@ Reference :http://www.manongjc.com/article/2223.html
 	padding: 2px;
 }
 
+
 .searchResult {
 	border-style: solid;
     border-width: 1px;
@@ -383,8 +393,9 @@ Reference :http://www.manongjc.com/article/2223.html
 	margin-right: 10%;
 }
 
+
 #signInForm{
-	margin-top: 80px;
+	margin-top: 40px;
 }
 
 .img-wrap {

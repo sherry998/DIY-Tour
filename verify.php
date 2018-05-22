@@ -54,7 +54,11 @@
 						echo '</a>';
 					}else{
 						// No match -> invalid url or account has already been activated.
-						  echo 'The url is either invalid or you already have activated your account.';
+						  echo '<p>The url is either invalid or you already have activated your account.</p>';
+						  echo '<p>Click the button below to login your account</p>';
+						  echo '<a href="login.html">';
+						  echo '<button type="button" class="btn btn-warning" style=" margin-top: 20px;">LogIn Now !</button>';
+						  echo '</a>';
 					}		
 				}else{
 					// Invalid approach

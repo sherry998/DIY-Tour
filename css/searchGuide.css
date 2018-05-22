@@ -72,7 +72,7 @@ font-family: 'Oswald', sans-serif;
 	font-weight: 800;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 995px) {
 	.summary{
 		overflow: hidden;
 		text-overflow: ellipsis;

@@ -61,7 +61,7 @@ function checkInput(){
 		success: function(data){
 			console.log(data);
 			var modal = document.getElementById('myModal');
-			document.getElementById("modalText").innerHTML = "Welcome, please check your email: " + email;
+			document.getElementById("modalText").innerHTML = "Please check your email: " + email;
 			modal.style.display = "block";
 		},
 		error: function(data){
@@ -181,7 +181,7 @@ function checkEmail(email){
 				dict[id] = false;
 				document.getElementById("EmailLabel").innerHTML = "Email already exists";
 				document.getElementById("EmailLabel").style.color = "#fd786e";
-				$( "#Shake1" ).effect( "shake", {times:1}, 1000 );
+				$( "#Shake1" ).effect( "shake", {times:2}, 1000 );
 				console.log(data);
 			}
 		},
