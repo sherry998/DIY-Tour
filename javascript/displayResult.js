@@ -148,13 +148,6 @@ function loadMore(){
 	loadSearchResult();
 }
 
-function removeStar(){
-		var stars = $('#rating').children('.ratingStar');
-        for (i = 0; i < stars.length; i++) {
-      $(stars[i]).removeClass('selected');
-    }
-	onStar=0;
-}
 
 function addFilter(){
 	console.log(onStar);

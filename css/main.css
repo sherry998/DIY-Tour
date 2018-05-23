@@ -382,6 +382,9 @@ Reference :http://www.manongjc.com/article/2223.html
 	color: #922B21;
 	background-color: #F5B7B1 ;
 	padding: 2px;
+	margin:auto;
+	margin-bottom:20px;
+	width:50%;
 }
 
 .searchResult {

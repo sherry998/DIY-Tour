@@ -1,6 +1,7 @@
 <?php
 	
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -46,6 +47,7 @@
 	}
 	
 	function updateRating($guideId,$mysqli){
+		
 		$sql = "SELECT AVG(rating) AS avg FROM review WHERE guideID=?";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param("i", $guideId);
@@ -56,13 +58,13 @@
 			$sqlResult = $stmt->get_result();
 			$result = mysqli_fetch_assoc($sqlResult);
 			if ($result['avg'] !=null && $result['avg'] !=""){
-				$rating = $result['avg'];
+				$rating = round($result['avg']);
 			}
 		} 
-		
-		$sqlRating = "UPDATE travelguide SET rating = ? WHERE guideId=?";
+		$sqlRating = "UPDATE travelguide SET rating = ? WHERE guideId= ?";
 		$stmtRating = $mysqli->prepare($sqlRating);
 		$stmtRating->bind_param("ii", $rating,$guideId);
+		$stmtRating->execute();
 		
 		echo $rating;
 	}

@@ -35,17 +35,20 @@ function loadData(){
 
 					loadSideNav();
 				}
+				if(pathname.includes("specificGuide")){
+				console.log(profileI);
+				document.getElementById("review-img").src=profileI;
+			}
 			} else {
 				if ($('#sideNav').length != 0){
 					window.location.href = "login.html";
 				}
+				$("#reviewForm").remove();
+				$("#review-img").remove();
 			}
 				
 			
-			if(pathname.includes("specificGuide")){
-				console.log(profileI);
-				document.getElementById("review-img").src=profileI;
-			}
+			
 	},
 		error: function(data){
 			console.log("error");

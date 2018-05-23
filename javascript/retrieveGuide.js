@@ -11,17 +11,20 @@ var review = document.getElementById('existingReview');
 
 var reviewJson;
 
-
-
 function updateRating(rating){
+	onStar=0;
+	console.log(rating);
 		var stars = $("#guideRating").find('.glyphicon');
 		if (rating == 0){
 			for (i = 0; i <= stars.length; i++) {
 				$(stars[i]).removeClass('selected');
 			}
 		}else{
-			for (i = 0; i < rating; i++) {
-				$(stars[i]).addClass('selected');
+			for (i = 0; i <= stars.length; i++) {
+				$(stars[i]).removeClass('selected');
+				if (i<rating){
+					$(stars[i]).addClass('selected');
+				}
 			}
 		}
 }
@@ -157,6 +160,8 @@ function showGuide(data){
 	
 	createSideDayLink(dayCount);
 	checkOwner(data.userId);
+
+
 	
 }
 
@@ -262,24 +267,31 @@ function submitReview(){
 
 	var dataSend=onStar+":"+reviewText+":"+id+":"+date;
 	
-	$.ajax({
-			url: 'php/addReview.php',
-			type: 'post',
-			data: {"callAddReview":dataSend},
-		success: function(data){
-			var value = data.split(":");
-			console.log(data);
-			createReview(username,value[0],date,onStar,reviewText,true);
-			updateRating(value[1]);
-		},
-		error: function(req, status, err){
-			console.log("error");
-			//console.log(data);
-			console.log('Something went wrong', status, err);
-			$( "#message" ).addClass( "messageFail" );
-			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
-		}
-	});
+	if (onStar!=0){
+		$("#ratingMessage").css("display","none");
+		$.ajax({
+				url: 'php/addReview.php',
+				type: 'post',
+				data: {"callAddReview":dataSend},
+			success: function(data){
+				var value = data.split(":");
+				console.log(data);
+				createReview(username,value[0],date,onStar,reviewText,true);
+				updateRating(value[1]);
+				$("#review").val("");
+				removeStar();
+			},
+			error: function(req, status, err){
+				console.log("error");
+				//console.log(data);
+				console.log('Something went wrong', status, err);
+				$( "#message" ).addClass( "messageFail" );
+				document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
+			}
+		});
+	} else {
+		$("#ratingMessage").css("display","block");
+	}
 }
 
 function createReview(username,reviewId,date,rating,reviewText,isOwner){

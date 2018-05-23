@@ -1,6 +1,14 @@
 <?php
+	//https://github.com/PHPMailer/PHPMailer
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+
+	require 'Exception.php';
+	require 'PHPMailer.php';
+	require 'SMTP.php';
 	
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -81,21 +89,37 @@
 	
 	// needed to be changed when upload to uq server
 	function sendEmail($uname,$email,$hash){
-		$to      = $email; // Send email to our user
-		$subject = 'Signup | Verification'; // Give the email a subject 
-		$message = '
- 
-		Hi '.$uname.'. Thanks for signing up!
-		Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
-		 
+		$mail = new PHPMailer(true); 
+		try {
+			//Server settings
+			$mail->SMTPDebug = 2;                                 // Enable verbose debug output
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'mailhub.eait.uq.edu.au';  // Specify main and backup SMTP servers
+			$mail->SMTPAuth = false;                               // Enable SMTP authentication
+			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+			$mail->Port = 25;                                    // TCP port to connect to
+
+			//Recipients
+			$mail->setFrom('t.yao@uq.net.au', 'DIY Tour');
+			$mail->addAddress($email, $uname);     // Add a recipient
+
+			//Content
+			$mail->isHTML(true);                                  // Set email format to HTML
+			$mail->Subject = 'Signup | Verification';
+			$mail->Body    = '<p>Hi '.$uname.'. Thanks for signing up!</p>
+		<p>Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.</p>
+		<p>Please click this link to activate your account:</p>
+		<a href="https://infs3202-6416f226.uqcloud.net/verify.php?email='.$email.'&hash='.$hash.'&userName='.$uname.'">https://infs3202-6416f226.uqcloud.net/verify.php?email='.$email.'&hash='.$hash.'&userName='.$uname.'</a>';
+			$mail->AltBody = 'Hi '.$uname.'. Thanks for signing up!
+		Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.	
 		Please click this link to activate your account:
-		http://localhost/DIY%20TOUR/verify.php?email='.$email.'&hash='.$hash.'&userName='.$uname.'
-		 
-		'; // Our message above including the link
-		
-	
-		$headers = 'From:email@diytour.com' . "\r\n"; // Set from headers
-		mail($to, $subject, $message, $headers); // Send our email
+		http://localhost/DIY%20TOUR/verify.php?email='.$email.'&hash='.$hash.'&userName='.$uname;
+
+			$mail->send();
+			echo 'Message has been sent';
+		} catch (Exception $e) {
+			echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+		}
 	}
 	
 	function checkAccount($email,$psw,$mysqli){

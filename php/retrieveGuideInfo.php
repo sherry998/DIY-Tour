@@ -1,8 +1,10 @@
 <?php
 	
 	include 'editAccount.php';
+	 include 'APIkey.php';
 	 
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -24,6 +26,7 @@
     }
 	
 	if (isset($_POST['callallGuide'])) {
+		
 		$data = explode(":",$_POST['callallGuide']);
         allGuide($data[1],$data[2],$mysqli);
     }
@@ -37,6 +40,9 @@
         getProfileGuide($_POST['callGetProfileGuide'],$mysqli);
     }
 	
+	if (isset($_POST['callgetKey'])) {
+        getKey();
+    }
 	
 	function getGuideLocation($id,$mysqli){
 		$json;
@@ -157,7 +163,6 @@
 		
 		$sql = 'SELECT * FROM travelguide WHERE  (guideName LIKE ? OR country LIKE ? OR EXISTS 
 		( SELECT * FROM account WHERE travelguide.userId = account.userId AND username LIKE ?))'.$string.' LIMIT 5 OFFSET ?';
-
 		$stmt = $mysqli->prepare($sql); 
 		$stmt->bind_param("sssi", $keyword,$keyword,$keyword,$offset);
 		$stmt->execute();
@@ -184,7 +189,7 @@
 		$string = getFilter($filter);
 		$sql = 'SELECT * FROM travelguide LIMIT 5 OFFSET ?';
 		
-		if ($string!=""){
+		if ($string!=""&&$string!=null){
 			$string = substr($string,3);
 			$sql = 'SELECT * FROM travelguide WHERE '.$string.' LIMIT 5 OFFSET ?';
 		}
@@ -219,7 +224,7 @@
 
 	
 	function getFilter($filter){
-		if ($filter==""||$filter==null){
+		if ($filter=="" && $filter==null){
 			return "";
 		}
 		
@@ -264,8 +269,12 @@
 			}
 			$previousValue = $value[0];
 		}
-		//$string = substr($string, 0, 6) . substr($string, 9);
-		return 	$string."))";
+		if($string!="AND (("){
+			return 	$string."))";
+		} else {
+			return "";
+		}
+		
 	}
 	$mysqli->close();
 	
