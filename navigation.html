@@ -1,0 +1,108 @@
+<nav class="navbar navbar-toggleable-md navbar-default fixed-top" role="navigation" id="top">
+        <div class="container-fluid">
+            <!--Button Visible in small screen -->       
+            <div herf= "#" class="navbar-header">
+                <a href="index.html" class="navbar-brand"></a>
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarC">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">GUIDES</a></li>
+                    <li><a href="#">REGIONS</a></li>
+                </ul>
+                <!-- dropdown menu for login & register --> 
+                <ul class="nav navbar-nav navbar-right" id="navbarC">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" ></span></a>
+
+                            <ul class="dropdown-menu">
+								<!--Styles needed for this div when users logged in-->
+								<div id="profileDrop">
+									<h2 id="username"></h2>
+									<button type="button"  class="form-control btn btn-success" onclick="logout()">Log Out</button>
+								</div>
+                                <div id="logInDrop" class="col-lg-12">
+                                    <div class="text-center">
+                                        <h4><b>Log In</b></h4>
+									</div>
+									
+									<!-- Add style to make the error label and box red -->
+									<div>
+										<label id="errorLabel"></label>
+									</div>
+
+                                    <form id="login-form">
+                                        <div class="form-group">
+                                            <label for="username">E-mail</label>
+                                            <input type="text" name="email" id="email" class="form-control" placeholder="E-mail" autocomplete="off">
+											<label id="emailLabel"></label>
+										</div>
+
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" id="password"  class="form-control" placeholder="Password" autocomplete="off">
+											<label id="passwordLabel"></label>
+										</div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-7">
+                                                    <input type="checkbox" name="remember" id="remember">
+                                                    <label for="remember"> Remember Me</label>
+                                                </div>
+
+                                                <div class="col-xs-5 pull-right">
+													<button type="button" name="login-submit" id="login-submit" class="form-control btn btn-success" onclick="checkLogin()">Log In</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center">
+                                                      <a href="#" class="forgot-password">Forgot Password?</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" class="hide" name="" id="" value="">
+                                        
+                                        <li role="separator" class="divider"></li>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center">
+                                                      New here ? <a href="register.html"><b>Sign UP NOW!</b></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                              
+                                              
+
+                                    
+                                    </form>
+                                </div>
+                            </ul>
+                    </li>
+                </ul>
+                 <!-- search function -->
+                <form class="navbar-form navbar-right">
+                    <div class="form-group ">
+                        <input class="form-control" type="text" placeholder="Search">
+                    </div>
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>

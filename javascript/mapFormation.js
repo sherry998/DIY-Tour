@@ -1,36 +1,13 @@
 var markersArray = [];
 var geocoder;
 
-var GOOGLE_MAP_KEY = "AIzaSyDD136-luRsb0FaoghQnQLCSF_nZXhzrhE";
-
-function loadScript() {
-	$.ajax({
-		url: 'php/retrieveGuideInfo.php',
-		type: 'post',
-		data: {"callgetKey":""},
-		success: function(data){
-			console.log(data);
-			var script = document.createElement('script');
-			  script.type = 'text/javascript';
-			  script.src = 'https://maps.googleapis.com/maps/api/js?v=3' +
-				  '&key=' + data +'&callback=initMap'; //& needed
-			  document.body.appendChild(script);
-			},
-			error: function(data){
-				console.log("error");
-				console.log(data);
-			}
-		});	
-  
-}
-
+// The code snippet below has been sourced from https://developers.google.com/maps/documentation/javascript/examples/map-simple
 function initMap() {
 	geocoder =  new google.maps.Geocoder();
-	var locationRio = {lat: -22.915, lng: -43.197};
-				var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 1,
-				center: locationRio,
-				});
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 1,
+		center: {lat: -22.915, lng: -43.197},
+	});
 
 	$.ajax({
 		url: 'php/retrieveGuideInfo.php',
@@ -44,26 +21,25 @@ function initMap() {
 				}
 			}
 			},
-			error: function(data){
-				console.log("error");
-				console.log(data);
-			}
-		});	
-
+		error: function(data){
+			console.log("error");
+			console.log(data);
+		}
+	});	
 }
+
 function geocodeAddress(geocoder, resultsMap,address) {
-   
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === 'OK') {
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-			  zoom: 1,
-			  animation: google.maps.Animation.DROP,
-              position: results[0].geometry.location
-            });
+	geocoder.geocode({'address': address}, function(results, status) {
+		if (status === 'OK') {
+			var marker = new google.maps.Marker({
+			map: resultsMap,
+			zoom: 1,
+			animation: google.maps.Animation.DROP,
+			position: results[0].geometry.location
+		});
 			markersArray.push(marker);
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      }
+		} else {
+			console.log('Geocode was not successful for the following reason: ' + status);
+		}
+    });
+}

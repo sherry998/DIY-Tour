@@ -1,5 +1,5 @@
 <?php
-	//https://github.com/PHPMailer/PHPMailer
+
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
@@ -8,8 +8,8 @@
 	require 'SMTP.php';
 	include 'error.php';
 	
-	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
-	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
+	//$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -88,21 +88,22 @@
 		
 	}
 	
-	// needed to be changed when upload to uq server
+	/*The code snippet below has been sourced from
+	https://github.com/PHPMailer/PHPMailer*/
 	function sendEmail($uname,$email,$hash){
 		$mail = new PHPMailer(true); 
 		try {
 			//Server settings
-			$mail->SMTPDebug = 2;                                 // Enable verbose debug output
-			$mail->isSMTP();                                      // Set mailer to use SMTP
-			$mail->Host = 'mailhub.eait.uq.edu.au';  // Specify main and backup SMTP servers
-			$mail->SMTPAuth = false;                               // Enable SMTP authentication
-			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-			$mail->Port = 25;                                    // TCP port to connect to
+			$mail->SMTPDebug = 2;                              
+			$mail->isSMTP();                                    
+			$mail->Host = 'mailhub.eait.uq.edu.au';  
+			$mail->SMTPAuth = false;                             
+			$mail->SMTPSecure = 'tls';     
+			$mail->Port = 25;             
 
 			//Recipients
 			$mail->setFrom('t.yao@uq.net.au', 'DIY Tour');
-			$mail->addAddress($email, $uname);     // Add a recipient
+			$mail->addAddress($email, $uname);  
 
 			//Content
 			$mail->isHTML(true);                                  // Set email format to HTML
@@ -158,7 +159,6 @@
 		}	
 	}
 	
-	// https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 	function accountLogout(){
 		session_start();
  

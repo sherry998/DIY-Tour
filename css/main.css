@@ -428,7 +428,7 @@ Reference :http://www.manongjc.com/article/2223.html
     position: absolute;
     top: 2px;
     right: 2px;
-    z-index: 100;
+    z-index: 99;
     background-color: #FFF;
     padding: 8px 5px 10px;
     color: #000;

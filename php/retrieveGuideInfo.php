@@ -1,10 +1,11 @@
 <?php
 	
 	include 'editAccount.php';
-	 include 'APIkey.php';
-	 include 'error.php';
-	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
-	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
+	include 'APIkey.php';
+	include 'error.php';
+	
+	//$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -137,7 +138,8 @@
 					'reviewer' => $userInfo['username'],
 					'date' => $reviewRow["date"],
 					'rating' => $reviewRow["rating"],
-					'paragraph' => $reviewRow["paragraph"]);
+					'paragraph' => $reviewRow["paragraph"],
+					'reviewerImage' => $userInfo["profileImage"]);
 				$count++;
 			}
 		return $guideJson;

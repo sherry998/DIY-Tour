@@ -64,7 +64,6 @@ function loadGuide($offset,$mysqli){
 		error: function(data){
 			console.log("error");
 			console.log(data);
-			//console.log('Something went wrong', status, err);
 			$( "#message" ).addClass( "messageFail" );
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
@@ -156,7 +155,7 @@ function showGuide(data){
 			owner = true;
 		}
 		createReview(data.review[reviewNum].reviewer,data.review[reviewNum].reviewId,data.review[reviewNum].date,data.review[reviewNum].rating,
-		data.review[reviewNum].paragraph,owner)
+		data.review[reviewNum].paragraph,owner,data.review[reviewNum].reviewerImage)
 	}
 	
 	createSideDayLink(dayCount);
@@ -184,9 +183,8 @@ function checkOwner(userId){
 
 			if (data != "not"){
 				console.log(data);
-			//console.log(data);
-			$( "#message" ).addClass( "messageFail" );
-			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
+				$( "#message" ).addClass( "messageFail" );
+				document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 			}
 		}
 	});
@@ -295,7 +293,7 @@ function submitReview(){
 	}
 }
 
-function createReview(username,reviewId,date,rating,reviewText,isOwner){
+function createReview(username,reviewId,date,rating,reviewText,isOwner,reviewImage){
 	var clone = originalReview.cloneNode(true);
 			
 			var reviewId = 	"r" + (reviewId);
@@ -312,7 +310,11 @@ function createReview(username,reviewId,date,rating,reviewText,isOwner){
 			$("#"+reviewId).find(".reviewer").text(username + " on " + date);
 			$("#"+reviewId).find(".rating").text(rating);
 			$("#"+reviewId).find(".text").text(reviewText);
-			$("#"+reviewId).find(".img-responsive").attr("src",profileI);
+			if (reviewImage == null){
+				$("#"+reviewId).find(".img-responsive").attr("src",profileI);
+			} else {
+				$("#"+reviewId).find(".img-responsive").attr("src",reviewImage);
+			}
 			if (isOwner){
 				$("#"+reviewId).find(".deleteR").css("display", "block");
 			} else {

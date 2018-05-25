@@ -133,7 +133,7 @@ function createResult(data){
 			$("#"+clone.id).find(".rating").text(data[result].rating);
 			$("#"+clone.id).find("h3").children("b").text(data[result].guideName);
 			$("#"+clone.id).children(".col-md-9").children("a").attr("href", "specificGuide.html?id="+data[result].guideId+"&title="+data[result].guideName);
-			$("#"+clone.id).find(".summary").text(truncateText(data[result].overview, 80));
+			$("#"+clone.id).find(".summary").text(truncateText(data[result].overview, 60));
 			$("#"+clone.id).find("img").attr("src",data[result].featureImage);
 		}
 	}
@@ -166,7 +166,7 @@ function addFilter(){
   
    
 });
-console.log(filter);
+
  var cntnt = document.getElementById("resultContainer");
  while (cntnt.lastChild.id !== 'result') {
     cntnt.removeChild(cntnt.lastChild);

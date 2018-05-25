@@ -13,8 +13,8 @@
 	include 'uploadImage.php';
 	include 'error.php';
 	
-	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
-	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
+	//$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -84,8 +84,7 @@
 		$imageFileType = getImageType("../guide_Image/",$image["name"]);
 		
 		$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
-
-		$sql = "UPDATE travelGuide SET featureImage = ? WHERE guideId = ?";
+		$sql = "UPDATE travelguide SET featureImage = ? WHERE guideId = ?";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param("si", $target_loc, $guideId);
 		

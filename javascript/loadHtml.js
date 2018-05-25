@@ -36,44 +36,41 @@ $(document).ready(function(){
 	}
 	});
 	
-	
-	
-	
-	  //https://codepen.io/depy/pen/vEWWdw
-  /* 1. Visualizing things on Hover - See next part for action on click */
-  $('.ratingStar').on('mouseover', function(){
-    onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+	//The code snippet below has been sourced from https://codepen.io/depy/pen/vEWWdw
+	/* 1. Visualizing things on Hover - See next part for action on click */
+	$('.ratingStar').on('mouseover', function(){
+		onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
    
-    // Now highlight all the stars that's not after the current hovered star
-    $(this).parent().children('.ratingStar').each(function(e){
-      if (e < onStar) {
-        $(this).addClass('star');
-      }
-      else {
-        $(this).removeClass('star');
-      }
-    });
+		// Now highlight all the stars that's not after the current hovered star
+		$(this).parent().children('.ratingStar').each(function(e){
+		  if (e < onStar) {
+			$(this).addClass('star');
+		  }
+		  else {
+			$(this).removeClass('star');
+		  }
+		});
     
   }).on('mouseout', function(){
     $(this).parent().children('.ratingStar').each(function(e){
       $(this).removeClass('star');
-    });
+	});
   });
   
   
   /* 2. Action to perform on click */
   $('.ratingStar').on('click', function(){
-    onStar = parseInt($(this).data('value'), 10); // The star currently selected
-    var stars = $(this).parent().children('.ratingStar');
-    for (i = 0; i < stars.length; i++) {
-      $(stars[i]).removeClass('selected');
-    }
+	onStar = parseInt($(this).data('value'), 10); // The star currently selected
+	var stars = $(this).parent().children('.ratingStar');
+	for (i = 0; i < stars.length; i++) {
+	  $(stars[i]).removeClass('selected');
+	}
+		
+	for (i = 0; i < onStar; i++) {
+	  $(stars[i]).addClass('selected');
+	}
     
-    for (i = 0; i < onStar; i++) {
-      $(stars[i]).addClass('selected');
-    }
-    
-  });
+});
   
          
 
@@ -88,6 +85,7 @@ function removeStar(){
 	onStar=0;
 }
 
+// loading google api key
 function loadScript(library,functionToRun) {
 	$.ajax({
 		url: 'php/retrieveGuideInfo.php',
@@ -109,7 +107,7 @@ function loadScript(library,functionToRun) {
   
 }
 
-// https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
+// The code snippet below has been sourced from https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
 function activatePlaceSearch(){
 	var pathname = window.location.pathname;
 	var input = document.getElementById('guideLocation');

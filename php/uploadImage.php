@@ -1,5 +1,6 @@
 <?php
 	include 'error.php';
+	
 	//$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
 	$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
@@ -13,7 +14,6 @@
 		changeProfileImage ($_FILES['uploadPhoto'],$mysqli);
 	}
 	
-	//https://www.w3schools.com/php/php_file_upload.asp
 	function changeProfileImage($image,$mysqli){
 		$imageFileType = getImageType("../profile_Image/",$image["name"]);
 
