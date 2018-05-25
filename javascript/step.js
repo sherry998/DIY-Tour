@@ -1,4 +1,4 @@
-// The code snippet below has been sourced from https://codepen.io/designify-me/pen/qrJWpG
+// https://codepen.io/designify-me/pen/qrJWpG
 
 $(document).ready(function () {
   var navListItems = $('div.setup-panel div a'),

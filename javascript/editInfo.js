@@ -1,15 +1,18 @@
+
 var originalImage;
 
 $(document).ready(function() {
 	var pathname = window.location.pathname;
 	if(pathname.includes("editProfile")){
-		$.ajax({
-				url: 'php/editAccount.php',
-				type: 'post',
-				data: {"callGetAccountInfo":""},
-				dataType: 'json',
-			success: function(data){
-				if (data!== null && data !== ""){
+	$.ajax({
+			url: 'php/editAccount.php',
+			type: 'post',
+			data: {"callGetAccountInfo":""},
+			dataType: 'json',
+		success: function(data){
+			if (data!== null && data !== ""){
+				// for debug purpose
+				//document.getElementById("error").innerHTML = data; 
 					$('#EmailEdit').attr('value', data.email);
 					$('#UsernameEdit').attr('value', data.username);
 					$('#CountryEdit').attr('value', data.country);
@@ -17,14 +20,16 @@ $(document).ready(function() {
 					document.getElementById("editImage").src=data.profileImage;
 					originalImage = data.profileImage;
 				}
-			},
-			error: function(data){
-				console.log(data);
-				$( "#message" ).addClass( "messageFail" );
-				document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
-			}
-		});	
-	}
+		},
+		error: function(data){
+			console.log(data);
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
+		}
+	
+	});	
+}
+
 });
 
 function revertImage(){
@@ -35,8 +40,9 @@ function revertImage(){
 
 
 $("#uploadPhoto").change(function(){
+	
 	if ($("#uploadPhoto").val()!=null && $("#uploadPhoto").val()!=""){
-		//The code snippet below has been sourced from https://stackoverflow.com/questions/16207575/how-to-preview-a-image-before-and-after-upload
+		// https://stackoverflow.com/questions/16207575/how-to-preview-a-image-before-and-after-upload
 		var reader = new FileReader();
 
 		reader.onload = function (e) {

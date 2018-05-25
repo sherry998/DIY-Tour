@@ -29,7 +29,7 @@ function setNum(value){
 }
 
 function duplicate() {
-	//The code snippet below has been sourced from https://stackoverflow.com/questions/4427094/how-can-i-duplicate-a-div-onclick-with-javascript
+	//https://stackoverflow.com/questions/4427094/how-can-i-duplicate-a-div-onclick-with-javascript
     var clone = originalDay.cloneNode(true); // "deep" clone
     clone.id = "day" + ++num;
 	dayList.push(clone.id);
@@ -51,6 +51,8 @@ function duplicate() {
 	$('#'+clone.id).children(".originalreview").empty();
 }
 
+//https://stackoverflow.com/questions/15420558/jquery-click-event-not-working-after-append-method
+//Use the .on() method to delegate the click event to (future) elements dynamically added to the DOM
 $('#dayContainer').on('click', '.delete',function(){
 	var deletedDay =$(this).parent().parent(); 
 	dayList.splice(dayList.indexOf(deletedDay.attr('id')),1);
@@ -59,6 +61,7 @@ $('#dayContainer').on('click', '.delete',function(){
 });
 
 function updateDayInfo(){
+	//console.log("run");
 	for (var i=0;i<dayList.length;i++){
 		$('#'+dayList[i]).children("h2").text("Day " + (i+1));
 		$('#'+dayList[i]).attr('id', "day"+ (i+1));
@@ -89,7 +92,7 @@ function checkGuideInput(){
 			valueArray.push(value);
 		}
 	}
-
+	console.log("run");
 	if (createDayInfo()){
 		
 		createInvisibleInput("numDay", num,"#editForm");

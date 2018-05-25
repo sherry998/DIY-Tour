@@ -12,8 +12,8 @@
 	include 'error.php';
 	include 'createGuide.php';
 
-	//$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
-	$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
+	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
 	if ($mysqli->connect_error) {
 		echo("Connection failed: " . $mysqli->connect_error);
@@ -21,7 +21,6 @@
 		
 	
 	if(isset($_POST['numDay'])&& isset($_POST['id'])){
-		echo $_POST['numDay'];
 		updateGuide ($_POST['numDay'],$_POST['id'], $mysqli);
 	}
 	
@@ -29,7 +28,7 @@
 	function changeFeatureImage($image,$mysqli,$guideId){
 
 		if(isset($_POST['feaureImageDelete'])&& $_POST['feaureImageDelete']!=null){
-			$sql = "UPDATE travelguide SET featureImage = 'guide_Image/NoPicAvailable.png'
+			$sql = "UPDATE travelGuide SET featureImage = 'guide_Image/NoPicAvailable.png'
 			WHERE guideId = ?";
 			$stmt = $mysqli->prepare($sql);
 			$stmt->bind_param("i", $guideId);
@@ -49,7 +48,7 @@
 			$imageFileType = getImageType("../guide_Image/",$image["name"]);
 			$target_loc = "guide_Image/"."GuideID".$guideId.".".$imageFileType;
 			
-			$sql = "UPDATE travelguide SET featureImage = ? WHERE guideId = ?";
+			$sql = "UPDATE travelGuide SET featureImage = ? WHERE guideId = ?";
 			$stmt = $mysqli->prepare($sql);
 			$stmt->bind_param("si", $target_loc,$guideId);
 			
@@ -121,7 +120,8 @@
 			if (mysqli_num_rows($result)<1) {
 				echo "add new";
 				$newStmt = createDay($dtitle,$dinfo,$guideId,$mysqli,$i);
-				if (!$newStmt->execute()) {
+				
+				if ($newStmt->execute()) {
 					echo "Error update your guide. Please try again later.";
 					break;
 				}

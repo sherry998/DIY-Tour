@@ -64,6 +64,7 @@ function loadGuide($offset,$mysqli){
 		error: function(data){
 			console.log("error");
 			console.log(data);
+			//console.log('Something went wrong', status, err);
 			$( "#message" ).addClass( "messageFail" );
 			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 		}
@@ -155,7 +156,7 @@ function showGuide(data){
 			owner = true;
 		}
 		createReview(data.review[reviewNum].reviewer,data.review[reviewNum].reviewId,data.review[reviewNum].date,data.review[reviewNum].rating,
-		data.review[reviewNum].paragraph,owner,data.review[reviewNum].reviewerImage)
+		data.review[reviewNum].paragraph,owner)
 	}
 	
 	createSideDayLink(dayCount);
@@ -183,8 +184,9 @@ function checkOwner(userId){
 
 			if (data != "not"){
 				console.log(data);
-				$( "#message" ).addClass( "messageFail" );
-				document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
+			//console.log(data);
+			$( "#message" ).addClass( "messageFail" );
+			document.getElementById("message").innerHTML = "Error connecting to server. Please try again later."; 
 			}
 		}
 	});
@@ -293,7 +295,7 @@ function submitReview(){
 	}
 }
 
-function createReview(username,reviewId,date,rating,reviewText,isOwner,reviewImage){
+function createReview(username,reviewId,date,rating,reviewText,isOwner){
 	var clone = originalReview.cloneNode(true);
 			
 			var reviewId = 	"r" + (reviewId);
@@ -310,11 +312,7 @@ function createReview(username,reviewId,date,rating,reviewText,isOwner,reviewIma
 			$("#"+reviewId).find(".reviewer").text(username + " on " + date);
 			$("#"+reviewId).find(".rating").text(rating);
 			$("#"+reviewId).find(".text").text(reviewText);
-			if (reviewImage == null){
-				$("#"+reviewId).find(".img-responsive").attr("src",profileI);
-			} else {
-				$("#"+reviewId).find(".img-responsive").attr("src",reviewImage);
-			}
+			$("#"+reviewId).find(".img-responsive").attr("src",profileI);
 			if (isOwner){
 				$("#"+reviewId).find(".deleteR").css("display", "block");
 			} else {

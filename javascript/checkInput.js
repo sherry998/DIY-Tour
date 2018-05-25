@@ -79,6 +79,7 @@ function checkInput(){
 
 function checkEditInput(){
 	if (dict["EmailEdit"]==true && dict["UsernameEdit"]==true){
+		//console.log("run");
 		changeInfo();
 	}
 }
@@ -162,13 +163,14 @@ function changePassword(currentPassword){
 
 
 function checkEmail(email){
-	// The code snippet below has been sourced from https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+	//https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (!re.test(email)){
 		dict[id] = false;
 		document.getElementById("EmailLabel").innerHTML = "Invaild email address!";
 		document.getElementById("EmailLabel").style.color = "#fd786e";
 	} else {
+		// ajax asynchronous return, therefore label is changed within it
 		$.ajax({
 		url: 'php/createAccount.php',
 		type: 'post',
@@ -223,7 +225,7 @@ function checkTyped_password (psw){
 }
 
 function checkStrengthPassword(psw){
-	// The code snippet below has been sourced from https://martech.zone/javascript-password-strength/
+	// https://martech.zone/javascript-password-strength/
 	var strongRegex = new RegExp("(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
 	var mediumRegex = new RegExp("(?=.{8,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
 	var enoughRegex = new RegExp("(?=.{8,}).*", "g");
