@@ -382,6 +382,8 @@ Reference :http://www.manongjc.com/article/2223.html
 	color: #922B21;
 	background-color: #F5B7B1 ;
 	padding: 2px;
+	margin:auto;
+	margin-bottom:20px;
 }
 
 .searchResult {
@@ -409,7 +411,7 @@ Reference :http://www.manongjc.com/article/2223.html
 
 .right-main-btn{
 	margin-top: 22px;
-	margin-right: 10%;
+	margin-right: 3%;
 }
 
 #signInForm{
