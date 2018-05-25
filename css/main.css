@@ -384,7 +384,6 @@ Reference :http://www.manongjc.com/article/2223.html
 	padding: 2px;
 	margin:auto;
 	margin-bottom:20px;
-	width:50%;
 }
 
 .searchResult {
@@ -412,7 +411,7 @@ Reference :http://www.manongjc.com/article/2223.html
 
 .right-main-btn{
 	margin-top: 22px;
-	margin-right: 10%;
+	margin-right: 3%;
 }
 
 #signInForm{

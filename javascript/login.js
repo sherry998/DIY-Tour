@@ -20,6 +20,7 @@ function loadData(){
 			if (data!= "{}" && data != ""){
 				$("#profileDrop").css("display", "block");
 				$("#logInDrop").css("display", "none");
+				$(".headerUser").css("color", "#5cb85c");
 				username = data.username;
 				travelT = data.travelTitle;
 				profileI = data.profileImage;
@@ -156,10 +157,10 @@ function logout(){
 
 function search(){
 	var search = $('#searchBar').val();
-	console.log(search);
-	window.location.href="searchGuide.html?keyword=" + search;
+	if (search!=null && search.replace(/\s/g,"") != ""){
+		window.location.href="searchGuide.html?keyword=" + search;
+	} else {
+		window.location.href="searchGuide.html?all=all";
+	}
 }
 
-function allGuide(){
-	window.location.href="searchGuide.html?all";
-}

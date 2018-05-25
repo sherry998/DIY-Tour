@@ -1,5 +1,5 @@
 <?php
-	
+	include 'error.php';
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
 	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
@@ -21,10 +21,6 @@
 	if (isset($_POST['callUpdateAccount'])) {
 		$inputArray = explode(':', $_POST['callUpdateAccount']);
 		updateAccount($inputArray[0],$inputArray[1],$inputArray[2],$inputArray[3],$mysqli);
-    }
-	
-	if (isset($_POST['callDeleteCurrentAccount'])) {
-        deleteCurrentAccount($mysqli);
     }
 	
 	if (isset($_POST['callCheckAccountPassword'])) {
@@ -94,13 +90,6 @@
 		}
 	}
 	
-	function deleteCurrentAccount ($mysqli){
-		$stmt = prepareSql("DELETE FROM account WHERE userId = ?",$mysqli,$_SESSION['id']);
-		if (!$stmt){
-			echo "sucess";
-		}
-		session_destroy();
-	}
 	
 	$mysqli->close();
     

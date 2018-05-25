@@ -11,6 +11,12 @@ var removedImage = [];
 	
 $(document).ready(function() {
 	dayList.push(originalDay.id);
+	getURLParameter(window.location.href);
+	keyword = getURLParameter('delete');
+	if (keyword){
+		$( "#message" ).addClass( "messageSucess" );
+		document.getElementById("message").innerHTML = "Guide deleted successfully"; 
+	}
 });
 
 function setNum(value){
@@ -32,8 +38,10 @@ function duplicate() {
 	$('#'+clone.id).children("h3").children("b").text("Day " + num);
 	// clean value
 	$('#'+clone.id).children(".form-inline").children("input").val("");
+	$('#'+clone.id).children(".form-inline").children("input").css("borderColor","#cccccc");
 	$('#'+clone.id).children(".form-inline").children("input").attr("name", "title"+num);
 	$('#'+clone.id).children(".form-group").children("textarea").val("");
+	$('#'+clone.id).children(".form-group").children("textarea").css("borderColor","#cccccc");
 	$('#'+clone.id).children(".form-group").children("textarea").attr("name", "summary"+num);
 	$('#'+clone.id).children(".form-inline").children(":file").attr("name", "image-upload"+num+"[]");
 	$('#'+clone.id).children(".form-inline").children(":file").attr("id", "image-upload"+num);
@@ -73,7 +81,10 @@ function checkGuideInput(){
 	for (var i =0; i< inputArray.length; i++){
 		var value = document.getElementById(inputArray[i]).value;
 		if (checkArray.indexOf(inputArray[i]) !== -1){
+			$("#"+inputArray[i]).css("borderColor","#cccccc");
 			if(!runCheck(value,inputArray[i])){
+				$("#"+inputArray[i]).css("borderColor","#e29c9c");
+				$('html, body').animate({ scrollTop: 0 }, 'fast');
 				return;
 			}
 			valueArray.push(value);
@@ -84,14 +95,14 @@ function checkGuideInput(){
 	console.log("run");
 	if (createDayInfo()){
 		
-		createInvisibleInput("numDay", num);
+		createInvisibleInput("numDay", num,"#editForm");
 		var pathname = window.location.pathname;
 			if (pathname.includes("createNewGuide")){
 				$("#editForm").attr('action', 'php/createGuide.php');
 				$("#editForm").submit();
 			}else if (pathname.includes("editGuide")){
 				checkImage();
-				createInvisibleInput("id", guideId);
+				createInvisibleInput("id", guideId,"#editForm");
 				$("#editForm").attr('action', 'php/updateGuide.php');
 				console.log($("#editForm"));
 				$("#editForm").submit();
@@ -99,12 +110,19 @@ function checkGuideInput(){
 	}
 }
 
+function deleteGuide(){
+	createInvisibleInput("id", guideId,"#deleteForm");
+	$("#deleteForm").attr('action', 'php/deleteGuide.php');
+	console.log($("#deleteForm"));
+	$("#deleteForm").submit();
+}
+
 function createInvisibleInput(name, value,formName){
 	var hiddenField = document.createElement("input");
         hiddenField.setAttribute("type", "hidden");
         hiddenField.setAttribute("name", name);
         hiddenField.setAttribute("value", value);
-		$("#editForm").append(hiddenField);
+		$(formName).append(hiddenField);
 }
 
 function checkImage(){
@@ -158,9 +176,19 @@ function checkDate(date){
 
 function createDayInfo(){
 	for (var i=0;i<dayList.length;i++){
-		var input = $('#'+dayList[i]).children(".form-inline").children("input").val();
-		var textArea = $('#'+dayList[i]).children(".form-group").children("textarea").val();
-		if (!checkDay(input) || !checkDay(textArea)){
+		var inputObject = $('#'+dayList[i]).children(".form-inline").children("input");
+		var textAreaObject = $('#'+dayList[i]).children(".form-group").children("textarea");
+		var input = $(inputObject).val();
+		var textArea = $(textAreaObject).val();
+		$(inputObject).css("borderColor","#cccccc");
+		$(textAreaObject).css("borderColor","#cccccc");
+		if (!checkDay(input)){
+			$(inputObject).css("borderColor","#e29c9c");
+			$('html, body').animate({ scrollTop: $(inputObject).offset().top-100 }, 'fast');
+			return false;
+		} else if (!checkDay(textArea)){
+			$(textAreaObject).css("borderColor","#e29c9c");
+			$('html, body').animate({ scrollTop: $(textAreaObject).offset().top-100 }, 'fast');
 			return false;
 		}
 	}
@@ -222,8 +250,3 @@ function removeImage(thisClose){
 	console.log(originalFeatureImage);
 }
 
-// https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
-function activatePlaceSearch(){
-	var input = document.getElementById('guideLocation');
-	var autocomplete = new google.maps.places.Autocomplete(input);
-}

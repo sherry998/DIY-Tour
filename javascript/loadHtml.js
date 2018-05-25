@@ -34,10 +34,6 @@ $(document).ready(function(){
 		loadGuide();
 		
 	}
-	if (pathname.includes("editGuide")||pathname.includes("createNewGuide")){
-			console.log("run");
-			activatePlaceSearch();
-	}
 	});
 	
 	
@@ -91,5 +87,41 @@ function removeStar(){
     }
 	onStar=0;
 }
+
+function loadScript(library,functionToRun) {
+	$.ajax({
+		url: 'php/retrieveGuideInfo.php',
+		type: 'post',
+		data: {"callgetKey":""},
+		success: function(data){
+			var script = document.createElement('script');
+			  script.type = 'text/javascript';
+			  script.src = 'https://maps.googleapis.com/maps/api/js?v=3' +
+				  '&key=' + data + library + '&callback='+functionToRun; 
+					document.body.appendChild(script);
+
+			},
+			error: function(data){
+				console.log("error");
+				console.log(data);
+			}
+		});	
+  
+}
+
+// https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
+function activatePlaceSearch(){
+	var pathname = window.location.pathname;
+	var input = document.getElementById('guideLocation');
+	if(pathname.includes("editProfile")){
+		input = document.getElementById('CountryEdit');
+	}
+	var autocomplete = new google.maps.places.Autocomplete(input);
+}
+
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+}
+
 
 

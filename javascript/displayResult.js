@@ -16,19 +16,21 @@ $(document).ready(function() {
 	countryLink = getURLParameter('country');
 	console.log(countryLink);
 	all = getURLParameter('all');
-	$('#searchTitle').append(keyword);
+	
 	loadSearchResult();
 });
 
 function loadSearchResult(){
 	if (keyword!="" && keyword!=null){
+		$('#searchTitle').text("Search Results for: "+keyword);
 		loadDisplay("callsearchGuide",keyword);
 	} else if (countryLink!="" && countryLink!=null){
-		
+		$('#searchTitle').text("Search Results for: "+countryLink);
 		loadDisplay("callsearchCountryGuide",countryLink);
 	}else if(all=="all"){
+		$('#searchTitle').text("Search Results for: ALL guides");
 		loadDisplay("callallGuide","a");	
-	} else{
+	} else {
 		loadProfileGuideResult();
 	}
 }
@@ -89,9 +91,13 @@ function loadDisplay(functionName,value){
 			console.log(data);
 			if (String(data) == "noMore"){
 				$("#moreGuide").css("display","none");
-				$('#searchMessage').append( "<b>"+value+"</b>" );
+				// show only if there is no search result
+				if ($(".searchResult").length <=1){
+					$('#nofilter').css("display","block");
+				}
 			}
 			else if (data!= null || data != ""){
+				$('#nofilter').css("display","none");
 				if (data.end == true){
 					$("#moreGuide").css("display","none");
 				}else{
@@ -110,9 +116,6 @@ function loadDisplay(functionName,value){
 }
 
 
-function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-}
 
 function createResult(data){
 	$("#noResult").css("display","none");

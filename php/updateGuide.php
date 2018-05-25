@@ -9,7 +9,7 @@
 </html>
 
 <?php
-	
+	include 'error.php';
 	include 'createGuide.php';
 
 	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');

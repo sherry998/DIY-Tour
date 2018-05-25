@@ -1,7 +1,7 @@
 <?php
-	
-	$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
-	//$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
+	include 'error.php';
+	//$mysqli = new mysqli('localhost', 'root', '', 'diy_tour');
+	$mysqli = new mysqli('localhost', 'root', 'db5a0d0b13ca1d4d', 'diy_tour');
 	
 	session_start();
 	
@@ -38,6 +38,7 @@
 				echo $target_loc;
 				return true;
 			} else {
+				echo "Not uploaded because of error #".$_FILES["file"]["error"];
 				echo "Sorry, there was an error uploading your file.";
 				return false;
 			}
