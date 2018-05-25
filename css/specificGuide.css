@@ -1,25 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 
-
-  
-  /*.contentLink  a {
-    color: #78817d;
-    font-size: 14px;
-    font-weight: 600;
-    border-top-right-radius:20px;
-    border-bottom-right-radius:20px;
-
-  }*/
-
-/*.contentLink2  a {
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    border-top-right-radius:20px;
-    border-bottom-right-radius:20px;
-
-  }*/
-
 .sideBar{
 	 margin-top:80px;
  }
@@ -159,7 +139,7 @@
     background: white;
 }
 
-.review-userimg img {
+.review-userimg img{
     float: none;
     margin: 0 auto;
     width: 60%;
@@ -167,6 +147,8 @@
     border-radius: 50% !important;
     box-shadow: 1px 1px 2px 2px #888888;
 }
+
+
 
 .sliderImage {
 	max-width: 100%;
