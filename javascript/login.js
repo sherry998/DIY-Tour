@@ -120,11 +120,12 @@ function checkLogin(){
 					}
 				} else{
 					document.getElementById("errorLabel").innerHTML = data;
-					$( "#shakeP" ).effect( "shake", {times:2}, 1000 );
-					$( ".shakePw" ).effect( "shake", {times:2}, 1000 );
-					
-					
-					
+					if(data =="Incorrect password"){
+						$( "#shakeP" ).effect( "shake", {times:2}, 1000 );
+					} else{
+						$( "#shakeE" ).effect( "shake", {times:2}, 1000 );
+					}
+			
 				}
 			},
 			error: function(data){
@@ -136,8 +137,7 @@ function checkLogin(){
 		document.getElementById("errorLabel").style.color = "#922B21";
 		$( "#shakeP" ).effect( "shake", {times:2}, 1000 );
 		$( "#shakeE" ).effect( "shake", {times:2}, 1000 );
-		$( ".shakeEa" ).effect( "shake", {times:2}, 1000 );
-		$( ".shakePw" ).effect( "shake", {times:2}, 1000 );
+	
 		
 	
 
